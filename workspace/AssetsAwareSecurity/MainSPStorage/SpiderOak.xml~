@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<SPSecurityOffer>
+<SP id="00">
+<SpName>SpiderOak</SpName> 
+<EncryptionAtRest>yes</EncryptionAtRest> 
+<EncryptionAtTransit>yes</EncryptionAtTransit> 
+<PasswordProtectedFiles>no</PasswordProtectedFiles>
+<FileVersioning>yes</FileVersioning>  
+<EncryptionKeysConcealedFromSP>yes</EncryptionKeysConcealedFromSP> 
+<AutoSynch>yes</AutoSynch> 
+<DatacenterLocation>EU</DatacenterLocation> 
+<Cost>$7</Cost> 
+<StorageSize>30GB</StorageSize> // free/trial is 2GB
+<FileSizeLimit>unlimited</FileSizeLimit> 
+<SecureKeyManagement>no</SecureKeyManagement> 
+<CredentialRecovery>no</CredentialRecovery> 
+<ShareData>yes</DataSegmentation> 
+<AuditLogs>yes</AuditLogs>
+<ProxySupport>yes</ProxySupport> 
+<DifferentKeyPerFile>no</DifferentKeyPerFile> 
+<Certification>ISO 27001,FERPA,HIPAA* </Certification>
+<PermanentFileDeletion>no</PermanentFileDeletion> 
+</SP>
+</SPSecurityOffer>
+
+
+// compleated
+
+

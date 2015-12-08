@@ -1,0 +1,34 @@
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+
+*.iml
+
+sdk/.idea
+sdk/bin/
+sdk/gen/
+
+sdk-example/.idea
+sdk-example/bin/
+sdk-example/gen/
+
+TODO.txt
+
+sdk/out

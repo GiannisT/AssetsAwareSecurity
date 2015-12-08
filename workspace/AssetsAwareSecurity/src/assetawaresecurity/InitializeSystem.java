@@ -1,0 +1,306 @@
+package assetawaresecurity;
+
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Vector;
+
+import javax.swing.table.DefaultTableModel;
+
+public class InitializeSystem { // Model
+
+    //initializes and configures the system
+    public InitializeSystem() {
+      //  this.MakeSPDirectory();
+        this.MakeUserStorageDirectory();
+        this.makeSPsCredentials();
+        this.makeUserDatabase();
+        this.makeLocalStorageFolder();
+    }
+
+    public void makeLocalStorageFolder(){
+   	 File k = new File("LocalStorage");
+
+        if (!(k.exists() && k.isDirectory())) {
+            new File("LocalStorage").mkdir();
+        }
+   }
+    
+    //initializes the data of the user
+    public void makeUserDatabase(){
+    	 File k = new File("UserDatabase");
+
+         if (!(k.exists() && k.isDirectory())) {
+             new File("UserDatabase").mkdir();
+         }
+    }
+    
+    public void makeSPsCredentials(){
+        File k = new File("SPsCredentials");
+
+        if (!(k.exists() && k.isDirectory())) {
+            new File("SPsCredentials").mkdir();
+        }
+    }
+
+	  //creates the main directory that will store the home folder of the user
+    public void MakeUserStorageDirectory() {
+        File k = new File("MainUserStorage");
+
+        if (!(k.exists() && k.isDirectory())) {
+            new File("MainUserStorage").mkdir();
+        }
+    }
+
+    //creates the main directory for SPs that will store the offers of SPs folder of SPs
+    public void MakeSPDirectory() {
+        File k = new File("MainSPStorage");
+
+        if (!(k.exists() && k.isDirectory())) {
+            new File("MainSPStorage").mkdir();
+        }
+    }
+    
+    public User loadUserData(){
+        File xml = new File("user.xml");
+        User user = new User();
+        if (xml.exists()){
+            try{
+                XMLDecoder dec = new XMLDecoder( new FileInputStream(xml));
+                user = (User) dec.readObject();
+                dec.close();
+                System.out.println("user Data Loaded");
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                
+            }
+        }
+        
+        return user;
+    }
+    
+	public CreateBid loadPolicyData(File policy, File policyWeights) {
+		CreateBid bid = new CreateBid();
+		Map<String, Double> Significance = new HashMap<String, Double>();
+		// Load Policy
+		try {
+			XMLDecoder dec = new XMLDecoder(new FileInputStream(policy));
+			bid = (CreateBid) dec.readObject();
+			dec.close();
+			System.out.println("Security Policy Loaded");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+
+		}
+		//Load Weights
+		try {
+			XMLDecoder dec = new XMLDecoder(new FileInputStream(policyWeights));
+			Significance = (HashMap<String, Double>) dec.readObject();
+			dec.close();
+			bid.SetSignificance(Significance);
+			System.out.println("Loaded Weights Policy");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+
+		}
+		
+		return bid;
+	}
+    
+	// two saved policies can be merge into one
+    public void saveLastPolicy(CreateBid bid){
+        try{
+            XMLEncoder encoder = new XMLEncoder(new FileOutputStream("lastPolicy.xml"));
+            encoder.writeObject(bid);
+            encoder.close();
+            System.out.println("Last security policy saved");
+        }catch (Exception e){
+           System.out.println(e.getMessage());
+        }
+        
+        //writes the security attributes weights
+        try{
+            XMLEncoder encoder1 = new XMLEncoder(new FileOutputStream("lastPolicyWeights.xml"));
+            System.out.println("Latet Weights saved");
+            encoder1.writeObject(bid.getSignificance());
+            encoder1.close();
+        }catch (Exception e){
+           System.out.println(e.getMessage());  
+        }
+    }
+    
+    public void saveCustomPolicy(CreateBid bid){
+       //writes the security attributes
+        try{
+            XMLEncoder encoder = new XMLEncoder(new FileOutputStream("customPolicy.xml"));
+            encoder.writeObject(bid);
+            encoder.close();
+            System.out.println("Latest Custom security policy saved");
+        }catch (Exception e){
+           System.out.println(e.getMessage());
+        }
+        
+      //writes the security attributes weights
+        try{
+            XMLEncoder encoder1 = new XMLEncoder(new FileOutputStream("customPolicyWeights.xml"));
+            System.out.println("Latet custom Weights saved");
+            encoder1.writeObject(bid.getSignificance());
+            encoder1.close();
+        }catch (Exception e){
+           System.out.println(e.getMessage());
+        }
+        
+        
+    }
+    
+ // Not to be used at the moment  
+    public void saveUserData( User user){
+        //boolean isSaved = true; 
+        
+        try{
+            XMLEncoder encoder = new XMLEncoder(new FileOutputStream("user.xml"));
+            encoder.writeObject(user);
+            //encoder.writeObject(user.getAvailableSP());
+            encoder.close();
+            System.out.println("User data saved");
+        }catch (Exception e){
+           System.out.println(e.getMessage());
+        }
+        
+    }
+    
+    //save the assetTab information for gui illustration
+    public void saveAssetTab(ArrayList<Object[]> assetsList){
+    	 try{
+             XMLEncoder encoder = new XMLEncoder(new FileOutputStream("assetsList.xml"));
+             encoder.writeObject(assetsList);
+             encoder.close();
+             System.out.println("AssetGUi Info saved");
+         }catch (Exception e){
+            System.out.println(e.getMessage());
+         }
+    }
+    
+    //returns the loaded files that were matched and uploaded to SPs (that are contained in the MainUserStorage)
+    public ArrayList<Object[]> loadAssetTab(File assets){
+    	
+    	ArrayList<Object[]> assetsList = new ArrayList<Object[]>();
+    		
+    		try {
+    			XMLDecoder dec = new XMLDecoder(new FileInputStream(assets));
+    			assetsList = (ArrayList<Object[]>) dec.readObject();
+    			dec.close();
+    			System.out.println("AssetList Loaded");
+    		} catch (Exception e) {
+    			System.out.println(e.getMessage());
+    		}
+   
+    					
+    	return assetsList;
+    }
+    
+    
+  //reads the saved custom policy set by the user..if a custom policy exists it should be loaded one the system initiates
+//    public CreateBid InitializeCustomPolicy() {
+//    	
+//    	CreateBid bid=new CreateBid();
+//    	
+//       		FileInputStream fis, fis1;
+//
+//        try {
+//            fis = new FileInputStream("customPolicy.xml");
+//
+//            BufferedInputStream bis = new BufferedInputStream(fis);
+//            XMLDecoder xmlDecoder = new XMLDecoder(bis);
+//            CreateBid mb = (CreateBid) xmlDecoder.readObject();
+//
+//            System.out.println("READING CUSTOM POLICY (BID) XML FILE:");
+//            
+//            System.out.println(mb.getRequirementsType());
+//            bid.setRequirementsType(mb.getRequirementsType());
+//            
+//            System.out.println(mb.getEncryptionAtRest());
+//            bid.setEncryptionAtRest(mb.getEncryptionAtRest());
+//            
+//            System.out.println(mb.getEncryptionAtTransit());
+//            bid.setEncryptionAtTransit(mb.getEncryptionAtTransit());
+//            
+//            System.out.println(mb.getPassProtected());
+//            bid.setPassProtected(mb.getPassProtected());
+//            
+//            System.out.println(mb.getShareData());
+//            bid.setShareData(mb.getShareData());
+//            
+//            System.out.println(mb.getAutoSynch());
+//            bid.setAutoSynch(mb.getAutoSynch());
+//            
+//            System.out.println(mb.getConcealedKeys());
+//            bid.setConcealedKeys(mb.getConcealedKeys());
+//            
+//            System.out.println(mb.getPermanentDeletion());
+//            bid.setPermanentDeletion(mb.getPassRecovery());
+//            
+//            System.out.println(mb.getSecKeyManagement());
+//            bid.setSecKeyManagement(mb.getSecKeyManagement());
+//            
+//            System.out.println(mb.getPassRecovery());
+//            bid.setPassProtected(mb.getPassRecovery());
+//            
+//            System.out.println(mb.getFileVersioning());
+//            bid.setFileVersioning(mb.getFileVersioning());
+//            
+//            System.out.println(mb.getAuditLogs());
+//            bid.setAuditLogs(mb.getAuditLogs());
+//            
+//            System.out.println(mb.getProxySupport());
+//            bid.setProxySupport(mb.getProxySupport());
+//            
+//            System.out.println(mb.getDifferentKeyPerFile());
+//            bid.setDifferentKeyPerFile(mb.getDifferentKeyPerFile());
+//            
+//            System.out.println(mb.getSPLocation());
+//            bid.setSPLocation(mb.getSPLocation());
+//            
+//            System.out.println(mb.getCertification());
+//            bid.setCertification(mb.getCertification());
+//            
+//            System.out.println(mb.getCost());
+//            bid.setCost(mb.getCost());
+//            
+//            System.out.println(mb.getExpectedFileSize());
+//            bid.setExpectedFileSize(mb.getExpectedFileSize());
+//         
+//            xmlDecoder.close();
+//            
+//            fis1 = new FileInputStream("customPolicyWeights.xml");
+//            BufferedInputStream bis1 = new BufferedInputStream(fis1);
+//            XMLDecoder xmlDecoder1 = new XMLDecoder(bis1);
+//            HashMap <String, Double> mb1 = (HashMap) xmlDecoder1.readObject();
+//            Iterator iterator = mb1.keySet().iterator();
+//            
+//            //testing
+//            while (iterator.hasNext()) {
+//               String key = iterator.next().toString();
+//               Double value = mb1.get(key);
+//               System.out.println(key + " " + value);
+//            }
+//            
+//            bid.SetSignificance(mb1);
+//            xmlDecoder1.close();
+//        } catch (FileNotFoundException e) {
+//            System.out.println(e.getMessage());
+//        }
+//      
+//    	return bid;
+//    }
+//
+//  
+}

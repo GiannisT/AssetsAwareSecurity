@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<SPSecurityOffer>
+<SP id="06">
+<SpName>Cubby</SpName> 
+<EncryptionAtRest>yes</EncryptionAtRest> 
+<EncryptionAtTransit>yes</EncryptionAtTransit> 
+<PasswordProtectedFiles>yes</PasswordProtectedFiles>
+<FileVersioning>yes</FileVersioning>  
+<EncryptionKeysConcealedFromSP>yes-no</EncryptionKeysConcealedFromSP> 
+<AutoSynch>yes-no</AutoSynch> 
+<DatacenterLocation>US</DatacenterLocation> 
+<Cost>0</Cost> 
+<StorageSize>5GB</StorageSize> 
+<FileSizeLimit> </FileSizeLimit> 
+<SecureKeyManagement>yes</SecureKeyManagement> 
+<CredentialRecovery>yes</CredentialRecovery> 
+<ShareData>yes-no</ShareData> 
+<AuditLogs>yes</AuditLogs> 
+<ProxySupport>yes-no</ProxySupport> 
+<DifferentKeyPerFile>yes-no</DifferentKeyPerFile> 
+<Certification>HIPAA</Certification>
+<PermanentFileDeletion>yes</PermanentFileDeletion> 
+</SP>
+</SPSecurityOffer>
+
+
+
+
+

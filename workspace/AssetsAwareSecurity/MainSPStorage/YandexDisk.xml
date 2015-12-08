@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<SPSecurityOffer>
+<SP id="04">
+<SpName>Yandex Disk</SpName> 
+<EncryptionAtRest>no</EncryptionAtRest> 
+<EncryptionAtTransit>yes</EncryptionAtTransit> 
+<PasswordProtectedFiles>no</PasswordProtectedFiles>
+<FileVersioning>no</FileVersioning>  
+<EncryptionKeysConcealedFromSP>no</EncryptionKeysConcealedFromSP> 
+<AutoSynch>yes-no</AutoSynch> 
+<DatacenterLocation>Russia</DatacenterLocation> 
+<Cost>0</Cost> 
+<StorageSize>10</StorageSize> 
+<FileSizeLimit>10</FileSizeLimit> 
+<SecureKeyManagement>no</SecureKeyManagement> 
+<CredentialRecovery>yes</CredentialRecovery> 
+<ShareData>yes-no</ShareData> 
+<AuditLogs>yes</AuditLogs> 
+<ProxySupport>yes-no</ProxySupport> 
+<DifferentKeyPerFile>no</DifferentKeyPerFile> 
+<Certification> </Certification>
+<PermanentFileDeletion>yes</PermanentFileDeletion> 
+</SP>
+</SPSecurityOffer>
+
+
+
+
+
