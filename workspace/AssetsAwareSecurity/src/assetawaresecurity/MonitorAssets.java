@@ -115,9 +115,11 @@ public class MonitorAssets {
 
 				}else if(!conf.exists()){
 					JOptionPane.showMessageDialog(Gui.myframe,"Please create a user account before trying uploading a file");
+					key.pollEvents();
 					break;
 				}else if (Gui.bid == null){
 					JOptionPane.showMessageDialog(Gui.myframe,"Please select a security policy before trying uploading a file");
+					key.pollEvents();
 					break;
 				}
 			}
