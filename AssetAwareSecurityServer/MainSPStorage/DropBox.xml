@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<SPSecurityOffer>
+<SP id="01">
+<SpName>Dropbox</SpName>
+<EncryptionAtRest>yes</EncryptionAtRest>
+<EncryptionAtTransit>yes</EncryptionAtTransit> 
+<PasswordProtectedFiles>no</PasswordProtectedFiles> 
+<FileVersioning>yes</FileVersioning>  
+<EncryptionKeysConcealedFromSP>no</EncryptionKeysConcealedFromSP>
+<AutoSynch>yes-no</AutoSynch> 
+<DatacenterLocation>North America</DatacenterLocation>
+<Cost>0</Cost> 
+<StorageSize>2</StorageSize>
+<FileSizeLimit> </FileSizeLimit>
+<SecureKeyManagement>yes</SecureKeyManagement> 
+<CredentialRecovery>yes</CredentialRecovery> 
+<ShareData>yes-no</ShareData> 
+<AuditLogs>yes</AuditLogs> 
+<ProxySupport>yes-no</ProxySupport>
+<DifferentKeyPerFile>no</DifferentKeyPerFile>
+<Certification>ISO 27001, Safe Harbor</Certification>
+<PermanentFileDeletion>delayed</PermanentFileDeletion>
+</SP>
+</SPSecurityOffer>
+
+
+
+
+
