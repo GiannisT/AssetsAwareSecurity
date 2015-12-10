@@ -35,8 +35,11 @@ public class AssetAwareSecurity {
 	}
 
 	public static void main(String[] args) throws IOException, CloudmeException {
+<<<<<<< HEAD
 
 // Change this to see what happens
+=======
+>>>>>>> branch 'master' of https://github.com/GiannisT/AssetsAwareSecurity.git
 		
 		//this thread discovers the OS of the system and the upload speed
 		new Thread()
