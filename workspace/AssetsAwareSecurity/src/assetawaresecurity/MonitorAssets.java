@@ -87,8 +87,8 @@ public class MonitorAssets {
 					File file = new File("MainUserStorage/"+fileName.toString());
 					
 					System.out.println(kind.name() + ": " + file.getName());
-					double filesize=file.length(); //convert it to MB
-					filesize=filesize/1024/1024;
+					double filesize=file.length(); 
+					filesize=filesize/1024/1024;//convert it to MB
 					double ExpectedFileSize=0;
 				
 					if (filesize <= 150){ // if the file size is less that 150 MB
@@ -114,21 +114,20 @@ public class MonitorAssets {
 					int result=10;
 					//check file upload time ...if long ask user if wants to proceed
 					//this just considers the file size to approximate the upload time in case that the upload speed has not been yet initialized
-					if( (InitializeSystem.uploadBandwidth==null) && (Double.valueOf(Gui.bid.getFileSize()) >400)){
+					if( (InitializeSystem.uploadBandwidth==null) && (Double.valueOf(Gui.bid.getFileSize()) >300)){
 						
 						result = JOptionPane.showConfirmDialog(null,
-								" Your file is too big and will take some time to upload. Do you want to procceed?", "alert",
+								" The file is too big and will take some time to upload. Do you want to procceed?", "alert",
 								JOptionPane.OK_CANCEL_OPTION);
 					
-					}else if(InitializeSystem.uploadBandwidth!=null){ //calculates an approximation of the time (in min) needed to upload a file to the provider
-						EstimateTime=((Double.valueOf(Gui.bid.getFileSize()) / (Double.valueOf(InitializeSystem.uploadBandwidth)/8) ) /60);
+					}else if(InitializeSystem.uploadBandwidth!=null){ //calculates an approximation of the time (in hours) needed to upload a file to the provider
+						EstimateTime=((Double.valueOf(Gui.bid.getFileSize()) / (Double.valueOf(InitializeSystem.uploadBandwidth)/8) ) /360);
 						
 						if(EstimateTime>17){
 							DecimalFormat f = new DecimalFormat("0.0");
-							String ExpectTime = df.format(EstimateTime); //truncates the expected file size to 4 decimal points
-							
+							String ExpectTime = f.format(EstimateTime); //truncates the expected file size to 4 decimal points
 							result = JOptionPane.showConfirmDialog(null,
-									"The file is too big and will approximately take " +ExpectTime+ " min to upload it. Do you want to procceed?", "alert",
+									"The file is too big and will approximately take " +ExpectTime+ " hours to upload it. Do you want to procceed?", "alert",
 									JOptionPane.OK_CANCEL_OPTION);
 						}
 					}
