@@ -110,8 +110,35 @@ public class MonitorAssets {
 					
 					String TruncFileSize = df.format(filesize); //truncates the actual file size to 4 decimal points
 					Gui.bid.setFileSize(String.valueOf(TruncFileSize));
+					Double EstimateTime=0.0;
+					int result=10;
+					//check file upload time ...if long ask user if wants to proceed
+					//this just considers the file size to approximate the upload time in case that the upload speed has not been yet initialized
+					if( (InitializeSystem.uploadBandwidth==null) && (Double.valueOf(Gui.bid.getFileSize()) >400)){
+						
+						result = JOptionPane.showConfirmDialog(null,
+								" Your file is too big and will take some time to upload. Do you want to procceed?", "alert",
+								JOptionPane.OK_CANCEL_OPTION);
 					
-					ForwardBidToServer();
+					}else if(InitializeSystem.uploadBandwidth!=null){ //calculates an approximation of the time (in min) needed to upload a file to the provider
+						EstimateTime=((Double.valueOf(Gui.bid.getFileSize()) / (Double.valueOf(InitializeSystem.uploadBandwidth)/8) ) /60);
+						
+						if(EstimateTime>17){
+							DecimalFormat f = new DecimalFormat("0.0");
+							String ExpectTime = df.format(EstimateTime); //truncates the expected file size to 4 decimal points
+							
+							result = JOptionPane.showConfirmDialog(null,
+									"The file is too big and will approximately take " +ExpectTime+ " min to upload it. Do you want to procceed?", "alert",
+									JOptionPane.OK_CANCEL_OPTION);
+						}
+					}
+					
+					
+					if (result == JOptionPane.CANCEL_OPTION) {
+						JOptionPane.showMessageDialog(null, Gui.bid.getFileName()+" will not be uplaoded");
+					} else{
+						ForwardBidToServer();
+					}
 
 				}else if(!conf.exists()){
 					JOptionPane.showMessageDialog(Gui.myframe,"Please create a user account before trying uploading a file");

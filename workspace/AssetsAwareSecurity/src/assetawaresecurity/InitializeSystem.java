@@ -3,10 +3,13 @@ package assetawaresecurity;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,6 +19,8 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 public class InitializeSystem { // Model
+	
+	static String uploadBandwidth=" ", OS=" ";
 
     //initializes and configures the system
     public InitializeSystem() {
@@ -206,6 +211,56 @@ public class InitializeSystem { // Model
     					
     	return assetsList;
     }
+    
+    
+    //this function aims to return the current systems Operating system and upload Speed which will help us estimate time for upload
+    public static void SystemOSbandwidth(){
+    	OS=System.getProperty("os.name");
+    	
+    	Runtime rt = Runtime.getRuntime();
+    	String command=" ";
+    	
+    	if (OS.toLowerCase().contains("windows")){
+    		command= "speedtest-32-v0.8.4-d.exe -uo";    		
+    	}else if (OS.toLowerCase().contains("mac")){
+    		command= "sudo chmod ugo+x speedtest-mac-amd64-v0.8.4-d -uo";
+    	}else{
+    		command= "sudo chmod ugo+x speedtest-linux-386-v0.8.4-d -uo";
+    	}
+    	
+    	uploadBandwidth=null;
+		Process proc = null;
+		try {
+			proc = rt.exec(command);
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+
+		BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+
+		// read the output from the command
+		System.out.println(" Operating System:" +OS);
+		String s = null;
+		try {
+			while ((s = stdInput.readLine()) != null) {
+			    
+				if(s.contains("Upload")){
+					s=s.substring(s.length()-11, s.length()-5).replace(" ","");
+					
+					if(s.contains(":")){
+						s=s.replace(":","");
+					}
+					System.out.println("Upload Speed is "+s);
+					uploadBandwidth=s;
+					break;
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+    }
+    
     
     
   //reads the saved custom policy set by the user..if a custom policy exists it should be loaded one the system initiates

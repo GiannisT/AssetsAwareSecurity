@@ -36,6 +36,22 @@ public class AssetAwareSecurity {
 
 	public static void main(String[] args) throws IOException, CloudmeException {
 
+//		CreateBid bid = new CreateBid();
+//
+//		if (new File("customPolicy.xml").isFile() && new File("customPolicyWeights.xml").isFile()) {
+//			bid = init.InitializeCustomPolicy(); // this loads the custom policy
+//													// if it exists
+//		}
+		
+		//this thread discovers the OS of the system and the upload speed
+		new Thread()
+		{
+		    public void run() {
+		    	InitializeSystem.SystemOSbandwidth();
+		    }
+		}.start();
+		
+
 		// needed for new Java Graphics
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
