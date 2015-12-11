@@ -92,9 +92,11 @@ public class InitializeSystem { // Model
         return user;
     }
     
-	public CreateBid loadPolicyData(File policy, File policyWeights) {
+	public CreateBid loadPolicyData(File policy, File policyWeights, File spSizes) {
 		CreateBid bid = new CreateBid();
 		Map<String, Double> Significance = new HashMap<String, Double>();
+		Map<String, Double> SPsSizes = new HashMap<String, Double>();
+		
 		// Load Policy
 		try {
 			XMLDecoder dec = new XMLDecoder(new FileInputStream(policy));
@@ -112,6 +114,18 @@ public class InitializeSystem { // Model
 			dec.close();
 			bid.SetSignificance(Significance);
 			System.out.println("Loaded Weights Policy");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+
+		}
+		
+		//Load SP Sizes
+		try {
+			XMLDecoder dec = new XMLDecoder(new FileInputStream(spSizes));
+			SPsSizes = (HashMap<String, Double>) dec.readObject();
+			dec.close();
+			bid.SetSPsSize(SPsSizes);
+			System.out.println("Loaded SP sizes");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 
@@ -140,6 +154,16 @@ public class InitializeSystem { // Model
         }catch (Exception e){
            System.out.println(e.getMessage());  
         }
+        
+        //writes the AvailSPs storage size
+        try{
+            XMLEncoder encoder2 = new XMLEncoder(new FileOutputStream("spSizes.xml"));
+            System.out.println("SP sizes saved");
+            encoder2.writeObject(bid.getSPsSize());
+            encoder2.close();
+        }catch (Exception e){
+           System.out.println(e.getMessage());
+        }
     }
     
     public void saveCustomPolicy(CreateBid bid){
@@ -163,7 +187,15 @@ public class InitializeSystem { // Model
            System.out.println(e.getMessage());
         }
         
-        
+        //writes the AvailSPs storage size
+        try{
+            XMLEncoder encoder2 = new XMLEncoder(new FileOutputStream("spSizes.xml"));
+            System.out.println("SP sizes saved");
+            encoder2.writeObject(bid.getSPsSize());
+            encoder2.close();
+        }catch (Exception e){
+           System.out.println(e.getMessage());
+        }
     }
     
  // Not to be used at the moment  
@@ -261,101 +293,5 @@ public class InitializeSystem { // Model
 		
     }
     
-    
-    
-  //reads the saved custom policy set by the user..if a custom policy exists it should be loaded one the system initiates
-//    public CreateBid InitializeCustomPolicy() {
-//    	
-//    	CreateBid bid=new CreateBid();
-//    	
-//       		FileInputStream fis, fis1;
-//
-//        try {
-//            fis = new FileInputStream("customPolicy.xml");
-//
-//            BufferedInputStream bis = new BufferedInputStream(fis);
-//            XMLDecoder xmlDecoder = new XMLDecoder(bis);
-//            CreateBid mb = (CreateBid) xmlDecoder.readObject();
-//
-//            System.out.println("READING CUSTOM POLICY (BID) XML FILE:");
-//            
-//            System.out.println(mb.getRequirementsType());
-//            bid.setRequirementsType(mb.getRequirementsType());
-//            
-//            System.out.println(mb.getEncryptionAtRest());
-//            bid.setEncryptionAtRest(mb.getEncryptionAtRest());
-//            
-//            System.out.println(mb.getEncryptionAtTransit());
-//            bid.setEncryptionAtTransit(mb.getEncryptionAtTransit());
-//            
-//            System.out.println(mb.getPassProtected());
-//            bid.setPassProtected(mb.getPassProtected());
-//            
-//            System.out.println(mb.getShareData());
-//            bid.setShareData(mb.getShareData());
-//            
-//            System.out.println(mb.getAutoSynch());
-//            bid.setAutoSynch(mb.getAutoSynch());
-//            
-//            System.out.println(mb.getConcealedKeys());
-//            bid.setConcealedKeys(mb.getConcealedKeys());
-//            
-//            System.out.println(mb.getPermanentDeletion());
-//            bid.setPermanentDeletion(mb.getPassRecovery());
-//            
-//            System.out.println(mb.getSecKeyManagement());
-//            bid.setSecKeyManagement(mb.getSecKeyManagement());
-//            
-//            System.out.println(mb.getPassRecovery());
-//            bid.setPassProtected(mb.getPassRecovery());
-//            
-//            System.out.println(mb.getFileVersioning());
-//            bid.setFileVersioning(mb.getFileVersioning());
-//            
-//            System.out.println(mb.getAuditLogs());
-//            bid.setAuditLogs(mb.getAuditLogs());
-//            
-//            System.out.println(mb.getProxySupport());
-//            bid.setProxySupport(mb.getProxySupport());
-//            
-//            System.out.println(mb.getDifferentKeyPerFile());
-//            bid.setDifferentKeyPerFile(mb.getDifferentKeyPerFile());
-//            
-//            System.out.println(mb.getSPLocation());
-//            bid.setSPLocation(mb.getSPLocation());
-//            
-//            System.out.println(mb.getCertification());
-//            bid.setCertification(mb.getCertification());
-//            
-//            System.out.println(mb.getCost());
-//            bid.setCost(mb.getCost());
-//            
-//            System.out.println(mb.getExpectedFileSize());
-//            bid.setExpectedFileSize(mb.getExpectedFileSize());
-//         
-//            xmlDecoder.close();
-//            
-//            fis1 = new FileInputStream("customPolicyWeights.xml");
-//            BufferedInputStream bis1 = new BufferedInputStream(fis1);
-//            XMLDecoder xmlDecoder1 = new XMLDecoder(bis1);
-//            HashMap <String, Double> mb1 = (HashMap) xmlDecoder1.readObject();
-//            Iterator iterator = mb1.keySet().iterator();
-//            
-//            //testing
-//            while (iterator.hasNext()) {
-//               String key = iterator.next().toString();
-//               Double value = mb1.get(key);
-//               System.out.println(key + " " + value);
-//            }
-//            
-//            bid.SetSignificance(mb1);
-//            xmlDecoder1.close();
-//        } catch (FileNotFoundException e) {
-//            System.out.println(e.getMessage());
-//        }
-//      
-//    	return bid;
-//    }
-//
-//  
+     
 }

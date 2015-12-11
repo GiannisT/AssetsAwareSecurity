@@ -43,6 +43,7 @@ public class CreateBid implements Serializable {
 
 
     Map<String, Double> Significance;  //describes the importance of each attribute, it will help us to calc weights for decision making
+    Map<String, Double> SPsSize; // hashmap that holds the free size of each available sp
     
     ArrayList<String> availableSPs;
     
@@ -51,8 +52,8 @@ public class CreateBid implements Serializable {
     public CreateBid(String RequirementsType, String RestEncryption, String TransitEncryption, String PassProtecFiles,String FileVersioning, String ConcealedKeys, String AutoSynch, String SecKeyManagement,
             String PassRecovery, String ShareData, String AuditLogs, String ProxySupport, String DifferentKeyPerFile, String PermanentDeletion, String SpLocation, String Certification, String Cost , String FileExpectedSize, 
             Double RestEncryptionWeight,Double TransitEncryptionWeight, Double PassProtecFilesWeight, Double FileVersioningWeight, Double ConcealedKeysWeight, Double AutoSynchWeight, Double SecKeyManagementWeight, Double PassRecoveryWeight,
-            Double ShareDataWeight, Double AuditLogsWeight, Double ProxySupportWeight, Double DifferentKeyPerFileWeight,Double PermanentDeletionWeight, Double SpLocationWeight, Double CertificationWeight, ArrayList <String> availableSPs, String fileName, String SelectedPolicy) throws FileNotFoundException {
-
+            Double ShareDataWeight, Double AuditLogsWeight, Double ProxySupportWeight, Double DifferentKeyPerFileWeight,Double PermanentDeletionWeight, Double SpLocationWeight, Double CertificationWeight, ArrayList <String> availableSPs, String fileName, String SelectedPolicy, Map<String, Double> spStorageSize) throws FileNotFoundException {
+//test
         Significance = new HashMap<String, Double>();
 
         try {
@@ -177,7 +178,12 @@ public class CreateBid implements Serializable {
                 Significance.put("PermanentFileDeletion", PermanentDeletionWeight);
             }
             
+            System.out.println("Selected Policy: " + SelectedPolicy);
+            this.setSelectedPolicy(SelectedPolicy);
+            
             this.setAvailableSPs(availableSPs);
+            this.SetSPsSize(spStorageSize);
+            
             
 
         } catch (Exception e) {
@@ -209,6 +215,10 @@ public class CreateBid implements Serializable {
 
     public void SetSignificance(Map<String, Double> weights) {
         Significance = weights;
+    }
+    
+    public void SetSPsSize(Map<String, Double> spSize) {
+        SPsSize = spSize;
     }
 
     public void setEncryptionAtRest(String enc) {
@@ -302,6 +312,10 @@ public class CreateBid implements Serializable {
 
     public Map<String, Double> getSignificance() {
         return Significance;
+    }
+    
+    public Map<String, Double> getSPsSize() {
+        return SPsSize;
     }
 
     public String getEncryptionAtRest() {

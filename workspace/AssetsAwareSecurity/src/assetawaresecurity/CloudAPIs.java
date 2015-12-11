@@ -149,7 +149,7 @@ public class CloudAPIs {
 		
 	}
 	
-	public void getStorageSize( String spName) throws Exception{
+	public double getStorageSize( String spName) throws Exception{
 		double memory=0;
 		switch (spName) {
 		case "DropBox":
@@ -179,6 +179,7 @@ public class CloudAPIs {
 		default:
 			throw new IllegalArgumentException("Invalid UploadDelete ");
 		}
+		return memory;
 		
 	}
 

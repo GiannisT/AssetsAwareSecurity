@@ -1979,6 +1979,7 @@ public class Gui {
 	}// GEN-LAST:event_jButton1ActionPerformed
 
 	public void doPolicySelection() {
+		Map<String, Double> spStorageSize = new HashMap <String, Double>();
 		ArrayList<String> ansList = new ArrayList<String>();
 		ArrayList<Double> ansWeightList = new ArrayList<Double>();
 		// Temporary fix -- use ArrayList instead of the user HashMap
@@ -1998,6 +1999,18 @@ public class Gui {
 				req = "no";
 			}
 
+			//Get available SPs storage sizes
+			double size;
+			for (int i=0; i<availSPsListString.size();i++){
+				try {
+					size = api.getStorageSize(availSPsListString.get(i));
+					spStorageSize.put(availSPsListString.get(i), size);
+					//System.out.println("Size of "+availSPsListString.get(i)+": "+spStorageSize.entrySet());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			// Select Panel
 			if (isCustomPanel) {
 				// get answers
@@ -2013,7 +2026,7 @@ public class Gui {
 							ansWeightList.get(1), ansWeightList.get(2), ansWeightList.get(3), ansWeightList.get(4),
 							ansWeightList.get(5), ansWeightList.get(6), ansWeightList.get(7), ansWeightList.get(8),
 							ansWeightList.get(9), ansWeightList.get(10), ansWeightList.get(11), ansWeightList.get(12),
-							ansWeightList.get(13), ansWeightList.get(14),availSPsListString,"",selectedPolicy);
+							ansWeightList.get(13), ansWeightList.get(14),availSPsListString,"",selectedPolicy,spStorageSize);
 					// need to send bid from here
 				} catch (FileNotFoundException ex) {
 					Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
@@ -2072,7 +2085,7 @@ public class Gui {
 							ansWeightList.get(1), ansWeightList.get(2), ansWeightList.get(3), ansWeightList.get(4),
 							ansWeightList.get(5), ansWeightList.get(6), ansWeightList.get(7), ansWeightList.get(8),
 							ansWeightList.get(9), ansWeightList.get(10), ansWeightList.get(11), ansWeightList.get(12),
-							ansWeightList.get(13), ansWeightList.get(14),availSPsListString,"",selectedPolicy);
+							ansWeightList.get(13), ansWeightList.get(14),availSPsListString,"",selectedPolicy,spStorageSize);
 					// MonitorAssets mon=new MonitorAssets();
 
 				} catch (FileNotFoundException ex) {
@@ -2081,7 +2094,17 @@ public class Gui {
 				}
 				
 			}
+			
 			selectPolicyBtn.setText("Loading...");
+			//TEST
+			for (int i=0; i<availSPsListString.size();i++){
+				try {
+					System.out.println("Size of "+availSPsListString.get(i)+" 2nd time: "+bid.getSPsSize().entrySet());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			loadGifLbl.setVisible(true);
 			Timer timer = new Timer(1000, new ActionListener() {
 			    @Override
@@ -2253,6 +2276,7 @@ public class Gui {
 		File last = new File("lastPolicy.xml");
 		File lastWeights = new File("lastPolicyWeights.xml");
 		File assetsListFile = new File("assetsList.xml");
+		File spSizes = new File("spSizes.xml");
 		if (userFile.exists()) {
 			
 			this.addUserPane.setVisible(false);
@@ -2263,24 +2287,21 @@ public class Gui {
 			availSPsListString = getSPstringList();			
 			
 			//If custom or last policy exist load it
-			if (custom.exists() && customWeights.exists()){
+			if (custom.exists() && customWeights.exists() && spSizes.exists()){
 				bid = new CreateBid();
-				bid = sys.loadPolicyData(custom, customWeights);
+				bid = sys.loadPolicyData(custom, customWeights,spSizes);
 				
 				//Test
 			//	System.out.println("Loaded: "+bid.getAuditLogs()+bid.getCost()+bid.getEncryptionAtTransit());
 			//	System.out.println("Hash: "+ bid.getSignificance().entrySet());
 			//	System.out.println("Latest custom policy loaded");
-			} else if (last.exists() && lastWeights.exists()){
+			} else if (last.exists() && lastWeights.exists() && spSizes.exists()){
 				bid = new CreateBid();
-				bid = sys.loadPolicyData(last, lastWeights);
-								
-				//Test
-			//	System.out.println("Loaded: "+bid.getAuditLogs()+bid.getCost()+bid.getEncryptionAtTransit());
-			//	System.out.println("Hash: "+ bid.getSignificance().entrySet());
-			//	System.out.println("Latest policy loaded");
-			}
+				bid = sys.loadPolicyData(last, lastWeights,spSizes);
 			
+			}
+//			//TEST
+//			System.out.println("LOADING: "+bid.getSPsSize().entrySet());
 			if(assetsListFile.exists()){
 				assetsList=sys.loadAssetTab(assetsListFile);			
 				sortList();

@@ -10,7 +10,7 @@
 <AutoSynch>yes-no</AutoSynch> 
 <DatacenterLocation>EU</DatacenterLocation> 
 <Cost>0</Cost> 
-<StorageSize>19</StorageSize> 
+<StorageSize>3</StorageSize> 
 <FileSizeLimit>0.15</FileSizeLimit> 
 <SecureKeyManagement>no</SecureKeyManagement> 
 <CredentialRecovery>yes</CredentialRecovery> 
@@ -18,8 +18,8 @@
 <AuditLogs>yes</AuditLogs> 
 <ProxySupport>yes-no</ProxySupport> 
 <DifferentKeyPerFile>no</DifferentKeyPerFile> 
-<Certification> </Certification>
-<PermanentFileDeletion>delayed</PermanentFileDeletion> 
+<Certification>HIPAA, Safe Harbor</Certification>
+<PermanentFileDeletion>yes</PermanentFileDeletion> 
 </SP>
 </SPSecurityOffer>
 

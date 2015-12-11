@@ -142,7 +142,7 @@ public class GoogleDriveAPI {
         } catch (IOException e) {
           System.out.println("An error occurred: " + e);
         }
-		return freeMem;
+		return freeMem /1024/1024;
     }
     
       /** Uploads a file using either resumable or direct media upload. */

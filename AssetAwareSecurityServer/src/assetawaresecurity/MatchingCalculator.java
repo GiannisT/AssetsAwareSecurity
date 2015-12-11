@@ -67,7 +67,7 @@ public class MatchingCalculator {
     		   continue;
     	   }
 			
-		    //storageSize should be specified in GBytes
+		    //storageSize should be specified in MBytes
 		   //this functions checks if the expected file size will be smaller than the upload file size limit and storage size, hence to make decisions that can hold over long periods of time
 		   //??????marios should update storageSize depending on the current free space on storage
 		   if(asks.get(i).getStorageSize().equals(" ")){ //if getStorageSize is unlimited give a huge number so the test will pass
