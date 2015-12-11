@@ -2093,6 +2093,12 @@ public class Gui {
 			timer.start();
 			timer.setRepeats(false);
 			//test api -- gona need method for that
+//			try {
+//				api.getStorageSize("CloudMe");
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 //			
 			
 			selectPolicyBtn.setText("Submit Security Policy");
@@ -2255,9 +2261,6 @@ public class Gui {
 			
 			//Get list of availble SPs
 			availSPsListString = getSPstringList();			
-		//	for (int i =0;i<availSPsListString.size();i++){
-		//		System.out.println("Count "+availSPsListString.get(i));
-		//	}
 			
 			//If custom or last policy exist load it
 			if (custom.exists() && customWeights.exists()){
