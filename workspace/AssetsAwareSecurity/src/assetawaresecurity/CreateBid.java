@@ -52,7 +52,7 @@ public class CreateBid implements Serializable {
             String PassRecovery, String ShareData, String AuditLogs, String ProxySupport, String DifferentKeyPerFile, String PermanentDeletion, String SpLocation, String Certification, String Cost , String FileExpectedSize, 
             Double RestEncryptionWeight,Double TransitEncryptionWeight, Double PassProtecFilesWeight, Double FileVersioningWeight, Double ConcealedKeysWeight, Double AutoSynchWeight, Double SecKeyManagementWeight, Double PassRecoveryWeight,
             Double ShareDataWeight, Double AuditLogsWeight, Double ProxySupportWeight, Double DifferentKeyPerFileWeight,Double PermanentDeletionWeight, Double SpLocationWeight, Double CertificationWeight, ArrayList <String> availableSPs, String fileName, String SelectedPolicy) throws FileNotFoundException {
-
+//test
         Significance = new HashMap<String, Double>();
 
         try {
