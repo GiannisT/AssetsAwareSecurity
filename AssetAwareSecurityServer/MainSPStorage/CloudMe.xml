@@ -17,7 +17,7 @@
 <ShareData>yes-no</ShareData> 
 <AuditLogs>yes</AuditLogs> 
 <ProxySupport>yes-no</ProxySupport> 
-<DifferentKeyPerFile>no</DifferentKeyPerFile> 
+<DifferentKeyPerFile>yes-no</DifferentKeyPerFile> 
 <Certification>HIPAA, Safe Harbor</Certification>
 <PermanentFileDeletion>yes</PermanentFileDeletion> 
 </SP>

@@ -11,7 +11,7 @@
 <DatacenterLocation>North America</DatacenterLocation>
 <Cost>0</Cost> 
 <StorageSize>2</StorageSize>
-<FileSizeLimit> </FileSizeLimit>
+<FileSizeLimit>8</FileSizeLimit>
 <SecureKeyManagement>yes</SecureKeyManagement> 
 <CredentialRecovery>yes</CredentialRecovery> 
 <ShareData>yes-no</ShareData> 

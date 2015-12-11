@@ -19,7 +19,7 @@
 <ProxySupport>yes-no</ProxySupport>
 <DifferentKeyPerFile>no</DifferentKeyPerFile>
 <Certification>ISO 27001, FERPA, HIPAA, Safe Harbor</Certification>
-<PermanentFileDeletion>yes</PermanentFileDeletion>
+<PermanentFileDeletion>yes-no</PermanentFileDeletion>
 </SP>
 </SPSecurityOffer>
 

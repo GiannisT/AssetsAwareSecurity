@@ -1,1 +1,1 @@
-yes,yes,no,#,no,yes,yes,yes,yes,yes,yes,no,yes, #, ISO 27001
+yes,yes,no,yes,no,yes,yes,yes,yes,yes,yes,no,yes
