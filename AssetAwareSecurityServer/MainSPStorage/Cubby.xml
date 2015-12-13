@@ -10,7 +10,7 @@
 <AutoSynch>yes-no</AutoSynch> 
 <DatacenterLocation>US</DatacenterLocation> 
 <Cost>0</Cost> 
-<StorageSize>5GB</StorageSize> 
+<StorageSize>5120</StorageSize> 
 <FileSizeLimit> </FileSizeLimit> 
 <SecureKeyManagement>yes</SecureKeyManagement> 
 <CredentialRecovery>yes</CredentialRecovery> 

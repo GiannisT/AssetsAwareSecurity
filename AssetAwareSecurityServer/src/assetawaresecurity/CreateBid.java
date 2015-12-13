@@ -201,13 +201,6 @@ public class CreateBid implements Serializable {
 
     }
 
-
-
-	//send the bid to calculate its expected utility for the user and match it with optimal offer we might need to add a socket to send it instead of a function?????
-//	public void ForwardBid(){
-//		MatchingCalculator calc = new MatchingCalculator();
-//		calc.MatchBid(bid);
-//	}
     //setters
     public void setRequirementsType(String type) {
         RequirementsType = type;

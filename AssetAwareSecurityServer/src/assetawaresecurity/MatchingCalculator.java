@@ -55,11 +55,13 @@ public class MatchingCalculator {
 		ArrayList<CreateAsk> suitableAsks = new ArrayList<CreateAsk>();
 		
 	    asks=obj.getAsks(); //retrieves all available SP offers
-	    double SPStorSize=0, SPLimitSize=0;
+	    double SPLimitSize=0;
 		
 	    for (int i=0; i<asks.size();i++){//check the offers of all available SPs to determine if they are suitable for a users bid  
-		   boolean condition=false;
-		   if(bid.getCost().equals("/")){ //indicates that a user does not care about the cost
+		   
+	    	boolean condition=false;
+		   
+	       if(bid.getCost().equals("/")){ //indicates that a user does not care about the cost
 		   }else if(Double.valueOf(bid.getCost()) >= Double.valueOf(asks.get(i).getCost())){ //in case that the cost that a user is willing to pay, is violated we remove the certain Sp
 			  condition=true;
     	   }else if (Double.valueOf(bid.getCost()) < Double.valueOf(asks.get(i).getCost())){
@@ -67,25 +69,57 @@ public class MatchingCalculator {
     		   continue;
     	   }
 			
-		    //storageSize should be specified in MBytes
 		   //this functions checks if the expected file size will be smaller than the upload file size limit and storage size, hence to make decisions that can hold over long periods of time
-		   //??????marios should update storageSize depending on the current free space on storage
-		   if(asks.get(i).getStorageSize().equals(" ")){ //if getStorageSize is unlimited give a huge number so the test will pass
-			 SPStorSize=100000000000000000000000000.0;
-		   }else{
-			   SPStorSize=Double.valueOf(asks.get(i).getStorageSize());
+		   Double AvailStorageSize=0.0;
+		   
+		    //returns the size of available storage for each SP in question
+		   switch(asks.get(i).getSpName()){
+		   	case "BearDataShare": 
+			   AvailStorageSize=bid.getSPsSize().get("BearDataShare");
+			   break;
+		   	case "CloudMe":
+		   	   AvailStorageSize=bid.getSPsSize().get("CloudMe");
+			   break;
+		   	case "Cubby":
+		   		AvailStorageSize=bid.getSPsSize().get("Cubby");
+				break;
+		   	case "DropBox":
+		   		AvailStorageSize=bid.getSPsSize().get("DropBox");
+				break;
+		   	case "GoogleDrive":
+		   		AvailStorageSize=bid.getSPsSize().get("GoogleDrive");
+				break;
+		   	case "MEGA":
+		   		AvailStorageSize=bid.getSPsSize().get("MEGA");
+				break;
+		   	case "OneDrive":
+		   		AvailStorageSize=bid.getSPsSize().get("OneDrive");
+				break;
+		  	case "SpiderOak":
+		   		AvailStorageSize=bid.getSPsSize().get("SpiderOak");
+				break;
+		  	case "YandexDisk":
+		   		AvailStorageSize=bid.getSPsSize().get("YandexDisk");
+				break;
+
 		   }
 		   
-		   if(asks.get(i).getFileSizeLimit().equals(" ")){ //if getStorageSize is unlimited give a huge number so the test will pass
+//		   if(asks.get(i).getStorageSize().equals(" ")){ //if getStorageSize is unlimited give a huge number so the test will pass
+//			 SPStorSize=100000000000000000000000000.0;
+//		   }else{
+//			   SPStorSize=Double.valueOf(asks.get(i).getStorageSize());
+//		   }
+		   
+		   if(asks.get(i).getFileSizeLimit().equals(" ")){ //if upload file size limit is unlimited give a huge number so the test will pass
 			 SPLimitSize=100000000000000000000000000.0;
 		   }else{
 			   SPLimitSize=Double.valueOf(asks.get(i).getFileSizeLimit());
 		   }
 
-		   System.out.println(bid.getExpectedFileSize() +">"+SPStorSize+ " : "+ bid.getExpectedFileSize() + ">"+SPLimitSize+"  Condition:"+condition);
+		   System.out.println(bid.getExpectedFileSize() +">"+AvailStorageSize+ " : "+ bid.getExpectedFileSize() + ">"+SPLimitSize+"  Condition:"+condition);
 		   System.out.println(asks.get(i).getSpName()+" Enters");
 		   
-		   if( (condition==true) && (Double.valueOf(bid.getExpectedFileSize())<= SPStorSize) && (Double.valueOf(bid.getExpectedFileSize()) <= SPLimitSize)){
+		   if( (condition==true) && (Double.valueOf(bid.getExpectedFileSize())<= AvailStorageSize) && (Double.valueOf(bid.getExpectedFileSize()) <= SPLimitSize)){
 			 suitableAsks.add(asks.get(i)); //in case that the storage provided is less than the current file size, remove SP offer. No need to check for current file size as we considering a bigger size already
 			 System.out.println(asks.get(i).getSpName()+" Entered!!");
 		   }else{
@@ -129,10 +163,10 @@ public class MatchingCalculator {
 		 double weight2=0;
 		 if(bid.getEncryptionAtTransit().equals("/")){
 			 count++;
-		 
 		 }else if(SuitableSPs.get(i).getEncryptionAtTransit().toLowerCase().contains(bid.getEncryptionAtTransit().toLowerCase())){
 			 weight2= Double.valueOf(bid.getSignificance().get("EncryptionAtTransit")); 
 			 SecurityUtility= SecurityUtility + (high*weight2);
+			 System.out.println("Empike transit");
 			 count++;
 		 }else{
 			 weight2= Double.valueOf(bid.getSignificance().get("EncryptionAtTransit")); 
@@ -158,6 +192,7 @@ public class MatchingCalculator {
 		}else if(SuitableSPs.get(i).getFileVersioning().toLowerCase().contains(bid.getFileVersioning().toLowerCase())){
 			weight4=Double.valueOf(bid.getSignificance().get("FileVersioning"));
 			SecurityUtility= SecurityUtility + (high*weight4);
+			System.out.println("empike versioning");
 			count++;
 		}else{
 			weight4=Double.valueOf(bid.getSignificance().get("FileVersioning"));
@@ -182,6 +217,7 @@ public class MatchingCalculator {
 		 }else if(SuitableSPs.get(i).getAutoSynch().toLowerCase().contains(bid.getAutoSynch().toLowerCase())){
 			weight6=Double.valueOf(bid.getSignificance().get("AutoSynch"));
 			 SecurityUtility= SecurityUtility + (high*weight6);
+			System.out.println("empike synch)");
 			 count++;
 		}else{
 			weight6=Double.valueOf(bid.getSignificance().get("AutoSynch"));
@@ -206,6 +242,7 @@ public class MatchingCalculator {
 		 }else if(SuitableSPs.get(i).getSecKeyManagement().toLowerCase().contains(bid.getSecKeyManagement().toLowerCase())){
 			weight8=Double.valueOf(bid.getSignificance().get("SecureKeyManagement"));
 			 SecurityUtility=SecurityUtility + (high*weight8);
+			System.out.println("empike sec key man");
 			 count++;
 		}else{
 			weight8=Double.valueOf(bid.getSignificance().get("SecureKeyManagement"));
@@ -218,6 +255,7 @@ public class MatchingCalculator {
 		 }else if(SuitableSPs.get(i).getPassRecovery().toLowerCase().contains(bid.getPassRecovery().toLowerCase())){
 			weight9=Double.valueOf(bid.getSignificance().get("CredentialRecovery"));
 			 SecurityUtility=SecurityUtility + (high*weight9);
+			 System.out.println("pass rec");
 			 count++;
 		}else{
 			weight9=Double.valueOf(bid.getSignificance().get("CredentialRecovery"));
@@ -230,6 +268,7 @@ public class MatchingCalculator {
 		 }else if(SuitableSPs.get(i).getDataShare().toLowerCase().contains(bid.getShareData().toLowerCase())){
 			 weight10=Double.valueOf(bid.getSignificance().get("ShareData"));
 			 SecurityUtility=SecurityUtility + (high*weight10);
+			 System.out.println("sharedata");
 			 count++;
 		}else{
 			 weight10=Double.valueOf(bid.getSignificance().get("ShareData"));
@@ -242,6 +281,7 @@ public class MatchingCalculator {
 		 }else if(SuitableSPs.get(i).getAuditLogs().toLowerCase().contains(bid.getAuditLogs().toLowerCase())){
 			 weight11=Double.valueOf(bid.getSignificance().get("AuditLogs"));
 			 SecurityUtility=SecurityUtility + (high*weight11);
+			 System.out.println("audit logs");
 			 count++;
 		}else{
 			 weight11=Double.valueOf(bid.getSignificance().get("AuditLogs"));
@@ -301,8 +341,9 @@ public class MatchingCalculator {
 		util.setSecurityUtility(SecurityUtility);
 		util.setSPname(SuitableSPs.get(i).getSpName());
 		
-		//First if is for impicit else if for explicit    //all data for the current SP are stored and prepared for auctioning
-		if(bid.getRequirementsType().equalsIgnoreCase("no")&& count ==15){
+		//First if statement is for explicit sec type else if the requirement type is yes it means its implicit   
+		//all data for the current SP are stored and prepared for auctioning
+		if(bid.getRequirementsType().equalsIgnoreCase("no") && count >=15){ TO LATHOS INE DAME TO 15 PREPI NA ALLASI ANALOGA ME TI INE SELECTED
 			SPcalculations.add(util);
 		}else if(bid.getRequirementsType().equalsIgnoreCase("yes")){
 			SPcalculations.add(util);
