@@ -17,7 +17,9 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 
@@ -110,6 +112,7 @@ public class MonitorAssets {
 					
 					String TruncFileSize = df.format(filesize); //truncates the actual file size to 4 decimal points
 					Gui.bid.setFileSize(String.valueOf(TruncFileSize));
+						
 					Double EstimateTime=0.0;
 					int result=10;
 					//check file upload time ...if long ask user if wants to proceed

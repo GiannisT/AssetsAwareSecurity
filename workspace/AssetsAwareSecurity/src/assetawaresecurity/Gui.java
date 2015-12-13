@@ -2097,14 +2097,14 @@ public class Gui {
 			
 			selectPolicyBtn.setText("Loading...");
 			//TEST
-			for (int i=0; i<availSPsListString.size();i++){
-				try {
-					System.out.println("Size of "+availSPsListString.get(i)+" 2nd time: "+bid.getSPsSize().entrySet());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+//			for (int i=0; i<availSPsListString.size();i++){
+//				try {
+//					System.out.println("Size of "+availSPsListString.get(i)+" 2nd time: "+bid.getSPsSize().entrySet());
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
 			loadGifLbl.setVisible(true);
 			Timer timer = new Timer(1000, new ActionListener() {
 			    @Override
@@ -2423,6 +2423,21 @@ public class Gui {
 			//Upload on service provider
 			try {
 				api.doUpload_Delete(FileName, StorageProvider, true);
+				//Get available SPs storage sizes
+				double size=0.0;
+				Map <String, Double>temp=new HashMap<String, Double>();
+				
+				for (int i=0; i<bid.getAvailableSPs().size();i++){
+					try {
+						size = api.getStorageSize(Gui.bid.getAvailableSPs().get(i));
+						temp.put(bid.getAvailableSPs().get(i),size);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				bid.SetSPsSize(temp); //we add to the bid the current available storage size for each SP
+				System.out.println("Testing Updated Sizes "+Gui.bid.getSPsSize().entrySet());	
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

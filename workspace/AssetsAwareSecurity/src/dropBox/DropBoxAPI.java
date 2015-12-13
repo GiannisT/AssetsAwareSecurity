@@ -98,7 +98,7 @@ public class DropBoxAPI { // class need to be renamed to DropBoxCode.java or smt
     }
     
 	public static double getDropboxSize() throws DbxException {
-		double dropboxSize = 0, avail =0, totalAvail = 0;
+		double dropboxSize = 0, avail=0, totalAvail = 0;
 		DbxAccountInfo dbxAccountInfo = client.getAccountInfo();
 		// in MB :)
 		dropboxSize = dbxAccountInfo.quota.total / 1024 / 1024;
