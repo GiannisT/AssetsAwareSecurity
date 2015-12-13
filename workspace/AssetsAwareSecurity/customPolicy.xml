@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_51" class="java.beans.XMLDecoder">
+ <object class="assetawaresecurity.CreateBid">
+  <void property="availableSPs">
+   <object class="java.util.ArrayList">
+    <void method="add">
+     <string>CloudMe</string>
+    </void>
+    <void method="add">
+     <string>OneDrive</string>
+    </void>
+    <void method="add">
+     <string>DropBox</string>
+    </void>
+   </object>
+  </void>
+  <void property="cost">
+   <string>0</string>
+  </void>
+  <void property="encryptionAtRest">
+   <string>Yes</string>
+  </void>
+  <void property="encryptionAtTransit">
+   <string>Yes</string>
+  </void>
+  <void property="expectedFileSize">
+   <string>0</string>
+  </void>
+  <void property="requirementsType">
+   <string>no</string>
+  </void>
+  <void property="selectedPolicy">
+   <string>Custom Security Policy</string>
+  </void>
+ </object>
+</java>

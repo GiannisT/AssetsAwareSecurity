@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_51" class="java.beans.XMLDecoder">
+ <object class="java.util.HashMap">
+  <void method="put">
+   <string>CloudMe</string>
+   <double>3061.497024536133</double>
+  </void>
+  <void method="put">
+   <string>OneDrive</string>
+   <double>15359.650224685669</double>
+  </void>
+  <void method="put">
+   <string>DropBox</string>
+   <double>2048.0</double>
+  </void>
+ </object>
+</java>
