@@ -2000,17 +2000,8 @@ public class Gui {
 			}
 
 			//Get available SPs storage sizes
-			double size;
-			for (int i=0; i<availSPsListString.size();i++){
-				try {
-					size = api.getStorageSize(availSPsListString.get(i));
-					spStorageSize.put(availSPsListString.get(i), size);
-					//System.out.println("Size of "+availSPsListString.get(i)+": "+spStorageSize.entrySet());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			spStorageSize = updateCloudsStorageSize();
+			
 			// Select Panel
 			if (isCustomPanel) {
 				// get answers
@@ -2128,6 +2119,24 @@ public class Gui {
 		} else {
 			JOptionPane.showMessageDialog(myframe, "Please fill in the mandatory fields");
 		}
+	}
+
+	//Get available SPs storage sizes
+	private Map<String, Double> updateCloudsStorageSize() {
+		Map<String, Double> spStorageSize = new HashMap <String, Double>();
+		double size;
+		for (int i=0; i<availSPsListString.size();i++){
+			try {
+				size = api.getStorageSize(availSPsListString.get(i));
+				spStorageSize.put(availSPsListString.get(i), size);
+				//System.out.println("Size of "+availSPsListString.get(i)+": "+spStorageSize.entrySet());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		System.out.println("Size of Storage entry set: "+spStorageSize.entrySet());
+		return spStorageSize;
 	}
 
 	public int runJoptionPane() {
@@ -2620,6 +2629,7 @@ public class Gui {
 				  api.upload_deleteLocalFolder(temp[0].toString(),false); //remove actual file from local storage
 			   }else{
 				   api.doUpload_Delete(temp[0].toString(), temp[3].toString(), false); //remove actual file from online cloud storage
+				   bid.SetSPsSize(updateCloudsStorageSize()); //Saves new available space:: NEEDS TESTING
 			   }
 			   
 		     model.removeRow(rows[i]-i); //remove entry from gui

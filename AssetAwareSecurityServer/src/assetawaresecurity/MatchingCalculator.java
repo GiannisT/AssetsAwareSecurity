@@ -343,7 +343,7 @@ public class MatchingCalculator {
 		
 		//First if statement is for explicit sec type else if the requirement type is yes it means its implicit   
 		//all data for the current SP are stored and prepared for auctioning
-		if(bid.getRequirementsType().equalsIgnoreCase("no") && count >=15){ TO LATHOS INE DAME TO 15 PREPI NA ALLASI ANALOGA ME TI INE SELECTED
+		if(bid.getRequirementsType().equalsIgnoreCase("no") && count >=15){ //TO LATHOS INE DAME TO 15 PREPI NA ALLASI ANALOGA ME TI INE SELECTED
 			SPcalculations.add(util);
 		}else if(bid.getRequirementsType().equalsIgnoreCase("yes")){
 			SPcalculations.add(util);
