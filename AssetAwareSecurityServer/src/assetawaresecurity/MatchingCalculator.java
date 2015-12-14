@@ -151,8 +151,8 @@ public class MatchingCalculator {
 		 double weight1=0;
 		 if (bid.getEncryptionAtRest().equals("/")){ 
 			 count++;
-		 }else if(SuitableSPs.get(i).getEncryptionAtRest().toLowerCase().contains(bid.getEncryptionAtRest().toLowerCase())){ //if it satisfies the requirement assign a big value if not a small one
-		   weight1=Double.valueOf(bid.getSignificance().get("EncryptionAtRest"));
+		 }else if(SuitableSPs.get(i).getEncryptionAtRest().contains(bid.getEncryptionAtRest())){ //if it satisfies the requirement assign a big value if not a small one
+           weight1=Double.valueOf(bid.getSignificance().get("EncryptionAtRest"));
 		   SecurityUtility= SecurityUtility + (high*weight1);
 		   count++;
 		 }else{
@@ -225,6 +225,7 @@ public class MatchingCalculator {
 		}
 		
 		double weight7=0;
+		System.out.println("location: "+bid.getSPLocation());
 		 if(bid.getSPLocation().equals("/")){
 			 count++;
 		 }else if(SuitableSPs.get(i).getSPLocation().toLowerCase().contains(bid.getSPLocation().toLowerCase())){
@@ -320,6 +321,7 @@ public class MatchingCalculator {
 			 SecurityUtility=SecurityUtility + (high*weight14);
 			 count++;
 		}else{
+			System.out.println("GamwCert efkika ekso");
 			weight14=Double.valueOf(bid.getSignificance().get("Certification"));
 			SecurityUtility=SecurityUtility + (low*weight14);
 		}
@@ -343,6 +345,8 @@ public class MatchingCalculator {
 		
 		//First if statement is for explicit sec type else if the requirement type is yes it means its implicit   
 		//all data for the current SP are stored and prepared for auctioning
+		System.out.println("to count ine gamw :"+count);
+		
 		if(bid.getRequirementsType().equalsIgnoreCase("no") && count >=15){ //TO LATHOS INE DAME TO 15 PREPI NA ALLASI ANALOGA ME TI INE SELECTED
 			SPcalculations.add(util);
 		}else if(bid.getRequirementsType().equalsIgnoreCase("yes")){
