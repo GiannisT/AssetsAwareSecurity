@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <SPSecurityOffer>
 <SP id="01">
-<SpName>Dropbox</SpName>
+<SpName>DropBox</SpName>
 <EncryptionAtRest>yes</EncryptionAtRest>
 <EncryptionAtTransit>yes</EncryptionAtTransit> 
 <PasswordProtectedFiles>no</PasswordProtectedFiles> 
@@ -10,8 +10,8 @@
 <AutoSynch>yes-no</AutoSynch> 
 <DatacenterLocation>North America</DatacenterLocation>
 <Cost>0</Cost> 
-<StorageSize>2</StorageSize>
-<FileSizeLimit> </FileSizeLimit>
+<StorageSize>2048</StorageSize>
+<FileSizeLimit>8192</FileSizeLimit>
 <SecureKeyManagement>yes</SecureKeyManagement> 
 <CredentialRecovery>yes</CredentialRecovery> 
 <ShareData>yes-no</ShareData> 

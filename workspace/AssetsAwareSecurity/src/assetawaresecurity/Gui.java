@@ -878,7 +878,7 @@ public class Gui {
 
         jLabel78.setText("Certification:");
 
-        CertificationLbl.setText("-------------");
+        CertificationLbl.setText("/");
 
         PermanentDeletionCkBtn.setText("Permanent Deletion");
 
@@ -1835,7 +1835,7 @@ public class Gui {
 		String fileWeightName = "highAtrrValuesWeights.txt";
 
 		displayFixedCkBoxList(fileAtrrName, fileWeightName);
-		CertificationLbl.setText("ISO 27001, Directive 95/46/EC");
+		CertificationLbl.setText("HIPAA");
 		SpLocationComboFix.setSelectedItem("EU");
 
 		resetSelectors();
@@ -1883,7 +1883,7 @@ public class Gui {
 
 		ArrayList<Double> weightList = new ArrayList<Double>();
 		displayFixedCkBoxList(fileName, fileWeightName);
-		CertificationLbl.setText("----------");
+		CertificationLbl.setText("/");
 		SpLocationComboFix.setSelectedIndex(0);
 
 		resetSelectors();
@@ -2030,9 +2030,21 @@ public class Gui {
 				// check which policy
 				if (isMax) {
 					for (int i = 0; i < ckBoxList.size(); i++) {
-						ansList.add(String.valueOf(ckBoxList.get(i).isSelected()));
+						
+						if (ckBoxList.get(i).isSelected()){
+							ansList.add("yes");	
+						}else{
+							ansList.add("no");	
+						}
+						
 					}
-					ansList.add(SpLocationComboFix.getSelectedItem().toString());
+					
+					if(SpLocationComboFix.getSelectedItem().equals(0)){
+						ansList.add("/");
+					}else{
+						ansList.add(SpLocationComboFix.getSelectedItem().toString());	
+					}
+					
 					ansList.add(CertificationLbl.getText());
 					ansList.add(CostTxtFix.getText());
 
@@ -2041,10 +2053,21 @@ public class Gui {
 						ansWeightList.add(weightsList.get(i));
 					}
 				} else if (isMed) {
+					
 					for (int i = 0; i < ckBoxList.size(); i++) {
-						ansList.add(String.valueOf(ckBoxList.get(i).isSelected()));
+						if (ckBoxList.get(i).isSelected()){
+							ansList.add("yes");	
+						}else{
+							ansList.add("no");	
+						}
 					}
-					ansList.add(SpLocationComboFix.getSelectedItem().toString());
+					
+					if(SpLocationComboFix.getSelectedItem().equals(0)){
+						ansList.add("/");
+					}else{
+						ansList.add(SpLocationComboFix.getSelectedItem().toString());	
+					}
+					
 					ansList.add(CertificationLbl.getText());
 					ansList.add(CostTxtFix.getText());
 
@@ -2054,9 +2077,19 @@ public class Gui {
 					}
 				} else if (isLow) {
 					for (int i = 0; i < ckBoxList.size(); i++) {
-						ansList.add(String.valueOf(ckBoxList.get(i).isSelected()));
+						
+						if (ckBoxList.get(i).isSelected()){
+							ansList.add("yes");	
+						}else{
+							ansList.add("no");	
+						}
 					}
-					ansList.add(SpLocationComboFix.getSelectedItem().toString());
+					
+					if(SpLocationComboFix.getSelectedItem().equals(0)){
+						ansList.add("/");
+					}else{
+						ansList.add(SpLocationComboFix.getSelectedItem().toString());	
+					}
 					ansList.add(CertificationLbl.getText());
 					ansList.add(CostTxtFix.getText());
 

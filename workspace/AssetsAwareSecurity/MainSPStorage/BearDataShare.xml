@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <SPSecurityOffer>
 <SP id="00">
-<SpName>Bear DataShare</SpName> 
+<SpName>BearDataShare</SpName> 
 <EncryptionAtRest>yes</EncryptionAtRest> 
 <EncryptionAtTransit>yes</EncryptionAtTransit> 
 <PasswordProtectedFiles>no</PasswordProtectedFiles>
@@ -10,8 +10,8 @@
 <AutoSynch>yes</AutoSynch> 
 <DatacenterLocation>EU</DatacenterLocation> 
 <Cost>0</Cost> 
-<StorageSize>20GB</StorageSize>
-<FileSizeLimit>8GB</FileSizeLimit> 
+<StorageSize>20480</StorageSize>
+<FileSizeLimit>8192</FileSizeLimit> 
 <SecureKeyManagement>yes</SecureKeyManagement> 
 <CredentialRecovery>no</CredentialRecovery> 
 <ShareData>yes</ShareData> 

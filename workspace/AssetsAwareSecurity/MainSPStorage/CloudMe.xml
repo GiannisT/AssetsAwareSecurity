@@ -9,17 +9,17 @@
 <EncryptionKeysConcealedFromSP>yes</EncryptionKeysConcealedFromSP> 
 <AutoSynch>yes-no</AutoSynch> 
 <DatacenterLocation>EU</DatacenterLocation> 
-<Cost>100</Cost> 
-<StorageSize>19</StorageSize> 
-<FileSizeLimit>0.15</FileSizeLimit> 
+<Cost>0</Cost> 
+<StorageSize>3072</StorageSize> 
+<FileSizeLimit>150</FileSizeLimit> 
 <SecureKeyManagement>no</SecureKeyManagement> 
 <CredentialRecovery>yes</CredentialRecovery> 
 <ShareData>yes-no</ShareData> 
 <AuditLogs>yes</AuditLogs> 
 <ProxySupport>yes-no</ProxySupport> 
-<DifferentKeyPerFile>no</DifferentKeyPerFile> 
-<Certification> </Certification>
-<PermanentFileDeletion>delayed</PermanentFileDeletion> 
+<DifferentKeyPerFile>yes-no</DifferentKeyPerFile> 
+<Certification>HIPAA, Safe Harbor</Certification>
+<PermanentFileDeletion>yes</PermanentFileDeletion> 
 </SP>
 </SPSecurityOffer>
 

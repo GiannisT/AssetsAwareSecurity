@@ -226,9 +226,14 @@ public class User {
         File spFolder = new File("SPsCredentials");
         File lastPolicy=new File("lastPolicy.xml");
         File weightLastPolicy=new File("lastPolicyWeights.xml");
+        File spSize=new File("spSizes.xml");
         
         try {
-            if (conf.exists()) {
+        	 if (spSize.exists()) {
+             	FileDeleteStrategy.FORCE.delete(spSize);
+                 System.out.println("DeletedspSize");
+             }
+        	if (conf.exists()) {
             	FileDeleteStrategy.FORCE.delete(conf);
                 System.out.println("DeletedUser");
             }
