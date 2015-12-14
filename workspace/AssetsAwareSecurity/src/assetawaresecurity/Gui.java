@@ -1818,38 +1818,8 @@ public class Gui {
 		this.addUserPane.setVisible(true);
 		
 		
-//		if(new File("AssetAwareSecurity.jar").exists()){
-//			try {
-//				Runtime.getRuntime().exec("java -jar AssetAwareSecurity.jar");
-//				System.exit(0);
-//			} catch (IOException e) {
-//				System.out.println("Error on restarting the system");
-//				e.printStackTrace();
-//			}	
-//		}
-		
 	}// GEN-LAST:event_removeUserBtnActionPerformed
 
-	private void maxSecBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_maxSecBtnActionPerformed
-		String fileAtrrName = "highAtrrValues.txt";
-		String fileWeightName = "highAtrrValuesWeights.txt";
-
-		displayFixedCkBoxList(fileAtrrName, fileWeightName);
-		CertificationLbl.setText("HIPAA");
-		SpLocationComboFix.setSelectedItem("EU");
-
-		resetSelectors();
-		isMax = true;
-		selectedPolicy="High Security Policy";
-		checkPoliciesPanels();
-		resetColors();
-		
-		fillTxtFields();
-
-		fixedSecurityPanel.setBorder(BorderFactory
-				.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)), "Maximum Security"));
-		maxSecBtn.setForeground(Color.red);
-	}// GEN-LAST:event_maxSecBtnActionPerformed
 
 
 	private void fillTxtFields() {
@@ -1897,6 +1867,48 @@ public class Gui {
 				BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)), "Low Security"));
 		lowSecBtn.setForeground(Color.red);
 	}// GEN-LAST:event_lowSecBtnActionPerformed
+
+	private void medSecBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_medSecBtnActionPerformed
+		String fileName = "medAtrrValues.txt";
+		String fileWeightName = "medAtrrValuesWeights.txt";
+
+		displayFixedCkBoxList(fileName, fileWeightName);
+		CertificationLbl.setText("ISO 27001");
+		SpLocationComboFix.setSelectedIndex(0);
+
+		resetSelectors();
+		isMed = true;
+		selectedPolicy="Medium Security Policy";
+		checkPoliciesPanels();
+		resetColors();
+
+		fillTxtFields();
+		fixedSecurityPanel.setBorder(BorderFactory
+				.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)), "Medium Security"));
+		medSecBtn.setForeground(Color.red);
+
+	}// GEN-LAST:event_medSecBtnActionPerformed
+
+	private void maxSecBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_maxSecBtnActionPerformed
+		String fileAtrrName = "highAtrrValues.txt";
+		String fileWeightName = "highAtrrValuesWeights.txt";
+
+		displayFixedCkBoxList(fileAtrrName, fileWeightName);
+		CertificationLbl.setText("HIPAA");
+		SpLocationComboFix.setSelectedItem("EU");
+
+		resetSelectors();
+		isMax = true;
+		selectedPolicy="High Security Policy";
+		checkPoliciesPanels();
+		resetColors();
+		
+		fillTxtFields();
+
+		fixedSecurityPanel.setBorder(BorderFactory
+				.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)), "Maximum Security"));
+		maxSecBtn.setForeground(Color.red);
+	}// GEN-LAST:event_maxSecBtnActionPerformed
 
 	public void createObject() {}
 
@@ -1948,26 +1960,6 @@ public class Gui {
 		return parts;
 	}
 
-	private void medSecBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_medSecBtnActionPerformed
-		String fileName = "medAtrrValues.txt";
-		String fileWeightName = "medAtrrValuesWeights.txt";
-
-		displayFixedCkBoxList(fileName, fileWeightName);
-		CertificationLbl.setText("ISO 27001");
-		SpLocationComboFix.setSelectedIndex(0);
-
-		resetSelectors();
-		isMed = true;
-		selectedPolicy="Medium Security Policy";
-		checkPoliciesPanels();
-		resetColors();
-
-		fillTxtFields();
-		fixedSecurityPanel.setBorder(BorderFactory
-				.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)), "Medium Security"));
-		medSecBtn.setForeground(Color.red);
-
-	}// GEN-LAST:event_medSecBtnActionPerformed
 
     private void delRecBtnActionPerformed(java.awt.event.ActionEvent evt) throws Exception {                                          
     	removeSelectedRows(table);
@@ -2039,12 +2031,11 @@ public class Gui {
 						
 					}
 					
-					if(SpLocationComboFix.getSelectedItem().equals(0)){
+					if(SpLocationComboFix.getSelectedIndex() == 0){
 						ansList.add("/");
 					}else{
 						ansList.add(SpLocationComboFix.getSelectedItem().toString());	
 					}
-					
 					ansList.add(CertificationLbl.getText());
 					ansList.add(CostTxtFix.getText());
 
@@ -2062,10 +2053,14 @@ public class Gui {
 						}
 					}
 					
-					if(SpLocationComboFix.getSelectedItem().equals(0)){
+					if(SpLocationComboFix.getSelectedIndex() == 0){
 						ansList.add("/");
+						//System.out.println("/");
+						
 					}else{
 						ansList.add(SpLocationComboFix.getSelectedItem().toString());	
+						//System.out.println(SpLocationComboFix.getSelectedItem().toString());
+						
 					}
 					
 					ansList.add(CertificationLbl.getText());
@@ -2085,11 +2080,13 @@ public class Gui {
 						}
 					}
 					
-					if(SpLocationComboFix.getSelectedItem().equals(0)){
+					if(SpLocationComboFix.getSelectedIndex()==0){
 						ansList.add("/");
 					}else{
 						ansList.add(SpLocationComboFix.getSelectedItem().toString());	
 					}
+					System.out.println(SpLocationComboFix.getSelectedItem().toString());
+					
 					ansList.add(CertificationLbl.getText());
 					ansList.add(CostTxtFix.getText());
 

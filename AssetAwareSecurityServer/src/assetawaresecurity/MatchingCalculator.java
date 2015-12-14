@@ -104,11 +104,6 @@ public class MatchingCalculator {
 
 		   }
 		   
-//		   if(asks.get(i).getStorageSize().equals(" ")){ //if getStorageSize is unlimited give a huge number so the test will pass
-//			 SPStorSize=100000000000000000000000000.0;
-//		   }else{
-//			   SPStorSize=Double.valueOf(asks.get(i).getStorageSize());
-//		   }
 		   
 		   if(asks.get(i).getFileSizeLimit().equals(" ")){ //if upload file size limit is unlimited give a huge number so the test will pass
 			 SPLimitSize=100000000000000000000000000.0;
@@ -321,7 +316,7 @@ public class MatchingCalculator {
 			 SecurityUtility=SecurityUtility + (high*weight14);
 			 count++;
 		}else{
-			System.out.println("GamwCert efkika ekso");
+			System.out.println("GamwCert efkika ekso"); // Touto pote kaliete????
 			weight14=Double.valueOf(bid.getSignificance().get("Certification"));
 			SecurityUtility=SecurityUtility + (low*weight14);
 		}
