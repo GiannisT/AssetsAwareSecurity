@@ -98,15 +98,16 @@ public class DropBoxAPI { // class need to be renamed to DropBoxCode.java or smt
     }
     
 	public static double getDropboxSize() throws DbxException {
-		double dropboxSize = 0, avail=0, totalAvail = 0;
+		long dropboxSize = 0, avail=0;
+		double totalAvail = 0;
 		DbxAccountInfo dbxAccountInfo = client.getAccountInfo();
 		// in MB :)
-		dropboxSize = dbxAccountInfo.quota.total / 1024 / 1024;
-        avail = dbxAccountInfo.quota.normal /1024 / 1024;
-        System.out.println("Account total: " +dropboxSize + dbxAccountInfo );
-        System.out.println("Used space(?) : " +avail + dbxAccountInfo);
+		dropboxSize = dbxAccountInfo.quota.total ;
+        avail = dbxAccountInfo.quota.normal ;
+        System.out.println("Account total: " +(dropboxSize / 1024 / 1024) + dbxAccountInfo );
+        System.out.println("Used space(?) : " +(avail / 1024 / 1024) + dbxAccountInfo);
         totalAvail = dropboxSize - avail;
-		return totalAvail;
+		return totalAvail / 1024 / 1024;
 	}
 
         

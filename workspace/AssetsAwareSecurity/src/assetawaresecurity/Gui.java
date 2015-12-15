@@ -1971,6 +1971,23 @@ public class Gui {
 	}// GEN-LAST:event_jButton1ActionPerformed
 
 	public void doPolicySelection() {
+		//thread for loading animation
+		Thread thread = new Thread(){
+			public void run(){
+				Timer timer = new Timer(1500, new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent ev) {
+						// Whatever action you want to happen every 1000 milliseconds
+						loadGifLbl.setVisible(false);
+						selectPolicyBtn.setText("Submit Security Policy");
+					}
+				});
+				timer.start();
+				timer.setRepeats(false);
+				System.out.println("Thread Running"); // so this runs but not the rest
+			}
+		};
+		
 		Map<String, Double> spStorageSize = new HashMap <String, Double>();
 		ArrayList<String> ansList = new ArrayList<String>();
 		ArrayList<Double> ansWeightList = new ArrayList<Double>();
@@ -1982,6 +1999,10 @@ public class Gui {
 
 		pass = validation();
 		if (pass) {
+
+			loadGifLbl.setVisible(true);
+			selectPolicyBtn.setText("loading....");
+			thread.start();
 			// get Requirment type
 			String req;
 
@@ -2096,8 +2117,8 @@ public class Gui {
 				}
 				
 			}
-			
-			selectPolicyBtn.setText("Loading...");
+
+			//selectPolicyBtn.setText("Loading...");
 			//TEST
 //			for (int i=0; i<availSPsListString.size();i++){
 //				try {
@@ -2107,16 +2128,7 @@ public class Gui {
 //					e.printStackTrace();
 //				}
 //			}
-			loadGifLbl.setVisible(true);
-			Timer timer = new Timer(1000, new ActionListener() {
-			    @Override
-			    public void actionPerformed(ActionEvent ev) {
-			        // Whatever action you want to happen every 1000 milliseconds
-			        loadGifLbl.setVisible(false);
-			    }
-			});
-			timer.start();
-			timer.setRepeats(false);
+
 			//test api -- gona need method for that
 //			try {
 //				api.getStorageSize("CloudMe");
@@ -2125,8 +2137,9 @@ public class Gui {
 //				e.printStackTrace();
 //			}
 //			
-			
-			selectPolicyBtn.setText("Submit Security Policy");
+			//thread.stop();
+//			//loadGifLbl.setVisible(false);
+//			selectPolicyBtn.setText("Submit Security Policy");
 		} else {
 			JOptionPane.showMessageDialog(myframe, "Please fill in the mandatory fields");
 		}
