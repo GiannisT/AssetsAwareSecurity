@@ -221,7 +221,7 @@ public class MatchingCalculator {
 		
 		double weight7=0;
 		System.out.println("location: "+bid.getSPLocation());
-		 if(bid.getSPLocation().equals("/")){
+		 if( bid.getSPLocation().equals("/") || bid.getSPLocation().equals("Datacenter Location") ){
 			 count++;
 		 }else if(SuitableSPs.get(i).getSPLocation().toLowerCase().contains(bid.getSPLocation().toLowerCase())){
 			 weight7=Double.valueOf(bid.getSignificance().get("DatacenterLocation"));
@@ -316,7 +316,7 @@ public class MatchingCalculator {
 			 SecurityUtility=SecurityUtility + (high*weight14);
 			 count++;
 		}else{
-			System.out.println("GamwCert efkika ekso"); // Touto pote kaliete????
+			System.out.println("GamwCert efkika ekso");
 			weight14=Double.valueOf(bid.getSignificance().get("Certification"));
 			SecurityUtility=SecurityUtility + (low*weight14);
 		}
