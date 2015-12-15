@@ -2031,11 +2031,7 @@ public class Gui {
 						
 					}
 					
-					if(SpLocationComboFix.getSelectedIndex() == 0){
-						ansList.add("/");
-					}else{
-						ansList.add(SpLocationComboFix.getSelectedItem().toString());	
-					}
+					ansList.add(SpLocationComboFix.getSelectedItem().toString());
 					ansList.add(CertificationLbl.getText());
 					ansList.add(CostTxtFix.getText());
 
@@ -2053,16 +2049,7 @@ public class Gui {
 						}
 					}
 					
-					if(SpLocationComboFix.getSelectedIndex() == 0){
-						ansList.add("/");
-						//System.out.println("/");
-						
-					}else{
-						ansList.add(SpLocationComboFix.getSelectedItem().toString());	
-						//System.out.println(SpLocationComboFix.getSelectedItem().toString());
-						
-					}
-					
+					ansList.add(SpLocationComboFix.getSelectedItem().toString());
 					ansList.add(CertificationLbl.getText());
 					ansList.add(CostTxtFix.getText());
 
@@ -2080,13 +2067,7 @@ public class Gui {
 						}
 					}
 					
-					if(SpLocationComboFix.getSelectedIndex()==0){
-						ansList.add("/");
-					}else{
-						ansList.add(SpLocationComboFix.getSelectedItem().toString());	
-					}
-					System.out.println(SpLocationComboFix.getSelectedItem().toString());
-					
+					ansList.add(SpLocationComboFix.getSelectedItem().toString());
 					ansList.add(CertificationLbl.getText());
 					ansList.add(CostTxtFix.getText());
 
