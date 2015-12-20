@@ -2016,108 +2016,110 @@ public class Gui {
 			//Get available SPs storage sizes
 			spStorageSize = updateCloudsStorageSize();
 			
-//			// Select Panel
-//			if (isCustomPanel) {
-//				// get answers
-//				ansList = getCustomAnswers();
-//				ansWeightList = getCustomWeightsAnswers();
-//				
-//				try {
-//					// Create Bid Object
-//					bid = new CreateBid(req, ansList.get(0), ansList.get(1), ansList.get(2), ansList.get(3),
-//							ansList.get(4), ansList.get(5), ansList.get(6), ansList.get(7), ansList.get(8),
-//							ansList.get(9), ansList.get(10), ansList.get(11), ansList.get(12), ansList.get(13),
-//							ansList.get(14), ansList.get(15),"0", ansWeightList.get(0),
-//							ansWeightList.get(1), ansWeightList.get(2), ansWeightList.get(3), ansWeightList.get(4),
-//							ansWeightList.get(5), ansWeightList.get(6), ansWeightList.get(7), ansWeightList.get(8),
-//							ansWeightList.get(9), ansWeightList.get(10), ansWeightList.get(11), ansWeightList.get(12),
-//							ansWeightList.get(13), ansWeightList.get(14),availSPsListString,"",selectedPolicy,spStorageSize);
-//					// need to send bid from here
-//				} catch (FileNotFoundException ex) {
-//					Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
-//					System.out.println(ex.getMessage());
-//				}
-//				// if there is a new custom policy save it in an xml file
-//				sys.saveCustomPolicy(bid); 
-//			} else {
-//				
-//				// check which policy
-//				if (isMax) {
-//					for (int i = 0; i < ckBoxList.size(); i++) {
-//						
-//						if (ckBoxList.get(i).isSelected()){
-//							ansList.add("yes");	
-//						}else{
-//							ansList.add("no");	
-//						}
-//						
-//					}
-//					
-//					ansList.add(SpLocationComboFix.getSelectedItem().toString());
-//					ansList.add(CertificationLbl.getText());
-//					ansList.add(CostTxtFix.getText());
-//
-//					// Weights imported from file (fixed)
-//					for (int i = 0; i < weightsList.size(); i++) {
-//						ansWeightList.add(weightsList.get(i));
-//					}
-//				} else if (isMed) {
-//					
-//					for (int i = 0; i < ckBoxList.size(); i++) {
-//						if (ckBoxList.get(i).isSelected()){
-//							ansList.add("yes");	
-//						}else{
-//							ansList.add("no");	
-//						}
-//					}
-//					
-//					ansList.add(SpLocationComboFix.getSelectedItem().toString());
-//					ansList.add(CertificationLbl.getText());
-//					ansList.add(CostTxtFix.getText());
-//
-//					// Weights
-//					for (int i = 0; i < weightsList.size(); i++) {
-//						ansWeightList.add(weightsList.get(i));
-//					}
-//				} else if (isLow) {
-//					for (int i = 0; i < ckBoxList.size(); i++) {
-//						
-//						if (ckBoxList.get(i).isSelected()){
-//							ansList.add("yes");	
-//						}else{
-//							ansList.add("no");	
-//						}
-//					}
-//					
-//					ansList.add(SpLocationComboFix.getSelectedItem().toString());
-//					ansList.add(CertificationLbl.getText());
-//					ansList.add(CostTxtFix.getText());
-//
-//					// Weights
-//					for (int i = 0; i < weightsList.size(); i++) {
-//						ansWeightList.add(weightsList.get(i));
-//					}
-//				} // End IF
-//				
-//				try {
-//					// Create Bid Object
-//
-//					bid = new CreateBid(req, ansList.get(0), ansList.get(1), ansList.get(2), ansList.get(3),
-//							ansList.get(4), ansList.get(5), ansList.get(6), ansList.get(7), ansList.get(8),
-//							ansList.get(9), ansList.get(10), ansList.get(11), ansList.get(12), ansList.get(13),
-//							ansList.get(14), ansList.get(15), "0", ansWeightList.get(0),
-//							ansWeightList.get(1), ansWeightList.get(2), ansWeightList.get(3), ansWeightList.get(4),
-//							ansWeightList.get(5), ansWeightList.get(6), ansWeightList.get(7), ansWeightList.get(8),
-//							ansWeightList.get(9), ansWeightList.get(10), ansWeightList.get(11), ansWeightList.get(12),
-//							ansWeightList.get(13), ansWeightList.get(14),availSPsListString,"",selectedPolicy,spStorageSize);
-//					// MonitorAssets mon=new MonitorAssets();
-//
-//				} catch (FileNotFoundException ex) {
-//					Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
-//					System.out.println(ex.getMessage());
-//				}
-//				
-//			}
+			// Select Panel
+			if (isCustomPanel) {
+				// get answers
+				ansList = getCustomAnswers();
+				ansWeightList = getCustomWeightsAnswers();
+				
+				try {
+					// Create Bid Object
+					bid = new CreateBid(req, ansList.get(0), ansList.get(1), ansList.get(2), ansList.get(3),
+							ansList.get(4), ansList.get(5), ansList.get(6), ansList.get(7), ansList.get(8),
+							ansList.get(9), ansList.get(10), ansList.get(11), ansList.get(12), ansList.get(13),
+							ansList.get(14), ansList.get(15),"0", ansWeightList.get(0),
+							ansWeightList.get(1), ansWeightList.get(2), ansWeightList.get(3), ansWeightList.get(4),
+							ansWeightList.get(5), ansWeightList.get(6), ansWeightList.get(7), ansWeightList.get(8),
+							ansWeightList.get(9), ansWeightList.get(10), ansWeightList.get(11), ansWeightList.get(12),
+							ansWeightList.get(13), ansWeightList.get(14),availSPsListString,"",selectedPolicy,spStorageSize);
+					// need to send bid from here
+				} catch (FileNotFoundException ex) {
+					Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
+					System.out.println(ex.getMessage());
+					JOptionPane.showMessageDialog(myframe, "Error on Bid creation: " +ex.getMessage());
+				}
+				// if there is a new custom policy save it in an xml file
+				sys.saveCustomPolicy(bid); 
+			} else {
+				
+				// check which policy
+				if (isMax) {
+					for (int i = 0; i < ckBoxList.size(); i++) {
+						
+						if (ckBoxList.get(i).isSelected()){
+							ansList.add("yes");	
+						}else{
+							ansList.add("no");	
+						}
+						
+					}
+					
+					ansList.add(SpLocationComboFix.getSelectedItem().toString());
+					ansList.add(CertificationLbl.getText());
+					ansList.add(CostTxtFix.getText());
+
+					// Weights imported from file (fixed numbers)
+					for (int i = 0; i < weightsList.size(); i++) {
+						ansWeightList.add(weightsList.get(i));
+					}
+				} else if (isMed) {
+					
+					for (int i = 0; i < ckBoxList.size(); i++) {
+						if (ckBoxList.get(i).isSelected()){
+							ansList.add("yes");	
+						}else{
+							ansList.add("no");	
+						}
+					}
+					
+					ansList.add(SpLocationComboFix.getSelectedItem().toString());
+					ansList.add(CertificationLbl.getText());
+					ansList.add(CostTxtFix.getText());
+
+					// Weights
+					for (int i = 0; i < weightsList.size(); i++) {
+						ansWeightList.add(weightsList.get(i));
+					}
+				} else if (isLow) {
+					for (int i = 0; i < ckBoxList.size(); i++) {
+						
+						if (ckBoxList.get(i).isSelected()){
+							ansList.add("yes");	
+						}else{
+							ansList.add("no");	
+						}
+					}
+					
+					ansList.add(SpLocationComboFix.getSelectedItem().toString());
+					ansList.add(CertificationLbl.getText());
+					ansList.add(CostTxtFix.getText());
+
+					// Weights
+					for (int i = 0; i < weightsList.size(); i++) {
+						ansWeightList.add(weightsList.get(i));
+					}
+				} // End IF
+				
+				try {
+					// Create Bid Object
+
+					bid = new CreateBid(req, ansList.get(0), ansList.get(1), ansList.get(2), ansList.get(3),
+							ansList.get(4), ansList.get(5), ansList.get(6), ansList.get(7), ansList.get(8),
+							ansList.get(9), ansList.get(10), ansList.get(11), ansList.get(12), ansList.get(13),
+							ansList.get(14), ansList.get(15), "0", ansWeightList.get(0),
+							ansWeightList.get(1), ansWeightList.get(2), ansWeightList.get(3), ansWeightList.get(4),
+							ansWeightList.get(5), ansWeightList.get(6), ansWeightList.get(7), ansWeightList.get(8),
+							ansWeightList.get(9), ansWeightList.get(10), ansWeightList.get(11), ansWeightList.get(12),
+							ansWeightList.get(13), ansWeightList.get(14),availSPsListString,"",selectedPolicy,spStorageSize);
+			
+				} catch (FileNotFoundException ex) {
+					Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
+					System.out.println(ex.getMessage());
+					JOptionPane.showMessageDialog(myframe, "Error on Bid creation: " +ex.getMessage());
+					
+				}
+				
+			}
 			
 			//from up here
 
