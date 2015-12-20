@@ -318,6 +318,7 @@ public class MatchingCalculator {
 				String [] parts;
 				boolean perfMatch = false;
 				parts = bid.getCertification().split(",");
+				System.out.println("Sudo prama "+parts);
 				for (int k = 0; k<parts.length;k++){
 					if(SuitableSPs.get(i).getCertification().toLowerCase().contains(parts[k].toLowerCase())){
 						perfMatch = true;
