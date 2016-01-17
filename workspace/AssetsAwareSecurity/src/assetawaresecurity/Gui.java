@@ -1971,24 +1971,9 @@ public class Gui {
 	}// GEN-LAST:event_jButton1ActionPerformed
 
 	public void doPolicySelection() {
-		//thread for loading animation
-		Thread thread = new Thread(){
-			public void run(){;
-				
-				Timer timer = new Timer(1500, new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent ev) {
-						// Whatever action you want to happen every 1000 milliseconds
-						loadGifLbl.setVisible(false);
-						selectPolicyBtn.setText("Submit Security Policy");
-					}
-				});
-				timer.start();
-				timer.setRepeats(false);
-				System.out.println("Thread Running"); // so this runs but not the rest
-			}
-		};
 		
+		
+				
 		Map<String, Double> spStorageSize = new HashMap <String, Double>();
 		ArrayList<String> ansList = new ArrayList<String>();
 		ArrayList<Double> ansWeightList = new ArrayList<Double>();
@@ -1999,11 +1984,8 @@ public class Gui {
 		bid = null;
 
 		pass = validation();
-		if (pass) {
-			selectPolicyBtn.setText("loading....");
-			loadGifLbl.setVisible(true);
-
-			thread.start();
+		if (pass) {			
+							
 			// get Requirment type
 			String req;
 
@@ -2036,7 +2018,6 @@ public class Gui {
 				} catch (FileNotFoundException ex) {
 					Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
 					System.out.println(ex.getMessage());
-					JOptionPane.showMessageDialog(myframe, "Error on Bid creation: " +ex.getMessage());
 				}
 				// if there is a new custom policy save it in an xml file
 				sys.saveCustomPolicy(bid); 
@@ -2058,7 +2039,7 @@ public class Gui {
 					ansList.add(CertificationLbl.getText());
 					ansList.add(CostTxtFix.getText());
 
-					// Weights imported from file (fixed numbers)
+					// Weights imported from file (fixed)
 					for (int i = 0; i < weightsList.size(); i++) {
 						ansWeightList.add(weightsList.get(i));
 					}
@@ -2111,28 +2092,16 @@ public class Gui {
 							ansWeightList.get(5), ansWeightList.get(6), ansWeightList.get(7), ansWeightList.get(8),
 							ansWeightList.get(9), ansWeightList.get(10), ansWeightList.get(11), ansWeightList.get(12),
 							ansWeightList.get(13), ansWeightList.get(14),availSPsListString,"",selectedPolicy,spStorageSize);
-			
+					// MonitorAssets mon=new MonitorAssets();
+
 				} catch (FileNotFoundException ex) {
 					Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
 					System.out.println(ex.getMessage());
-					JOptionPane.showMessageDialog(myframe, "Error on Bid creation: " +ex.getMessage());
-					
 				}
-				
 			}
-			
-			//from up here
 
-			//selectPolicyBtn.setText("Loading...");
-			//TEST
-//			for (int i=0; i<availSPsListString.size();i++){
-//				try {
-//					System.out.println("Size of "+availSPsListString.get(i)+" 2nd time: "+bid.getSPsSize().entrySet());
-//				} catch (Exception e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
+			loadGifLbl.setVisible(false);
+			selectPolicyBtn.setText("Submit Security Policy");
 
 			//test api -- gona need method for that
 //			try {
@@ -2141,10 +2110,6 @@ public class Gui {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-//			
-			//thread.stop();
-//			//loadGifLbl.setVisible(false);
-//			selectPolicyBtn.setText("Submit Security Policy");
 		} else {
 			JOptionPane.showMessageDialog(myframe, "Please fill in the mandatory fields");
 		}

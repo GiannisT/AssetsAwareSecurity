@@ -140,7 +140,7 @@ public class CreateAsk {
 		RestEncryption=enc;
 	}
 	public void setEncryptionAtTransit(String encT){
-		RestEncryption=encT;
+		TransitEncryption=encT;
 	}
 	public void setPassProtected(String pass){
 		PassProtecFiles=pass;
@@ -170,7 +170,7 @@ public class CreateAsk {
 		AuditLogs=logs;
 	}
 	public void setProxySupport(String proxy){
-		RestEncryption=proxy;
+		ProxySupport=proxy;
 	}
 	public void setDifferentKeyPerFile(String keyPerFile){
 		DifferentKeyPerFile=keyPerFile;
@@ -193,6 +193,9 @@ public class CreateAsk {
 
 	//this will send all SP storage offers to the auctioneer for auctioning
 	public ArrayList<CreateAsk> getAsks(){
+		System.out.println("In CreateAsk");
+		System.out.print(SPoffers.get(0).getSpName()+" : ");
+		System.out.println(SPoffers.get(0).getEncryptionAtTransit());
 		return SPoffers;
 	}
 	public String getSpName(){
@@ -205,7 +208,7 @@ public class CreateAsk {
 		return RestEncryption;
 	}
 	public String getEncryptionAtTransit(){
-		return RestEncryption;
+		return TransitEncryption;
 	}
 	public String getPassProtected(){
 		return PassProtecFiles;
@@ -235,7 +238,7 @@ public class CreateAsk {
 		return AuditLogs;
 	}
 	public String getProxySupport(){
-		return RestEncryption;
+		return ProxySupport;
 	}
 	public String getDifferentKeyPerFile(){
 		return DifferentKeyPerFile;
@@ -252,7 +255,5 @@ public class CreateAsk {
 	public String getStorageSize(){
 		return StorageSize;
 	}
-
-
 
 }

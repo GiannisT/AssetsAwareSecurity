@@ -8,7 +8,7 @@
 <FileVersioning>yes</FileVersioning>  
 <EncryptionKeysConcealedFromSP>no</EncryptionKeysConcealedFromSP>
 <AutoSynch>yes-no</AutoSynch> 
-<DatacenterLocation>North America</DatacenterLocation>
+<DatacenterLocation>USA</DatacenterLocation>
 <Cost>0</Cost> 
 <StorageSize>2048</StorageSize>
 <FileSizeLimit>8192</FileSizeLimit>

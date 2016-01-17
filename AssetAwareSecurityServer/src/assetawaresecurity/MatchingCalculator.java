@@ -57,6 +57,8 @@ public class MatchingCalculator {
 		ArrayList<CreateAsk> suitableAsks = new ArrayList<CreateAsk>();
 
 		asks=obj.getAsks(); //retrieves all available SP offers
+		System.out.print(asks.get(0).getSpName()+" : ");
+		System.out.println(asks.get(0).getEncryptionAtTransit());
 		double SPLimitSize=0;
 
 		for (int i=0; i<asks.size();i++){//check the offers of all available SPs to determine if they are suitable for a users bid  
@@ -64,9 +66,9 @@ public class MatchingCalculator {
 			boolean condition=false;
 
 			if(bid.getCost().equals("/")){ //indicates that a user does not care about the cost
-			}else if(Double.valueOf(bid.getCost()) >= Double.valueOf(asks.get(i).getCost())){ //in case that the cost that a user is willing to pay, is violated we remove the certain Sp
+			}else if(Double.valueOf(bid.getCost().trim()) >= Double.valueOf(asks.get(i).getCost().trim())){ //in case that the cost that a user is willing to pay, is violated we remove the certain Sp
 				condition=true;
-			}else if (Double.valueOf(bid.getCost()) < Double.valueOf(asks.get(i).getCost())){
+			}else if (Double.valueOf(bid.getCost().trim()) < Double.valueOf(asks.get(i).getCost().trim())){
 				System.out.println("efkike--- cost of"+asks.get(i).getSpName()+"   with cost:"+asks.get(i).getCost());
 				continue;
 			}
@@ -136,7 +138,7 @@ public class MatchingCalculator {
 
 
 		SPcalculations=new ArrayList<MatchingCalculator>(); //re-instantiated in order to be empty the next time we need to calculate the utility for a new bid/request
-		CreateAsk obj=new CreateAsk();
+		//CreateAsk obj=new CreateAsk();
 		MatchingCalculator util;
 		double high=10, low=5;
 
@@ -148,18 +150,22 @@ public class MatchingCalculator {
 
 			double weight1=0;
 			if (bid.getEncryptionAtRest().equals("/")){ 
+				System.out.println("Empike At Rest -- Ofkero");
 				count++;
-			}else if(SuitableSPs.get(i).getEncryptionAtRest().contains(bid.getEncryptionAtRest())){ //if it satisfies the requirement assign a big value if not a small one
+			}else if(SuitableSPs.get(i).getEncryptionAtRest().toLowerCase().contains(bid.getEncryptionAtRest().toLowerCase())){ //if it satisfies the requirement assign a big value if not a small one
 				weight1=Double.valueOf(bid.getSignificance().get("EncryptionAtRest"));
 				SecurityUtility= SecurityUtility + (high*weight1);
+				System.out.println("Empike At Rest");
 				count++;
 			}else{
+				System.out.println("Empike At Rest -- Last else");
 				weight1=Double.valueOf(bid.getSignificance().get("EncryptionAtRest"));
 				SecurityUtility= SecurityUtility + (low*weight1);	 
 			}
 
 			double weight2=0;
 			if(bid.getEncryptionAtTransit().equals("/")){
+				System.out.println("Empike transit -- ofkero");
 				count++;
 			}else if(SuitableSPs.get(i).getEncryptionAtTransit().toLowerCase().contains(bid.getEncryptionAtTransit().toLowerCase())){
 				weight2= Double.valueOf(bid.getSignificance().get("EncryptionAtTransit")); 
@@ -170,13 +176,16 @@ public class MatchingCalculator {
 				weight2= Double.valueOf(bid.getSignificance().get("EncryptionAtTransit")); 
 				SecurityUtility= SecurityUtility + (low*weight2); 
 			}
+			System.out.println("Transit SP: "+SuitableSPs.get(i).getEncryptionAtTransit()+" - Bid: "+bid.getEncryptionAtTransit());
 
 			double weight3=0;
 			if(bid.getPassProtected().equals("/")){
+				System.out.println("Empike PassProtected -- Ofkero");
 				count++;
 			}else if(SuitableSPs.get(i).getPassProtected().toLowerCase().contains(bid.getPassProtected().toLowerCase())){
 				weight3=Double.valueOf(bid.getSignificance().get("PasswordProtectedFiles"));  
 				SecurityUtility= SecurityUtility + (high*weight3);	
+				System.out.println("Empike PassProtected");
 				count++;
 
 			}else{
@@ -186,6 +195,7 @@ public class MatchingCalculator {
 
 			double weight4=0;
 			if(bid.getFileVersioning().equals("/")){
+				System.out.println("Empike versioning -- Ofkero");
 				count++;
 			}else if(SuitableSPs.get(i).getFileVersioning().toLowerCase().contains(bid.getFileVersioning().toLowerCase())){
 				weight4=Double.valueOf(bid.getSignificance().get("FileVersioning"));
@@ -199,10 +209,12 @@ public class MatchingCalculator {
 
 			double weight5=0;
 			if(bid.getConcealedKeys().equals("/")){
+				System.out.println("Empike conceal -- Ofkero");
 				count++;
 			}else if(SuitableSPs.get(i).getConcealedKeys().toLowerCase().contains(bid.getConcealedKeys().toLowerCase())){
 				weight5=Double.valueOf(bid.getSignificance().get("EncryptionKeysConcealedFromSP"));
 				SecurityUtility= SecurityUtility + (high*weight5);
+				System.out.println("Empike conceal");
 				count++;
 			}else{
 				weight5=Double.valueOf(bid.getSignificance().get("EncryptionKeysConcealedFromSP"));
@@ -211,6 +223,7 @@ public class MatchingCalculator {
 
 			double weight6=0;
 			if(bid.getAutoSynch().equals("/")){
+				System.out.println("Empike synch-- Ofkero");
 				count++;
 			}else if(SuitableSPs.get(i).getAutoSynch().toLowerCase().contains(bid.getAutoSynch().toLowerCase())){
 				weight6=Double.valueOf(bid.getSignificance().get("AutoSynch"));
@@ -225,10 +238,12 @@ public class MatchingCalculator {
 			double weight7=0;
 			System.out.println("location: "+bid.getSPLocation());
 			if( bid.getSPLocation().equals("/") || bid.getSPLocation().equals("Datacenter Location") ){
+				System.out.println("Empike location-- Ofkero");
 				count++;
 			}else if(SuitableSPs.get(i).getSPLocation().toLowerCase().contains(bid.getSPLocation().toLowerCase())){
 				weight7=Double.valueOf(bid.getSignificance().get("DatacenterLocation"));
 				SecurityUtility=SecurityUtility + (high*weight7);
+				System.out.println("Empike location");
 				count++;
 			}else{
 				weight7=Double.valueOf(bid.getSignificance().get("DatacenterLocation"));
@@ -237,11 +252,12 @@ public class MatchingCalculator {
 
 			double weight8=0;
 			if(bid.getSecKeyManagement().equals("/")){
+				System.out.println("Empike secKeyMan-- Ofkero");
 				count++;
 			}else if(SuitableSPs.get(i).getSecKeyManagement().toLowerCase().contains(bid.getSecKeyManagement().toLowerCase())){
 				weight8=Double.valueOf(bid.getSignificance().get("SecureKeyManagement"));
 				SecurityUtility=SecurityUtility + (high*weight8);
-				System.out.println("empike sec key man");
+				System.out.println("Empike secKeyMan");
 				count++;
 			}else{
 				weight8=Double.valueOf(bid.getSignificance().get("SecureKeyManagement"));
@@ -250,11 +266,12 @@ public class MatchingCalculator {
 
 			double weight9=0;
 			if(bid.getPassRecovery().equals("/")){
+				System.out.println("Empike passRec -- Ofkero");
 				count++;
 			}else if(SuitableSPs.get(i).getPassRecovery().toLowerCase().contains(bid.getPassRecovery().toLowerCase())){
 				weight9=Double.valueOf(bid.getSignificance().get("CredentialRecovery"));
 				SecurityUtility=SecurityUtility + (high*weight9);
-				System.out.println("pass rec");
+				System.out.println("Empike passRec");
 				count++;
 			}else{
 				weight9=Double.valueOf(bid.getSignificance().get("CredentialRecovery"));
@@ -263,11 +280,12 @@ public class MatchingCalculator {
 
 			double weight10=0;
 			if(bid.getShareData().equals("/")){
+				System.out.println("Empike sharedata-- Ofkero");
 				count++;
 			}else if(SuitableSPs.get(i).getDataShare().toLowerCase().contains(bid.getShareData().toLowerCase())){
 				weight10=Double.valueOf(bid.getSignificance().get("ShareData"));
 				SecurityUtility=SecurityUtility + (high*weight10);
-				System.out.println("sharedata");
+				System.out.println("Empike sharedata");
 				count++;
 			}else{
 				weight10=Double.valueOf(bid.getSignificance().get("ShareData"));
@@ -276,11 +294,12 @@ public class MatchingCalculator {
 
 			double weight11=0;
 			if(bid.getAuditLogs().equals("/")){
+				System.out.println("Empike Audit-- Ofkero");
 				count++;
 			}else if(SuitableSPs.get(i).getAuditLogs().toLowerCase().contains(bid.getAuditLogs().toLowerCase())){
 				weight11=Double.valueOf(bid.getSignificance().get("AuditLogs"));
+				System.out.println("Empike Audit");
 				SecurityUtility=SecurityUtility + (high*weight11);
-				System.out.println("audit logs");
 				count++;
 			}else{
 				weight11=Double.valueOf(bid.getSignificance().get("AuditLogs"));
@@ -289,11 +308,13 @@ public class MatchingCalculator {
 
 			double weight12=0;
 			if(bid.getProxySupport().equals("/")){
+				System.out.println("Empike proxy-- Ofkero");
 				count++;
 			}else if(SuitableSPs.get(i).getProxySupport().toLowerCase().contains(bid.getProxySupport().toLowerCase())){
 				weight12=Double.valueOf(bid.getSignificance().get("ProxySupport"));
 				SecurityUtility=SecurityUtility + (high*weight12);
 				count++;
+				System.out.println("Empike proxy");
 			}else{
 				weight12=Double.valueOf(bid.getSignificance().get("ProxySupport"));
 				SecurityUtility=SecurityUtility + (low*weight12);
@@ -302,9 +323,11 @@ public class MatchingCalculator {
 			double weight13=0;
 			if(bid.getDifferentKeyPerFile().equals("/")){
 				count++;
+				System.out.println("Empike Diff.Key -- Ofkero");
 			}else if(SuitableSPs.get(i).getDifferentKeyPerFile().toLowerCase().contains(bid.getDifferentKeyPerFile().toLowerCase())){
 				weight13=Double.valueOf(bid.getSignificance().get("DifferentKeyPerFile"));
 				SecurityUtility=SecurityUtility + (high*weight13);
+				System.out.println("Empike Diff.Key");
 				count++;
 			}else{
 				weight13=Double.valueOf(bid.getSignificance().get("DifferentKeyPerFile"));
@@ -313,14 +336,14 @@ public class MatchingCalculator {
 
 			double weight14=0;
 			if(bid.getCertification().equals("/")){
+				System.out.println("Empike Certification -- Ofkero");
 				count++;
-			}else{ // Check for perfect match of the certification provided by user -- cannot be done on SPprovider side
+			}else{ // Check for perfect match of the certification provided by user
 				String [] parts;
 				boolean perfMatch = false;
 				parts = bid.getCertification().split(",");
-				System.out.println("Sudo prama "+parts);
 				for (int k = 0; k<parts.length;k++){
-					if(SuitableSPs.get(i).getCertification().toLowerCase().contains(parts[k].toLowerCase())){
+					if(SuitableSPs.get(i).getCertification().toLowerCase().trim().contains(parts[k].toLowerCase().trim())){
 						perfMatch = true;
 					} else{
 						perfMatch = false;
@@ -328,10 +351,11 @@ public class MatchingCalculator {
 					}
 
 				}
-				if(perfMatch){
+				if(perfMatch==true){
 					System.out.println("Perfect match");
 					weight14=Double.valueOf(bid.getSignificance().get("Certification"));
 					SecurityUtility=SecurityUtility + (high*weight14);
+					System.out.println("Empike Certification");
 					count++;
 				}else{
 					System.out.println("NOT a Perfect match");
@@ -342,11 +366,13 @@ public class MatchingCalculator {
 
 			double weight15=0;
 			if(bid.getPermanentDeletion().equals("/")){
+				System.out.println("Empike PermDel -- Ofkero");
 				count++;
 			}else if(SuitableSPs.get(i).getPermanentDeletion().toLowerCase().contains(bid.getPermanentDeletion().toLowerCase())){
 				weight15=Double.valueOf(bid.getSignificance().get("PermanentFileDeletion"));
 				SecurityUtility=SecurityUtility + (high*weight15);
 				count++;
+				System.out.println("Empike PermDel");
 			}else{
 				weight15=Double.valueOf(bid.getSignificance().get("PermanentFileDeletion"));
 				SecurityUtility=SecurityUtility + (low*weight15);
