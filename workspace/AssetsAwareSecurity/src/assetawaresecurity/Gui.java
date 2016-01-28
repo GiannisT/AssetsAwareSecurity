@@ -551,15 +551,15 @@ public class Gui {
 
         cloudMeCkb.setText("CloudMe");
 
-        bearShareCkb.setText("BearDataShare (?)");
+        bearShareCkb.setText("BearDataShare");
 
-        cubbyCkb.setText("Cubby (?)");
+        cubbyCkb.setText("Cubby");
         cubbyCkb.setToolTipText("Installation of SP needed");
 
-        spiderOakCkb.setText("SpiderOak (?)");
+        spiderOakCkb.setText("SpiderOak");
         spiderOakCkb.setToolTipText("Installation of SP needed");
 
-        megaCkb.setText("MEGA (?)");
+        megaCkb.setText("MEGA"); // (?)
         megaCkb.setToolTipText("Installation of SP needed");
 
         javax.swing.GroupLayout addUserPaneLayout = new javax.swing.GroupLayout(addUserPane);
@@ -675,16 +675,16 @@ public class Gui {
 
         cloudMeCkbRtn.setText("CloudMe");
 
-        spiderOakCkbRtn.setText("Spider Oak (?)");
+        spiderOakCkbRtn.setText("SpiderOak"); // (?)
         spiderOakCkbRtn.setToolTipText("Installation of SP needed");
 
-        megaCkbRtn.setText("MEGA (?)");
+        megaCkbRtn.setText("MEGA");
         megaCkbRtn.setToolTipText("Installation of SP needed");
 
-        cubbyCkbRtn.setText("Cubby (?)");
+        cubbyCkbRtn.setText("Cubby");
         cubbyCkbRtn.setToolTipText("Installation of SP needed");
 
-        bearShareRtn.setText("BearDataShare (?)");
+        bearShareRtn.setText("BearDataShare");
         bearShareRtn.setToolTipText("Installation of SP needed");
 
         yandexCkbRtn.setText("YandexDisk");

@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -67,8 +68,10 @@ public class MegaAPI {
     }
 
     public double getStorageSize() throws IOException {
-        int num = 1024;
-        long totalMemory = 20 *num*num*num; // in GB need to be declared constant in all calasses --to bytes
+    	BigInteger num = new BigInteger("1024");
+        String ans ="";
+        BigInteger totalMemory = new BigInteger("53687091200");
+        BigInteger used;
         File dir = new File(ROOT_PATH);
         long totalUsed = 0; // total bytes
 
@@ -76,14 +79,16 @@ public class MegaAPI {
         List<File> files = (List<File>) FileUtils.listFiles(dir, TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
         for (File file : files) {
             System.out.println("file: " + file.getCanonicalPath());
-            //System.out.println(file.length());
             totalUsed += file.length();
         }
-        System.out.println("Total bytes in memory: "+totalMemory); 
-        System.out.println("Total bytes in use: "+totalUsed);
-        System.out.println("Total free bytes: "+(totalMemory-totalUsed)); 
+        used = new BigInteger(String.valueOf(totalUsed));
         
-        return ((totalMemory-totalUsed) /num/num); //MB
+        System.out.println("Total bytes in memory: "+totalMemory); // bytes
+        System.out.println("Total bytes in use: "+used);
+        System.out.println("Total free bytes: "+(totalMemory.subtract(used)));
+        
+        ans = totalMemory.subtract(used).divide(num).divide(num).toString();//MB
+        return (Double.parseDouble(ans)); 
     }
     
     

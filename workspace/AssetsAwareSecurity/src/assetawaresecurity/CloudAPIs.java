@@ -20,6 +20,7 @@ import cloudMe.CloudMeAPI;
 import dropBox.DropBoxAPI;
 import googleDrive.GoogleDriveAPI;
 import localSPs.BearDataShareAPI;
+import localSPs.CubbyAPI;
 import localSPs.MegaAPI;
 import localSPs.SpiderOakAPI;
 import oneDrive.OneDriveAPI;
@@ -48,6 +49,7 @@ public class CloudAPIs {
 	SpiderOakAPI spiderAPI;
 	BearDataShareAPI bearAPI;
 	MegaAPI megaAPI;
+	CubbyAPI cubbyAPI;
 
 	// can go both client and server side.
 	public CloudAPIs(ArrayList<String> availableSPlist) throws IOException, CloudmeException {
@@ -109,7 +111,11 @@ public class CloudAPIs {
 			megaAPI.UPLOAD_PATH = this.UPLOAD_PATH;
 			authMEGA(name);
 			break;
-			
+		case "Cubby":
+			cubbyAPI = new CubbyAPI();
+			cubbyAPI.UPLOAD_PATH = this.UPLOAD_PATH;
+			authCubby(name);
+			break;
 		default:
 			JOptionPane.showMessageDialog(null, "Error: " + name +" is not a provider");;
 		}
@@ -142,6 +148,9 @@ public class CloudAPIs {
 			break;
 		case "MEGA":
 			megaUploadDelete(fileName, isUpload);
+			break;
+		case "Cubby":
+			cubbyUploadDelete(fileName,isUpload);
 			break;
 		default:
 			throw new IllegalArgumentException("Invalid UploadDelete ");
@@ -176,6 +185,9 @@ public class CloudAPIs {
 		case "MEGA":
 			memory=megaAPI.getStorageSize();
 			break;
+		case "Cubby":
+			memory = cubbyAPI.getStorageSize();
+			break;
 		default:
 			throw new IllegalArgumentException("Invalid UploadDelete ");
 		}
@@ -191,6 +203,11 @@ public class CloudAPIs {
 
 	private void authSpiderOak(String name) throws IOException {
 		authLocalSPs(name);	
+	}
+	
+	private void authCubby(String name) throws IOException {
+		authLocalSPs(name);
+		
 	}
 
 	private void authMEGA(String name) throws IOException {
@@ -210,6 +227,8 @@ public class CloudAPIs {
 				bearAPI.login(loginPath);
 			} else if (name.equals("MEGA")) {
 				megaAPI.login(loginPath);
+			} else if (name.equals("Cubby")){
+				cubbyAPI.login(loginPath);
 			}
 			JOptionPane.showMessageDialog(null, name + " Cloud found");
 			workingSPs.add(name);
@@ -232,6 +251,8 @@ public class CloudAPIs {
 						bearAPI.createNewLogin(clientFolder);
 					} else if (name.equals("MEGA")) {
 						megaAPI.createNewLogin(clientFolder);
+					} else if (name.equals("Cubby")){
+						cubbyAPI.createNewLogin(clientFolder);
 					}
 
 					JOptionPane.showMessageDialog(null, name + " Preferences saved");
@@ -449,6 +470,15 @@ public class CloudAPIs {
 		
 	}
 	
+	private void cubbyUploadDelete(String filePath, Boolean isUpload) throws IOException {
+		if(isUpload){
+			cubbyAPI.uploadFile(filePath);
+		}else{
+			cubbyAPI.deleteFile(filePath);
+		}
+		
+	}
+	
 	private void googleDriveUploadDelete(String fileName, boolean isUpload) throws IOException {
 		if(isUpload){
 			googleAPI.uploadFile(fileName);
@@ -499,7 +529,7 @@ public class CloudAPIs {
 	}
 	
 	
-	
+	// Create the dialog
 	public void authDealog(String name, String url) {
 		obj = new IntroProcessDialog(frame, true, url);
 

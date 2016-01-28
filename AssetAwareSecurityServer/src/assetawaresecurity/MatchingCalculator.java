@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class MatchingCalculator {
 
-	double SecurityUtility=0;
+	double SecurityUtility=0, cost=0;
 	String SPname="";
 	//holds the security and cost utility calculated for each SP along with all the mismatched requirements
 	ArrayList <MatchingCalculator> SPcalculations;
@@ -24,6 +24,10 @@ public class MatchingCalculator {
 	public double getSecurityUtility(){
 		return SecurityUtility; 
 	}
+	
+	public double getCost(){
+		return cost;
+	}
 
 
 	//setters
@@ -32,6 +36,10 @@ public class MatchingCalculator {
 	}
 	public void setSecurityUtility(double sec){
 		SecurityUtility=sec; 
+	}
+
+	public void setCost (double cost){
+		this.cost = cost;
 	}
 
 
@@ -382,6 +390,7 @@ public class MatchingCalculator {
 
 			util.setSecurityUtility(SecurityUtility);
 			util.setSPname(SuitableSPs.get(i).getSpName());
+			util.setCost(Double.valueOf(SuitableSPs.get(i).getCost()));
 
 			//First if statement is for explicit sec type else if the requirement type is yes it means its implicit   
 			//all data for the current SP are stored and prepared for auctioning
@@ -394,31 +403,76 @@ public class MatchingCalculator {
 			}
 		}
 
+//		//test
+//		double higher=0;
+//		String name=" ";
+//
+//		for (int i=0; i<SPcalculations.size();i++){
+//			System.out.println(SPcalculations.get(i).getSPname()+"--"+SPcalculations.get(i).getSecurityUtility());
+//			if (higher<SPcalculations.get(i).getSecurityUtility()){
+//				higher=SPcalculations.get(i).getSecurityUtility();
+//				name=SPcalculations.get(i).getSPname();
+//
+//			}
+//		}
+
 		//test
-		double higher=0;
-		String name=" ";
-
-		for (int i=0; i<SPcalculations.size();i++){
-			System.out.println(SPcalculations.get(i).getSPname()+"--"+SPcalculations.get(i).getSecurityUtility());
-			if (higher<SPcalculations.get(i).getSecurityUtility()){
-				higher=SPcalculations.get(i).getSecurityUtility();
-				name=SPcalculations.get(i).getSPname();
-
+		double higher=0, base =0;
+		String winnerSP=" ";
+		
+		// If it is explicit then get the cheepest one
+		if(bid.getRequirementsType().equalsIgnoreCase("no")){ // no means it is explicit
+			System.out.println("is here?");
+			if(!SPcalculations.isEmpty()){ // Check if list has explicit entries
+				base = SPcalculations.get(0).getCost();
+				winnerSP = SPcalculations.get(0).getSPname();
+				higher=SPcalculations.get(0).getSecurityUtility();
+				for (int i=0; i<SPcalculations.size();i++){
+					System.out.println("Base is: "+base +" and Higher: " +higher);
+					if (SPcalculations.get(i).getCost() < base){ // move to cheapest option
+						winnerSP = SPcalculations.get(i).getSPname();	
+						higher=SPcalculations.get(i).getSecurityUtility();
+					}
+				}
 			}
+		}else { // bid is implicit
+			double costThres = 0;
+			for (int i=0; i<SPcalculations.size();i++){ // Get the winner with the most Utility points
+				System.out.println(SPcalculations.get(i).getSPname()+"--"+SPcalculations.get(i).getSecurityUtility());
+				if (higher<SPcalculations.get(i).getSecurityUtility()){
+					System.out.println("In first if");
+					higher=SPcalculations.get(i).getSecurityUtility();
+					winnerSP=SPcalculations.get(i).getSPname();
+					costThres = SPcalculations.get(i).getCost();
+					//thresh = SPcalculations.get(i).getSecurityUtility();
+				}
+			}
+			System.out.println("First winner: "+winnerSP);
+			for(int i=0;i<SPcalculations.size();i++){// Check if there is a cheaper option within the threshold
+				if(SPcalculations.get(i).getSecurityUtility() >= (higher-5) && !SPcalculations.get(i).getSPname().equals(winnerSP)){
+					System.out.println("in second if");
+					if(SPcalculations.get(i).getCost() < costThres){
+						System.out.println("in third if");
+						winnerSP = SPcalculations.get(i).getSPname(); // set new winner and cost threshold
+						costThres = SPcalculations.get(i).getCost();
+					}
+				}
+			}
+			System.out.println("Second winner: "+winnerSP);
 		}
-
+		
 		Auctioneer.matchResult=" ";
 		String cost="0";
 		if (higher!=0){ //if an available optimal SP was found
-			System.out.println("Winner "+name+" : "+higher);
+			System.out.println("Winner "+winnerSP+" : "+higher);
 
 			for(int i=0; i<asks.size(); i++){
-				if(asks.get(i).getSpName().equals(name)){
+				if(asks.get(i).getSpName().equals(winnerSP)){
 					cost=asks.get(i).getCost();
 					break;
 				}
 			}
-			Auctioneer.matchResult=name+","+cost+ '\n';
+			Auctioneer.matchResult=winnerSP+","+cost+ '\n';
 		}else{
 			System.out.println("No suitable SP was found, File: "+file.toString()+" will be stored locally");
 			Auctioneer.matchResult="Store Locally"+","+ "N/A"+'\n';

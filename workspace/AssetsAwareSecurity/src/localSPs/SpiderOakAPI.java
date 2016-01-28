@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -65,8 +66,11 @@ public class SpiderOakAPI {
     }
     
     public double getStorageSize() throws IOException {
-        int num = 1024;
-        long totalMemory = 2*num*num*num; // in GB need to be declared constant in all calasses --To bytes
+    	BigInteger num = new BigInteger("1024");
+        String ans ="";
+        BigInteger totalMemory = new BigInteger("32212254720");
+        BigInteger used;
+        //long totalMemory1 = 32212254720;//(30720*num)*num; // in MB turn To bytes
         File dir = new File(ROOT_PATH);
         long totalUsed = 0; // total bytes
 
@@ -77,11 +81,14 @@ public class SpiderOakAPI {
             //System.out.println(file.length());
             totalUsed += file.length();
         }
-        System.out.println("Total bytes in memory: "+totalMemory); // bytes
-        System.out.println("Total bytes in use: "+totalUsed);
-        System.out.println("Total free bytes: "+(totalMemory-totalUsed));
+        used = new BigInteger(String.valueOf(totalUsed));
         
-        return ((totalMemory-totalUsed) /num/num); //MB
+        System.out.println("Total bytes in memory: "+totalMemory); // bytes
+        System.out.println("Total bytes in use: "+used);
+        System.out.println("Total free bytes: "+(totalMemory.subtract(used)));
+        
+        ans = totalMemory.subtract(used).divide(num).divide(num).toString();//MB
+        return (Double.parseDouble(ans)); 
     }
     
     public void createNewLogin(String folder){

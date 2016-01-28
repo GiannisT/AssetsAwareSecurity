@@ -11,7 +11,7 @@
 <DatacenterLocation>EU</DatacenterLocation> 
 <Cost>7</Cost> 
 <StorageSize>30720</StorageSize>
-<FileSizeLimit> </FileSizeLimit> 
+<FileSizeLimit>10240</FileSizeLimit> 
 <SecureKeyManagement>no</SecureKeyManagement> 
 <CredentialRecovery>no</CredentialRecovery> 
 <ShareData>yes-no</ShareData> 
