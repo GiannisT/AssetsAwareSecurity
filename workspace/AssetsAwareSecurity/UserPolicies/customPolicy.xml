@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_66" class="java.beans.XMLDecoder">
+ <object class="assetawaresecurity.CreateBid">
+  <void property="SPLocation">
+   <string>USA</string>
+  </void>
+  <void property="auditLogs">
+   <string>Yes</string>
+  </void>
+  <void property="autoSynch">
+   <string>Yes</string>
+  </void>
+  <void property="availableSPs">
+   <object class="java.util.ArrayList">
+    <void method="add">
+     <string>OneDrive</string>
+    </void>
+    <void method="add">
+     <string>GoogleDrive</string>
+    </void>
+    <void method="add">
+     <string>DropBox</string>
+    </void>
+    <void method="add">
+     <string>CloudMe</string>
+    </void>
+   </object>
+  </void>
+  <void property="certification">
+   <string>ISO 27001</string>
+  </void>
+  <void property="concealedKeys">
+   <string>No</string>
+  </void>
+  <void property="cost">
+   <string>5</string>
+  </void>
+  <void property="differentKeyPerFile">
+   <string>No</string>
+  </void>
+  <void property="encryptionAtRest">
+   <string>Yes</string>
+  </void>
+  <void property="encryptionAtTransit">
+   <string>Yes</string>
+  </void>
+  <void property="expectedFileSize">
+   <string>0</string>
+  </void>
+  <void property="fileVersioning">
+   <string>Yes</string>
+  </void>
+  <void property="passProtected">
+   <string>No</string>
+  </void>
+  <void property="passRecovery">
+   <string>Yes</string>
+  </void>
+  <void property="permanentDeletion">
+   <string>Yes</string>
+  </void>
+  <void property="proxySupport">
+   <string>Yes</string>
+  </void>
+  <void property="requirementsType">
+   <string>no</string>
+  </void>
+  <void property="secKeyManagement">
+   <string>Yes</string>
+  </void>
+  <void property="selectedPolicy">
+   <string>Custom Security Policy</string>
+  </void>
+  <void property="shareData">
+   <string>Yes</string>
+  </void>
+ </object>
+</java>

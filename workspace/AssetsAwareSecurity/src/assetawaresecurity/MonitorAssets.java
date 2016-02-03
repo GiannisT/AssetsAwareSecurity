@@ -89,7 +89,7 @@ public class MonitorAssets {
 					File file = new File("MainUserStorage/"+fileName.toString());
 					
 					System.out.println(kind.name() + ": " + file.getName());
-					double filesize=file.length(); 
+					double filesize=file.length(); //we will have problem with really big files
 					filesize=filesize/1024/1024;//convert it to MB
 					double ExpectedFileSize=0;
 				
@@ -165,7 +165,7 @@ public class MonitorAssets {
 	//client side for forwarding bid to auctioneer
 	public void ForwardBidToServer(){
 
-		String hostName = "localhost";
+		String hostName = "192.168.1.5";
 		int portNumber = 1234;
 		String AuctioneerResponse;
 

@@ -21,10 +21,12 @@ public class Auctioneer implements Runnable {
 
 	
 	   public void run() {
+		   synchronized(csocket){
 		   CreateAsk asks=new CreateAsk();
            MatchingCalculator match=new MatchingCalculator();
 
-		   
+	         
+           
 	         try{
 			    inFromClient = new ObjectInputStream(csocket.getInputStream());
 	            outToClient = new DataOutputStream(csocket.getOutputStream());
@@ -39,18 +41,21 @@ public class Auctioneer implements Runnable {
 	            	match.MatchBid(userBid, userBid.getFileName());
 	            	outToClient.writeBytes(matchResult);
 	            	outToClient.flush();
+	            	
 	        }
 		
 		   }catch (IOException | ClassNotFoundException e){}
-		   
+	         
 			try {
 				outToClient.close();
 				csocket.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		
+		   }
+		   
 	   }
+	   
 	   
 	   
 	   public static void main(String args[]) throws Exception {
@@ -59,9 +64,12 @@ public class Auctioneer implements Runnable {
 		      System.out.println("Listening");
 		     
 		      while (true) {
+		    	  
 		         Socket sock = ssock.accept();
+		         
 		         System.out.println("Connected");
 		         new Thread(new Auctioneer(sock)).start();
+		         
 		      }
 	   }	
 }

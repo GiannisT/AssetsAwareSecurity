@@ -190,6 +190,7 @@ public class CloudMeAPI {
     }
     
     public void uploadFile( String fileName) throws CloudmeException { //CloudmeUser user,
+    	System.out.println("The string value is: "+UPLOAD_PATH+fileName);
         user.getFileManager().uploadFile(UPLOAD_PATH+fileName,"/");
         
     }

@@ -73,6 +73,7 @@ public class MatchingCalculator {
 
 			boolean condition=false;
 
+			System.out.println("ASks cost is: "+asks.get(i).getCost()+" AND bid cost is "+bid.getCost());
 			if(bid.getCost().equals("/")){ //indicates that a user does not care about the cost
 			}else if(Double.valueOf(bid.getCost().trim()) >= Double.valueOf(asks.get(i).getCost().trim())){ //in case that the cost that a user is willing to pay, is violated we remove the certain Sp
 				condition=true;
