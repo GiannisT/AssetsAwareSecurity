@@ -51,13 +51,7 @@
    <string>Yes</string>
   </void>
   <void property="expectedFileSize">
-   <string>0.0094</string>
-  </void>
-  <void property="fileName">
-   <string>SNtable.xlsx</string>
-  </void>
-  <void property="fileSize">
-   <string>0.0063</string>
+   <string>0</string>
   </void>
   <void property="fileVersioning">
    <string>Yes</string>
