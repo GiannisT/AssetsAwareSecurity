@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.ProgressMonitor;
 
 import org.apache.commons.io.FileUtils;
 
@@ -31,6 +32,7 @@ public class CloudAPIs {
 	String UPLOAD_PATH = "MainUserStorage/";
 	private String spName = "";
 	private ArrayList<String> spList = new ArrayList<String>();
+	static ProgressMonitor pbar;
 	AssetAwareSecurity ass; // Controller?
 	Gui gui;
 	JFrame frame;
@@ -55,14 +57,21 @@ public class CloudAPIs {
 	public CloudAPIs(ArrayList<String> availableSPlist) throws IOException, CloudmeException {
 		// this.spName = chosenSP;
 		this.spList = availableSPlist;
-
 		ass = new AssetAwareSecurity();
 		gui = ass.getGui();
 		this.frame = gui.myframe;
+		//create monitor bar
+		pbar = new ProgressMonitor(frame, "Loading Providers",
+		           "Initializing . . .", 0, spList.size());
 
+		int progress = 0;
+		pbar.setProgress(progress);
 		// Initialise APIs
 		for (int i = 0; i < spList.size(); i++) {
 			authServiceProvider(spList.get(i));
+			progress +=1;
+			pbar.setProgress(progress);
+			pbar.setNote("Loaded " + progress + " Provider(s)");
 		}
 
 	}
@@ -95,23 +104,23 @@ public class CloudAPIs {
 			cloudMeAPI.UPLOAD_PATH = this.UPLOAD_PATH;
 			authCloudMe(name);
 			break;
-		case "SpiderOak":
+		case "SpiderOak (?)":
 			spiderAPI = new SpiderOakAPI();
 			spiderAPI.UPLOAD_PATH = this.UPLOAD_PATH;
 			authSpiderOak(name);
 			//spiderAPI.getStorageSize(); -- testing storage size
 			break;
-		case "BearDataShare":
+		case "BearDataShare (?)":
 			bearAPI = new BearDataShareAPI();
 			bearAPI.UPLOAD_PATH = this.UPLOAD_PATH;
 			authBearDataShare(name);
 			break;
-		case "MEGA":
+		case "MEGA (?)":
 			megaAPI = new MegaAPI();
 			megaAPI.UPLOAD_PATH = this.UPLOAD_PATH;
 			authMEGA(name);
 			break;
-		case "Cubby":
+		case "Cubby (?)":
 			cubbyAPI = new CubbyAPI();
 			cubbyAPI.UPLOAD_PATH = this.UPLOAD_PATH;
 			authCubby(name);
@@ -140,16 +149,16 @@ public class CloudAPIs {
 		case "CloudMe":
 			cloudMeUploadDeleteFile(fileName, isUpload);
 			break;
-		case "SpiderOak":
+		case "SpiderOak (?)":
 			spiderOAkUploadDelete(fileName, isUpload);
 			break;
-		case "BearDataShare":
+		case "BearDataShare (?)":
 			bearDataShareUploadDelete(fileName, isUpload);
 			break;
-		case "MEGA":
+		case "MEGA (?)":
 			megaUploadDelete(fileName, isUpload);
 			break;
-		case "Cubby":
+		case "Cubby (?)":
 			cubbyUploadDelete(fileName,isUpload);
 			break;
 		default:
@@ -176,16 +185,16 @@ public class CloudAPIs {
 		case "CloudMe":
 			memory=cloudMeAPI.getCloudMeSize();
 			break;
-		case "SpiderOak":
+		case "SpiderOak (?)":
 			memory=spiderAPI.getStorageSize();
 			break;
-		case "BearDataShare":
+		case "BearDataShare (?)":
 			memory=bearAPI.getStorageSize();
 			break;
-		case "MEGA":
+		case "MEGA (?)":
 			memory=megaAPI.getStorageSize();
 			break;
-		case "Cubby":
+		case "Cubby (?)":
 			memory = cubbyAPI.getStorageSize();
 			break;
 		default:
@@ -221,16 +230,17 @@ public class CloudAPIs {
 		loginPath = GLOBALL_PATH + name + "Login.txt";
 		File f = new File(loginPath);
 		if (f.exists() && !f.isDirectory()) {
-			if (name.equals("SpiderOak")) {
+			if (name.equals("SpiderOak (?)")) {
 				spiderAPI.login(loginPath);
-			} else if (name.equals("BearDataShare")) {
+			} else if (name.equals("BearDataShare (?)")) {
 				bearAPI.login(loginPath);
-			} else if (name.equals("MEGA")) {
+			} else if (name.equals("MEGA (?)")) {
 				megaAPI.login(loginPath);
-			} else if (name.equals("Cubby")){
+			} else if (name.equals("Cubby (?)")){
 				cubbyAPI.login(loginPath);
 			}
-			JOptionPane.showMessageDialog(null, name + " Cloud found");
+			//JOptionPane.showMessageDialog(null, name + " Cloud found"); //replaced by jBar?
+			System.out.println(name + " Succesfully loaded");
 			workingSPs.add(name);
 		} else {
 			int result = JOptionPane.showConfirmDialog(null,
@@ -245,13 +255,13 @@ public class CloudAPIs {
 				File folder = new File(clientFolder);
 				if (folder.exists() && folder.isDirectory()) {
 					clientFolder = clientFolder+"/";
-					if (name.equals("SpiderOak")) {
+					if (name.equals("SpiderOak (?)")) {
 						spiderAPI.createNewLogin(clientFolder);
-					} else if (name.equals("BearDataShare")) {
+					} else if (name.equals("BearDataShare (?)")) {
 						bearAPI.createNewLogin(clientFolder);
-					} else if (name.equals("MEGA")) {
+					} else if (name.equals("MEGA (?)")) {
 						megaAPI.createNewLogin(clientFolder);
-					} else if (name.equals("Cubby")){
+					} else if (name.equals("Cubby (?)")){
 						cubbyAPI.createNewLogin(clientFolder);
 					}
 
@@ -271,7 +281,8 @@ public class CloudAPIs {
 		File f = new File(loginPath);
 		if (f.exists() && !f.isDirectory()) {
 			oneDriveAPI.login(loginPath);
-			JOptionPane.showMessageDialog(null, name + " Succesfully loaded");
+			//JOptionPane.showMessageDialog(null, name + " Succesfully loaded"); //replaced by jBar?
+			System.out.println(name + " Succesfully loaded");
 			workingSPs.add(name);
 		}else{
 			url = oneDriveAPI.getURL();
@@ -299,7 +310,8 @@ public class CloudAPIs {
 		File f = new File(loginPath);
 		if (f.exists() && !f.isDirectory()) {
 			dropBoxAPI.login(loginPath);
-			JOptionPane.showMessageDialog(null, name + " Succesfully loaded");
+			//JOptionPane.showMessageDialog(null, name + " Succesfully loaded"); //replaced by jBar?
+			System.out.println(name + " Succesfully loaded");
 			workingSPs.add(name);
 		}else{
 			url = dropBoxAPI.getURL();
@@ -333,7 +345,8 @@ public class CloudAPIs {
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());;
 			}
-			JOptionPane.showMessageDialog(null, name + " Succesfully loaded");
+			//JOptionPane.showMessageDialog(null, name + " Succesfully loaded"); //replaced by jBar?
+			System.out.println(name + " Succesfully loaded");
 			workingSPs.add(name);
 		}else {
 			 int result = JOptionPane.showConfirmDialog(null, "You must first authendicate your "+name+" accound. Click OK to redirect",
@@ -361,7 +374,8 @@ public class CloudAPIs {
 		if (f.exists() && !f.isDirectory()) {
 			try {
 				yandexAPI.login(loginPath);
-				JOptionPane.showMessageDialog(null, name + " Succesfully loaded");
+				//JOptionPane.showMessageDialog(null, name + " Succesfully loaded"); //replaced by jBar?
+				System.out.println(name + " Succesfully loaded");
 				workingSPs.add(name);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -393,7 +407,8 @@ public class CloudAPIs {
 		if (f.exists() && !f.isDirectory()) {
 			try {
 				cloudMeUser = cloudMeAPI.login(GLOBALL_PATH + name + "Login.txt"); // user might not need																					
-				JOptionPane.showMessageDialog(null, name + " Succesfully loaded");
+				//JOptionPane.showMessageDialog(null, name + " Succesfully loaded"); //replaced by jBar?
+				System.out.println(name + " Succesfully loaded");
 				workingSPs.add(name);
 			} catch (CloudmeException e) {
 				JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());

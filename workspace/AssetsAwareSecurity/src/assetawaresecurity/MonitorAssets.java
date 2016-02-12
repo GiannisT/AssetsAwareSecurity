@@ -5,6 +5,7 @@ import static java.nio.file.StandardWatchEventKinds.*;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
@@ -161,11 +162,29 @@ public class MonitorAssets {
 		}
 
 	}
+	
+	private String getServer(){
+		BufferedReader br = null;
+		String sCurrentLine = null;
+		try {
+
+			br = new BufferedReader(new FileReader("Network/serverIP.txt"));
+
+			while ((sCurrentLine = br.readLine()) != null) {
+				System.out.println(sCurrentLine);
+			}
+
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		} 
+		return sCurrentLine;
+		
+	}
 
 	//client side for forwarding bid to auctioneer
 	public void ForwardBidToServer(){
 
-		String hostName = "192.168.1.5";
+		String hostName = getServer();
 		int portNumber = 1234;
 		String AuctioneerResponse;
 

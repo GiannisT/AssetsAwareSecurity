@@ -246,6 +246,28 @@
   <void method="add">
    <array class="java.lang.Object" length="6">
     <void index="0">
+     <string>serverIP.txt</string>
+    </void>
+    <void index="1">
+     <string>0.0000</string>
+    </void>
+    <void index="2">
+     <string>Custom Security Policy</string>
+    </void>
+    <void index="3">
+     <string>CloudMe</string>
+    </void>
+    <void index="4">
+     <string>0</string>
+    </void>
+    <void index="5">
+     <string>11/02/2016  14:57</string>
+    </void>
+   </array>
+  </void>
+  <void method="add">
+   <array class="java.lang.Object" length="6">
+    <void index="0">
      <string>SNtable.xlsx</string>
     </void>
     <void index="1">

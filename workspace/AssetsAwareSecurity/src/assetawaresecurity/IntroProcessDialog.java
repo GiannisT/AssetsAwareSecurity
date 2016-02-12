@@ -73,7 +73,7 @@ public class IntroProcessDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Conficuration Process");
+        jLabel1.setText("Configuration Process");
 
         jLabel2.setText("We are about to start authenticating your");
 

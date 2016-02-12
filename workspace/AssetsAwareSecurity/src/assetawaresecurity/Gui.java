@@ -7,6 +7,7 @@ package assetawaresecurity;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.HeadlessException;
@@ -183,6 +184,7 @@ public class Gui {
 		static MonitorAssets mon = new MonitorAssets();
 		User user ;
 		InitializeSystem sys;
+		static ProgressMonitor pbar;
 		static boolean isCustomPanel = false;
 		static CreateBid bid = null;
 	    static	boolean isMax = false, isMed = false, isLow = false, isCust = false;
@@ -551,15 +553,15 @@ public class Gui {
 
         cloudMeCkb.setText("CloudMe");
 
-        bearShareCkb.setText("BearDataShare");
+        bearShareCkb.setText("BearDataShare (?)");
 
-        cubbyCkb.setText("Cubby");
+        cubbyCkb.setText("Cubby (?)");
         cubbyCkb.setToolTipText("Installation of SP needed");
 
-        spiderOakCkb.setText("SpiderOak");
+        spiderOakCkb.setText("SpiderOak (?)");
         spiderOakCkb.setToolTipText("Installation of SP needed");
 
-        megaCkb.setText("MEGA"); // (?)
+        megaCkb.setText("MEGA (?)"); // (?)
         megaCkb.setToolTipText("Installation of SP needed");
 
         javax.swing.GroupLayout addUserPaneLayout = new javax.swing.GroupLayout(addUserPane);
@@ -675,16 +677,16 @@ public class Gui {
 
         cloudMeCkbRtn.setText("CloudMe");
 
-        spiderOakCkbRtn.setText("SpiderOak"); // (?)
+        spiderOakCkbRtn.setText("SpiderOak (?)"); // (?)
         spiderOakCkbRtn.setToolTipText("Installation of SP needed");
 
-        megaCkbRtn.setText("MEGA");
+        megaCkbRtn.setText("MEGA (?)");
         megaCkbRtn.setToolTipText("Installation of SP needed");
 
-        cubbyCkbRtn.setText("Cubby");
+        cubbyCkbRtn.setText("Cubby (?)");
         cubbyCkbRtn.setToolTipText("Installation of SP needed");
 
-        bearShareRtn.setText("BearDataShare");
+        bearShareRtn.setText("BearDataShare (?)");
         bearShareRtn.setToolTipText("Installation of SP needed");
 
         yandexCkbRtn.setText("YandexDisk");
@@ -1618,6 +1620,7 @@ public class Gui {
 	private void initVariables() throws IOException, CloudmeException {
 
 		myframe.setLocationRelativeTo(null);
+
 		// Initialise Variables
 		loadGifLbl.setIcon(imageIcon);
 		loadGifLbl.setVisible(false);
@@ -1731,10 +1734,12 @@ public class Gui {
 		boxList.add(cubbyCkb);
 
 		// Populate SPs list
+		String boxName ="";
 		for (JCheckBox box : boxList) {
 			if (box.isSelected()) {
-				spList.put(box.getText(), box.isSelected());
-				spListStrings.add(box.getText());
+				boxName = box.getText();
+				spList.put(boxName, box.isSelected());
+				spListStrings.add(boxName);
 				
 				// unTick for next time
 				box.setSelected(false);
@@ -1982,7 +1987,7 @@ public class Gui {
 			System.out.println("Prin Allo"+availSPsListString.get(i));//test
 		boolean pass;
 		bid = null;
-
+		// Check if user has input the mandatory values
 		pass = validation();
 		if (pass) {			
 							
@@ -2117,6 +2122,12 @@ public class Gui {
 
 	//Get available SPs storage sizes
 	private Map<String, Double> updateCloudsStorageSize() {
+		//create monitor bar
+		pbar = new ProgressMonitor(myframe, "Loading Providers","Initializing . . .", 0, availSPsListString.size());
+		int progress = 0;
+		System.out.println("The Progress is: "+progress);
+		pbar.setProgress(progress);
+		
 		Map<String, Double> spStorageSize = new HashMap <String, Double>();
 		double size;
 		for (int i=0; i<availSPsListString.size();i++){
@@ -2128,6 +2139,9 @@ public class Gui {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			progress +=1;
+			pbar.setProgress(progress);
+			pbar.setNote("Loaded " + progress + " Provider(s)");
 		}
 		System.out.println("Size of Storage entry set: "+spStorageSize.entrySet());
 		return spStorageSize;
@@ -2312,11 +2326,13 @@ public class Gui {
 			}
 			
 			//Load SPs API
+			myframe.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			api = new CloudAPIs(availSPsListString);
 			working = api.getWorkingSPsList();
 			nonWorking = api.getNonWorkingSPsList();
 			doSPsync(working,nonWorking,boxListRtn);
-
+			myframe.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			JOptionPane.showMessageDialog(myframe,working.size()+" Cloud Providers have been loaded. Check the 'Monitor Users' tab for more information");
 			//System.out.println("After Cloud"+user.getAvailableSP().entrySet());
 			getCurrentUser(user); // populate panels
 		} else {

@@ -7,7 +7,7 @@
   <void property="availableSPs">
    <object class="java.util.ArrayList">
     <void method="add">
-     <string>Cubby</string>
+     <string>Cubby (?)</string>
     </void>
     <void method="add">
      <string>CloudMe</string>
@@ -19,19 +19,19 @@
      <string>YandexDisk</string>
     </void>
     <void method="add">
-     <string>BearDataShare</string>
-    </void>
-    <void method="add">
-     <string>MEGA</string>
+     <string>MEGA (?)</string>
     </void>
     <void method="add">
      <string>GoogleDrive</string>
     </void>
     <void method="add">
+     <string>SpiderOak (?)</string>
+    </void>
+    <void method="add">
      <string>DropBox</string>
     </void>
     <void method="add">
-     <string>SpiderOak</string>
+     <string>BearDataShare (?)</string>
     </void>
    </object>
   </void>

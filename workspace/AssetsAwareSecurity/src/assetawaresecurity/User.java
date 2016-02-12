@@ -226,6 +226,7 @@ public class User {
         File spFolder = new File("SPsCredentials");
         File lastPolicy=new File("lastPolicy.xml");
         File weightLastPolicy=new File("lastPolicyWeights.xml");
+        File assetsList = new File("assetsList.xml");
         File spSize=new File("spSizes.xml");
         
         try {
@@ -265,6 +266,11 @@ public class User {
             if (conf4.exists()) {
                 System.out.println("Deleted CustomPolicyWeights");
                 FileDeleteStrategy.FORCE.delete(conf4);
+            }
+            
+            if (assetsList.exists()) {
+            	FileDeleteStrategy.FORCE.delete(assetsList);
+                System.out.println("Deleted assetsList.xml");
             }
             
             if(spFolder.exists()){
