@@ -1,6 +1,7 @@
 This README file explains how to use our asset-centric, security-aware Cloud storage selection framework. The program was developed based on Java, Version 1.8.0_71.
 
 
+
 ---- RUN IN AN IDE ----
 
 If you want to run our system in an IDE, such as Eclipse, you should copy the entire contents of our two folders namely: AssetAwareSecurity and AssetAwareSecurityServer into two distinct projects in the IDE.  Then two classes need to be executed in this particular order: Auctioneer.java in AssetAwareSecurityServer project and AssetAwareSecurity.java in AssetAwareSecuriry project.
