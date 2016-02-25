@@ -7,6 +7,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Path;
 
+
+/**
+ * This is the server main method. it initiates the gui and opens a socket 
+ * 
+ * @author Giannis Tziakouris, Marios Zinonos
+ */
 public class Auctioneer implements Runnable {
 
 	   Socket csocket;
@@ -36,7 +42,6 @@ public class Auctioneer implements Runnable {
 	            	clientbid=inFromClient.readObject();
 	            	CreateBid userBid =(CreateBid) clientbid;
 	            	
-	            	System.out.println("The avaialableSPs are:" +userBid.getAvailableSPs());
 	            	asks.retrieveOffers(userBid.getAvailableSPs());
 	            	match.MatchBid(userBid, userBid.getFileName());
 	            	outToClient.writeBytes(matchResult);

@@ -17,14 +17,19 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
-
+/**
+ *  This class is responsible for initializing the system and creating 
+ *  nessesary resources. 
+ *   
+ * @author Giannis Tzakouris, Marios Zinonos
+ *
+ */
 public class InitializeSystem { // Model
 	
 	static String uploadBandwidth=" ", OS=" ";
 
     //initializes and configures the system
     public InitializeSystem() {
-      //  this.MakeSPDirectory();
         this.MakeUserStorageDirectory();
         this.makeSPsCredentials();
         this.makeUserDatabase();
@@ -82,7 +87,6 @@ public class InitializeSystem { // Model
                 XMLDecoder dec = new XMLDecoder( new FileInputStream(xml));
                 user = (User) dec.readObject();
                 dec.close();
-                System.out.println("user Data Loaded");
             }catch (Exception e){
                 System.out.println(e.getMessage());
                 
@@ -102,7 +106,6 @@ public class InitializeSystem { // Model
 			XMLDecoder dec = new XMLDecoder(new FileInputStream(policy));
 			bid = (CreateBid) dec.readObject();
 			dec.close();
-			System.out.println("Security Policy Loaded");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 
@@ -113,7 +116,6 @@ public class InitializeSystem { // Model
 			Significance = (HashMap<String, Double>) dec.readObject();
 			dec.close();
 			bid.SetSignificance(Significance);
-			System.out.println("Loaded Weights Policy");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 
@@ -125,7 +127,6 @@ public class InitializeSystem { // Model
 			SPsSizes = (HashMap<String, Double>) dec.readObject();
 			dec.close();
 			bid.SetSPsSize(SPsSizes);
-			System.out.println("Loaded SP sizes");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 
@@ -140,7 +141,6 @@ public class InitializeSystem { // Model
             XMLEncoder encoder = new XMLEncoder(new FileOutputStream("lastPolicy.xml"));
             encoder.writeObject(bid);
             encoder.close();
-            System.out.println("Last security policy saved");
         }catch (Exception e){
            System.out.println(e.getMessage());
         }
@@ -148,7 +148,6 @@ public class InitializeSystem { // Model
         //writes the security attributes weights
         try{
             XMLEncoder encoder1 = new XMLEncoder(new FileOutputStream("lastPolicyWeights.xml"));
-            System.out.println("Latet Weights saved");
             encoder1.writeObject(bid.getSignificance());
             encoder1.close();
         }catch (Exception e){
@@ -158,7 +157,6 @@ public class InitializeSystem { // Model
         //writes the AvailSPs storage size
         try{
             XMLEncoder encoder2 = new XMLEncoder(new FileOutputStream("spSizes.xml"));
-            System.out.println("SP sizes saved");
             encoder2.writeObject(bid.getSPsSize());
             encoder2.close();
         }catch (Exception e){
@@ -172,7 +170,6 @@ public class InitializeSystem { // Model
             XMLEncoder encoder = new XMLEncoder(new FileOutputStream("customPolicy.xml"));
             encoder.writeObject(bid);
             encoder.close();
-            System.out.println("Latest Custom security policy saved");
         }catch (Exception e){
            System.out.println(e.getMessage());
         }
@@ -180,7 +177,6 @@ public class InitializeSystem { // Model
       //writes the security attributes weights
         try{
             XMLEncoder encoder1 = new XMLEncoder(new FileOutputStream("customPolicyWeights.xml"));
-            System.out.println("Latet custom Weights saved");
             encoder1.writeObject(bid.getSignificance());
             encoder1.close();
         }catch (Exception e){
@@ -190,7 +186,6 @@ public class InitializeSystem { // Model
         //writes the AvailSPs storage size
         try{
             XMLEncoder encoder2 = new XMLEncoder(new FileOutputStream("spSizes.xml"));
-            System.out.println("SP sizes saved");
             encoder2.writeObject(bid.getSPsSize());
             encoder2.close();
         }catch (Exception e){
@@ -205,9 +200,7 @@ public class InitializeSystem { // Model
         try{
             XMLEncoder encoder = new XMLEncoder(new FileOutputStream("user.xml"));
             encoder.writeObject(user);
-            //encoder.writeObject(user.getAvailableSP());
             encoder.close();
-            System.out.println("User data saved");
         }catch (Exception e){
            System.out.println(e.getMessage());
         }
@@ -220,7 +213,6 @@ public class InitializeSystem { // Model
              XMLEncoder encoder = new XMLEncoder(new FileOutputStream("assetsList.xml"));
              encoder.writeObject(assetsList);
              encoder.close();
-             System.out.println("AssetGUi Info saved");
          }catch (Exception e){
             System.out.println(e.getMessage());
          }
@@ -235,7 +227,6 @@ public class InitializeSystem { // Model
     			XMLDecoder dec = new XMLDecoder(new FileInputStream(assets));
     			assetsList = (ArrayList<Object[]>) dec.readObject();
     			dec.close();
-    			System.out.println("AssetList Loaded");
     		} catch (Exception e) {
     			System.out.println(e.getMessage());
     		}
@@ -282,7 +273,6 @@ public class InitializeSystem { // Model
 					if(s.contains(":")){
 						s=s.replace(":","");
 					}
-					System.out.println("Upload Speed is "+s);
 					uploadBandwidth=s;
 					break;
 				}

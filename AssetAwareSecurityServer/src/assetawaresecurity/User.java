@@ -27,14 +27,8 @@ public class User {
 
     String name = "", surname = "", email = "";
     int userId = 0;
-        //ArrayList<String> SPlist = new ArrayList<String>();
-
     //will hold all available SPs for a user...order DropBox, GoogleDrive, YandexDisk, CloudMe, OneDrive
     Map<String, Boolean> AvailableSp = new HashMap<String, Boolean>();
-
-//    User(String name, String surname, String email, Map<String, Boolean> spList) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
     public void setName(String userName) {
         name = userName;
     }
@@ -55,10 +49,6 @@ public class User {
     public void setAvailableSP(Map<String, Boolean> Sp) {
         this.AvailableSp = Sp;
     }
-//        
-//        public void setSPList(ArrayList<String> list){
-//            this.SPlist = list;
-//        }
 
     public String getName() {
         return name;
@@ -76,9 +66,6 @@ public class User {
         return userId;
     }
 
-//        public ArrayList<String> getSPList(){
-//            return this.SPlist;
-//        }
     public Map<String, Boolean> getAvailableSP() {
         return AvailableSp;
     }
@@ -175,21 +162,15 @@ public class User {
 
                 for (int temp = 0; temp < nList.getLength(); temp++) {
                     Node nNode = nList.item(temp);
-                    System.out.println("\nCurrent Element :" + nNode.getNodeName());
-
                     if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                         Element eElement = (Element) nNode;
 
-                        System.out.println("User id : " + eElement.getAttribute("id"));
                         this.setUserId(Integer.valueOf(eElement.getAttribute("id")));
 
-                        System.out.println("Name: " + eElement.getElementsByTagName("name").item(0).getTextContent());
-                        this.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
+                       this.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
 
-                        System.out.println("Surname: " + eElement.getElementsByTagName("surname").item(0).getTextContent());
                         this.setSurname(eElement.getElementsByTagName("surname").item(0).getTextContent());
 
-                        System.out.println("Email: " + eElement.getElementsByTagName("email").item(0).getTextContent());
                         this.setEmail(eElement.getElementsByTagName("email").item(0).getTextContent());
 
                         // test
@@ -197,11 +178,8 @@ public class User {
 
                             int k = 0;
                             NodeList listNodes = eElement.getElementsByTagName("AvailableSP");
-                            System.out.println(listNodes.getLength());
                             for (int j = 0; j < listNodes.getLength(); j++) {
-                                System.out.println("Eimai mesa");
                                 AvailableSp.put(eElement.getElementsByTagName("AvailableSP").item(j).getAttributes().item(0).getNodeValue(), Boolean.valueOf(eElement.getElementsByTagName("AvailableSP").item(j).getTextContent()));
-                                System.out.println(AvailableSp.keySet());
                             }
 
                         } catch (IndexOutOfBoundsException e) {
@@ -215,7 +193,6 @@ public class User {
                         Iterator i = set.iterator();
                         while (i.hasNext()) {
                             Map.Entry me = (Map.Entry) i.next();
-                            System.out.println(me.getKey().toString() + " : " + me.getValue().toString());
                         }
 			         	  //testCode..ends
 
@@ -228,10 +205,8 @@ public class User {
     }
 
 	//this function is deployed when a user clicks on remove existing user. Deletes all folders and config files
-    //marios develop gui data removal (reset gui to initial state)?????????
     public void removeUser() {
-        //File conf = new File("UserDatabase/Config.xml"); // used for new user
-    	File conf = new File("UserDatabase/user.xml");
+        File conf = new File("UserDatabase/user.xml");
         File conf2 = new File("MainUserStorage");
         File conf3=new File("customPolicy.xml");
         File conf4=new File("customPolicyWeights.xml");
@@ -240,11 +215,9 @@ public class User {
         try {
             if (conf.exists()) {
             	conf.delete();
-                System.out.println("Deleted1");
             }
 
             if (conf2.exists()) {
-                System.out.println("Deleted2");
                 String[] entries = conf2.list();
                 for (String s : entries) {
                     File currentFile = new File(conf2.getPath(), s);
@@ -254,17 +227,14 @@ public class User {
             }
             
             if (conf3.exists()) {
-                System.out.println("Deleted3");
                 conf3.delete();
             }
             
             if (conf4.exists()) {
-                System.out.println("Deleted4");
                 conf4.delete();
             }
             
             if(spFolder.exists()){
-            	System.out.println("spFolder");
                 String[] entries = spFolder.list();
                 for (String s : entries) {
                     File currentFile = new File(spFolder.getPath(), s);

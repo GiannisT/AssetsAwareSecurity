@@ -54,8 +54,9 @@ import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HttpContext;
 
 /**
- *
- * @author methis
+ * The Cloud Me API
+ * 
+ * @author Marios Zinonos
  */
 public class CloudMeAPI {
     static String userName, pass;
@@ -79,7 +80,6 @@ public class CloudMeAPI {
         File f = new File(loginPath);
         if(f.exists() && !f.isDirectory()) {
             // Authentication loaded
-            System.out.println("iparxooooo");
             BufferedReader br = new BufferedReader(new FileReader(f));
             credentials = br.readLine().split(",");
             userName = credentials[0];
@@ -104,7 +104,6 @@ public class CloudMeAPI {
 		soap.append(body);
 		soap.append("</" + soapAction + ">");
 		soap.append(SOAP_FOOTER);
-		System.out.println("\n\n" + soap.toString() + "\n\n"); // Prints the call so that the SOAP-call can be checked manually for errors
 		try {
 			HttpEntity entity = new StringEntity(soap.toString());
 			httpPost.setEntity(entity);
@@ -119,11 +118,9 @@ public class CloudMeAPI {
 		}
 		httpClient.getConnectionManager().shutdown();
 		return null;
-		//33799  -- 3221225472 -- 10574767
 	}
     
 	private double getXMLvalue(String xml) throws ParserConfigurationException, SAXException, IOException {
-		System.out.println("THE XML: "+xml);
 		double freeSpace;
 		DocumentBuilder newDocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		Document doc = newDocumentBuilder.parse(new ByteArrayInputStream(xml.getBytes()));
@@ -179,19 +176,17 @@ public class CloudMeAPI {
 	}
     
     public CloudmeUser createNewLogin(String credentials) throws CloudmeException{
-      System.out.println("Den iparxooo");
       String [] parts = credentials.split(",");
       userName = parts[0];
       pass = parts[1];
       
       createNewLoginFile(userName,pass);
-      user = new CloudmeUser(userName,pass); // needs to be returned
+      user = new CloudmeUser(userName,pass);
       return user;
     }
     
     public void uploadFile( String fileName) throws CloudmeException { //CloudmeUser user,
-    	System.out.println("The string value is: "+UPLOAD_PATH+fileName);
-        user.getFileManager().uploadFile(UPLOAD_PATH+fileName,"/");
+    	 user.getFileManager().uploadFile(UPLOAD_PATH+fileName,"/");
         
     }
     
@@ -204,15 +199,13 @@ public class CloudMeAPI {
 
     	storage = getXMLvalue(xml);
     	storage = storage/1024/1024; //MB
-		System.out.println("Free space: "+(storage)+" MB");
-    	return storage;
+		return storage;
     }
 
     public void deleteFile( String fileName) {
         try {
             CloudmeFile file;
             file = user.getFileManager().getFile("D:/"+fileName);
-            System.out.println(file.toString());
             file.deleteFile();
         } catch (CloudmeException ex) {
             System.out.println("Error ocucred: " + ex.getMessage());
@@ -227,7 +220,6 @@ public class CloudMeAPI {
             File file = new File("SPsCredentials/CloudMeLogin.txt"); // replace with aforementioned loginPath
             output = new BufferedWriter(new FileWriter(file));
             line = (userName + "," +pass);
-            System.out.println("The token is: " + line);
             output.write(line);
             output.close();
         } catch ( IOException e ) {

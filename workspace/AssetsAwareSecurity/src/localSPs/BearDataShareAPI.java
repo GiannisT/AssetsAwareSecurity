@@ -24,9 +24,11 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 
 
+
 /**
- *
- * @author methis
+ * The Bear Data Share API
+ * 
+ * @author Marios Zinonos
  */
 public class BearDataShareAPI {
     
@@ -36,23 +38,18 @@ public class BearDataShareAPI {
 
     public static void uploadFile(String fileName) throws IOException{
         java.io.File file = new java.io.File(UPLOAD_PATH+fileName);
-        System.out.println(file.getAbsolutePath());
         
         
         String newDir = ROOT_PATH;
         
         java.io.File newFile = new java.io.File(newDir + fileName);
-        FileUtils.copyFile(file, newFile);
-        System.out.println("Copied at: "+ROOT_PATH);
-
-        
+        FileUtils.copyFile(file, newFile);        
     }
     
     public void login(String fileName) throws IOException{
     	File f = new File(fileName);
     	String fileToken;
         // Authentication loaded
-        System.out.println("iparxooooo");
         BufferedReader br = new BufferedReader(new FileReader(f));
         fileToken = br.readLine(); // do refresh token
         ROOT_PATH = fileToken;
@@ -65,7 +62,6 @@ public class BearDataShareAPI {
         try {
             File file = new File("SPsCredentials/BearDataShareLogin.txt");
             output = new BufferedWriter(new FileWriter(file));
-            System.out.println("The token is: " + accessToken);
             output.write(accessToken);
             output.close();
         } catch ( IOException e ) {
@@ -81,19 +77,11 @@ public class BearDataShareAPI {
         BigInteger used;
         File dir = new File(ROOT_PATH);
         long totalUsed = 0; // total bytes
-
-        System.out.println("Getting all files in " + dir.getCanonicalPath() + " including those in subdirectories");
         List<File> files = (List<File>) FileUtils.listFiles(dir, TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
         for (File file : files) {
-            System.out.println("file: " + file.getCanonicalPath());
             totalUsed += file.length();
         }
         used = new BigInteger(String.valueOf(totalUsed));
-        
-        System.out.println("Total bytes in memory: "+totalMemory); // bytes
-        System.out.println("Total bytes in use: "+used);
-        System.out.println("Total free bytes: "+(totalMemory.subtract(used)));
-        
         ans = totalMemory.subtract(used).divide(num).divide(num).toString();//MB
         return (Double.parseDouble(ans)); 
     }

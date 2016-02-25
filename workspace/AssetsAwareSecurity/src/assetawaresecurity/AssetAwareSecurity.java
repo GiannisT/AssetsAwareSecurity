@@ -19,8 +19,10 @@ import javax.swing.border.*;
 import Cloudme.CloudmeException;
 
 /**
- *
- * @author methis
+ * Java Class that contains the main method of the program. It also 
+ * evoke a thread for monitoring new file entries.
+ * 
+ * @author Marios Zinonos, Giannis Tziakouris
  */
 public class AssetAwareSecurity {
 
@@ -43,7 +45,6 @@ public class AssetAwareSecurity {
 		    	InitializeSystem.SystemOSbandwidth();
 		    }
 		}.start();
-		
 
 		// needed for new Java Graphics
 		try {
@@ -58,15 +59,12 @@ public class AssetAwareSecurity {
 			try {
 				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 			} catch (Exception ex) {
-				// not worth my time
 			}
 		}
 
 		gui = new Gui();
 		setGui(gui);
-//
-//		 AssetAwareSecurity ass=new AssetAwareSecurity();
-//		ass.setGui(gui);
+
 
 		Thread t1 = new Thread(new Runnable() {
 			public void run() {
@@ -82,7 +80,6 @@ public class AssetAwareSecurity {
 		});
 		t1.start();
 
-		// m.testDialog("DropBox");
 	}
 
 }

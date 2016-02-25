@@ -5,9 +5,11 @@
  */
 package yandexDisk;
 
+
 /**
- *
- * @author methis
+ * The Yandex Disk API
+ * 
+ * @author Marios Zinonos
  */
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -115,9 +117,7 @@ public class YandexDiskAPI {
 	
 	public static void createNewLogin(String authURL) throws IOException {
 		String accessToken;
-		System.out.println("Den iparxooo");
 		accessToken = authURL;
-		System.out.println(accessToken);
     //------------------------------
 		setToken(accessToken);
 		
@@ -129,7 +129,6 @@ public class YandexDiskAPI {
 		File f = new File(loginPath);
 		String accessToken;
 		// Authentication loaded
-		System.out.println("iparxooooo");
 		BufferedReader br = new BufferedReader(new FileReader(f));
 		accessToken = br.readLine();
 		setToken(accessToken);
@@ -535,15 +534,10 @@ public class YandexDiskAPI {
         
         public String splitURL(String url){
             String finalURL = "";
-            //String url = "{\"href\":\"https://uploader4j.disk.yandex.net:443/upload-target/20151016T232152.229.utd.cjwfmldlj3kva54pttgx7f0st-k4j.268418\",\"method\":\"PUT\",\"templated\":false}";
-            String[] parts = url.split(",");
-           // System.out.println(url);
-            //System.out.println(parts[0]);
+             String[] parts = url.split(",");
             parts = parts[0].split(":",2);
-           // System.out.println(parts[1]);
             finalURL = parts[1].replace("\"", "");
-           // System.out.println(finalURL);
-            
+           
             return finalURL;
         }
         
@@ -562,19 +556,15 @@ public class YandexDiskAPI {
                 con.setConnectTimeout(20000);
 	  	con.setRequestProperty("User-Agent", "Mozilla/5.0");
 	  	con.addRequestProperty("Authorization", auth.getAuthorizationHeader());
-                System.out.println("\nSending 'PUT' request to URL : " + theUrl);
-		
+               
                 long size = file.length();
                 FileInputStream inputStream = new FileInputStream(file);
                 
                 boolean isTrue = uploadFile(theUrl,inputStream, size);
-                System.out.println(isTrue);
-  
+               
                 
                 int responseCode = con.getResponseCode();
-		System.out.println("Response Code : " + responseCode);
-                System.out.println(((HttpURLConnection)con).getResponseMessage());
-        }
+		       }
         
         public void deleteMethod(String delPath) throws Exception {
                 String url = GET_DELETE_URL+delPath+"&permanently=true";
@@ -612,8 +602,6 @@ public class YandexDiskAPI {
         con.setRequestProperty("User-Agent", "Mozilla/5.0");
         con.addRequestProperty("Authorization", auth.getAuthorizationHeader());
         int responseCode = con.getResponseCode();
-        System.out.println("\nSending '" + method + "' request to URL: " + url);
-        System.out.println("Response Code : " + responseCode);
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
         String inputLine;
@@ -622,9 +610,6 @@ public class YandexDiskAPI {
             response.append(inputLine);
 		}
         in.close();
-        //print result
-        System.out.println(response.toString());
-        System.out.println();
         if (method.equals(GET)){
             newURL = splitURL(response.toString());
         }
@@ -632,18 +617,14 @@ public class YandexDiskAPI {
             newURL = response.toString();
             getSize = false;
         }
-        System.out.println("The new url is: " + newURL);
-        System.out.println("---");
         return newURL;
     }
     
     public static void createNewTokenFile(String accessToken){
-        //String text = "Hello world";
         BufferedWriter output = null;
         try {
             File file = new File("SPsCredentials/YandexDiskLogin.txt");
             output = new BufferedWriter(new FileWriter(file));
-            System.out.println("The token is: " + accessToken);
             output.write(accessToken);
             output.close();
         } catch ( IOException e ) {
@@ -653,24 +634,13 @@ public class YandexDiskAPI {
     
     public double getYandexDiskSize() throws IOException, JSONException {
         getSize = true;
-        System.out.println("--");
         double[] tokens = new double[3];
         String response = connectWithREST(BASE_URL, GET);
-        System.out.print("the json is: " + response);
         //Get size
         JSONObject object = new JSONObject(response);
         tokens[0] = (long) object.get("total_space");
         tokens[1] = (long) object.getDouble("used_space");
-        tokens[2] = tokens[0] - tokens[1];
-
-        //Size in GB
-        System.out.println("\nThe total is: " + (tokens[0]/1024 / 1024/1024));
-        System.out.println("The used is: " + (tokens[1]/1024 / 1024/1024));
-        System.out.println("The free is: " + (tokens[2]/1024 / 1024/1024));
-
+        tokens[2] = tokens[0] - tokens[1];      
         return (tokens[2]/1024 / 1024); // MB
-//        JSONObject quota = object.getJSONObject("quota");
-//        double size = quota.getLong("remaining");
-//        System.out.println("Remining storage is: "+(size / 1024 /1024)); //In MB
     }
 }

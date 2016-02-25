@@ -4,6 +4,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * This is the server's main view
+ * 
+ * @author Giannis Tziakouris
+ *
+ */
 public class ServerGui {
 	
 	public ServerGui(){
@@ -15,7 +21,7 @@ public class ServerGui {
 
 	    JLabel label = new JLabel("Auctioneer is live and waiting for bids....");
 	    panel.add(label);
-	    frame.setVisible(true);//Show the frame
+	    frame.setVisible(true);
 	}
 
 }

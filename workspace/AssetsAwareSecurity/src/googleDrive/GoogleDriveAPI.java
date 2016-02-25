@@ -31,11 +31,15 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The Google Drive API
+ * 
+ * @author Marios Zinonos
+ */
 public class GoogleDriveAPI {
-    static String path = "img.jpg"; //Comments.docx
+    static String path = "img.jpg";
     static String callBack = "http://localhost:37198/Callback";
     public static String UPLOAD_PATH;
-    //static String delPath = "img.jpg";
     private static final java.io.File UPLOAD_FILE = new java.io.File(path);
     private static final java.io.File DELETE_FILE = new java.io.File(path);
     
@@ -79,23 +83,15 @@ public class GoogleDriveAPI {
         // Load client secrets.
     	
         InputStream in = GoogleDriveAPI.class.getResourceAsStream("/client_secret.json"); // /ConfigFiles/googleConfig.json"
-        System.out.println(in.available());
         GoogleClientSecrets clientSecrets =
             GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
-//
-//         System.out.println("New auth url1: "+clientSecrets.getDetails());
-        // Build flow and trigger user authorization request.
+       // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow =
                 new GoogleAuthorizationCodeFlow.Builder(
                         HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
                 .setDataStoreFactory(DATA_STORE_FACTORY)
                 .setAccessType("offline")
-                .build();
-//        
-//        System.out.println("New auth url2: "+flow.newAuthorizationUrl().toString());
-//        System.out.println("New auth url3: "+flow.newAuthorizationUrl().setRedirectUri(callBack).setScopes(SCOPES).setAccessType("offline")
-//        .setRedirectUri("").toString());
-        
+                .build();       
         Credential credential = new AuthorizationCodeInstalledApp(
             flow, new LocalServerReceiver()).authorize("user");
         System.out.println(
@@ -131,11 +127,6 @@ public class GoogleDriveAPI {
     	double freeMem=0;
         try {
           About about = service.about().get().execute();
-
-          //System.out.println("Current user name: " + about.getName());
-         // System.out.println("Root folder ID: " + about.getRootFolderId());
-          System.out.println("Total quota (bytes): " + about.getQuotaBytesTotal());
-          System.out.println("Used quota (bytes): " + about.getQuotaBytesUsed());
           freeMem = (about.getQuotaBytesTotal() - about.getQuotaBytesUsed());
           
           
@@ -156,16 +147,12 @@ public class GoogleDriveAPI {
         mediaContent.setLength(uploadFile.length());
 
         Drive.Files.Insert request = service.files().insert(fileMetadata, mediaContent);
-        //request.getMediaHttpUploader().setProgressListener(new CustomProgressListener());
         request.execute();
-        System.out.println("Should be updated");
   }
   
   public static void deleteFile (String fileName) throws IOException { // should add string
       File file = getTheFile(service, path);
       service.files().delete(file.getId()).execute();
-      
-      System.out.println(path + " Should be deleted");
   }
   
   private static File getTheFile(Drive drive, String fileName) throws IOException{
@@ -174,14 +161,10 @@ public class GoogleDriveAPI {
        
        List<File> files = result.getItems();
         if (files == null || files.size() == 0) {
-            System.out.println("No files found.");
         }else{
             for(int i=0;i<files.size();i++){
                 theFile = files.get(i);
-                if (theFile.getTitle().equals(fileName)){
-                    System.out.println(theFile.getTitle()+" = "+fileName );
-                    System.out.println("Id is: "+theFile.getId());
-                    
+                if (theFile.getTitle().equals(fileName)){ 
                     break;
                 }
             }
@@ -190,31 +173,5 @@ public class GoogleDriveAPI {
        return theFile;
       
   }
-
-
-
-//    public static void main(String[] args) throws IOException {
-//        // Build a new authorized API client service.
-//        Drive service = getDriveService();
-//
-//        // Print the names and IDs for up to 10 files.
-//        FileList result = service.files().list()
-//             .setMaxResults(10)
-//             .execute();
-//        List<File> files = result.getItems();
-//        if (files == null || files.size() == 0) {
-//            System.out.println("No files found.");
-//        } else {
-//            System.out.println("Files:");
-//            for (File file : files) {
-//                System.out.printf("%s (%s)\n", file.getTitle(), file.getId());
-//            }
-//        }
-//        
-//        uploadFile(service);
-//        
-//        deleteFile(service);
-//        
-//    }
 
 }

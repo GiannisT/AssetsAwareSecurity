@@ -18,6 +18,8 @@ import java.util.Set;
 
 /**
  * This class is used to read the Available SP offers for storage service and form an ask for auctioning
+ * 
+ * @author Giannis Tziakouris, Marios Zinonos
  */
 public class CreateAsk {
 
@@ -51,71 +53,28 @@ public class CreateAsk {
 				for (int i=0; i < nList.getLength(); i++) {
 
 					Node nNode = nList.item(i);
-
-					System.out.println("\nCurrent Element :" + nNode.getNodeName());
-
 					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
 						Element eElement = (Element) nNode;
-						System.out.println("SP id : " + eElement.getAttribute("id"));
-
-						System.out.println("SP Name: " + eElement.getElementsByTagName("SpName").item(0).getTextContent());
 						ask.setSpName(eElement.getElementsByTagName("SpName").item(0).getTextContent());
-
-						System.out.println("Encryption at Rest: " + eElement.getElementsByTagName("EncryptionAtRest").item(0).getTextContent());
 						ask.setEncryptionAtRest(eElement.getElementsByTagName("EncryptionAtRest").item(0).getTextContent());
-
-						System.out.println("Encryption at Transit: " + eElement.getElementsByTagName("EncryptionAtTransit").item(0).getTextContent());
 						ask.setEncryptionAtTransit(eElement.getElementsByTagName("EncryptionAtTransit").item(0).getTextContent());
-
-						System.out.println("Password Protected Files: " + eElement.getElementsByTagName("PasswordProtectedFiles").item(0).getTextContent());
 						ask.setPassProtected(eElement.getElementsByTagName("PasswordProtectedFiles").item(0).getTextContent());
-
-						System.out.println("FileVersioning: " + eElement.getElementsByTagName("FileVersioning").item(0).getTextContent());
 						ask.setFileVersioning(eElement.getElementsByTagName("FileVersioning").item(0).getTextContent());
-
-						System.out.println("Encryption Keys Concealed From SP : " + eElement.getElementsByTagName("EncryptionKeysConcealedFromSP").item(0).getTextContent());
 						ask.setConcealedKeys(eElement.getElementsByTagName("EncryptionKeysConcealedFromSP").item(0).getTextContent());
-
-						System.out.println("Auto Synch: " + eElement.getElementsByTagName("AutoSynch").item(0).getTextContent());
 						ask.setAutoSynch( eElement.getElementsByTagName("AutoSynch").item(0).getTextContent());
-
-						System.out.println("Datacenter Location: " + eElement.getElementsByTagName("DatacenterLocation").item(0).getTextContent());
 						ask.setSPLocation(eElement.getElementsByTagName("DatacenterLocation").item(0).getTextContent());
-
-						System.out.println("Cost: " + eElement.getElementsByTagName("Cost").item(0).getTextContent());
 						ask.setCost(eElement.getElementsByTagName("Cost").item(0).getTextContent());
-
-						System.out.println("Storage Size: " + eElement.getElementsByTagName("StorageSize").item(0).getTextContent());
 						ask.setStorageSize(eElement.getElementsByTagName("StorageSize").item(0).getTextContent());
-
-						System.out.println("File Size Limit: " + eElement.getElementsByTagName("FileSizeLimit").item(0).getTextContent());
 						ask.setFileSizeLimit(eElement.getElementsByTagName("FileSizeLimit").item(0).getTextContent());
-
-						System.out.println("SecureKeyManagement : " + eElement.getElementsByTagName("SecureKeyManagement").item(0).getTextContent());
 						ask.setSecKeyManagement(eElement.getElementsByTagName("SecureKeyManagement").item(0).getTextContent());
-
-						System.out.println("Credential Recovery: " + eElement.getElementsByTagName("CredentialRecovery").item(0).getTextContent());
 						ask.setPassRecovery(eElement.getElementsByTagName("CredentialRecovery").item(0).getTextContent());
-
-						System.out.println("ShareData: " + eElement.getElementsByTagName("ShareData").item(0).getTextContent());
 						ask.setShareData(eElement.getElementsByTagName("ShareData").item(0).getTextContent());
-
-						System.out.println("Audit Logs: " + eElement.getElementsByTagName("AuditLogs").item(0).getTextContent());
 						ask.setAuditLogs(eElement.getElementsByTagName("AuditLogs").item(0).getTextContent());
-
-						System.out.println("Proxy Support: " + eElement.getElementsByTagName("ProxySupport").item(0).getTextContent());
 						ask.setProxySupport(eElement.getElementsByTagName("ProxySupport").item(0).getTextContent());
-
-						System.out.println("Different Key Per File: " + eElement.getElementsByTagName("DifferentKeyPerFile").item(0).getTextContent());
 						ask.setDifferentKeyPerFile(eElement.getElementsByTagName("DifferentKeyPerFile").item(0).getTextContent());
-
-						System.out.println("Certification: " + eElement.getElementsByTagName("Certification").item(0).getTextContent());
 						ask.setCertification(eElement.getElementsByTagName("Certification").item(0).getTextContent());
-
-						System.out.println("Permanent File Deletion: " + eElement.getElementsByTagName("PermanentFileDeletion").item(0).getTextContent()+"/n");
 						ask.setPermanentDeletion(eElement.getElementsByTagName("PermanentFileDeletion").item(0).getTextContent());
-
 					}
 				}
 			} catch (Exception e) {
@@ -193,9 +152,6 @@ public class CreateAsk {
 
 	//this will send all SP storage offers to the auctioneer for auctioning
 	public ArrayList<CreateAsk> getAsks(){
-		System.out.println("In CreateAsk");
-		System.out.print(SPoffers.get(0).getSpName()+" : ");
-		System.out.println(SPoffers.get(0).getEncryptionAtTransit());
 		return SPoffers;
 	}
 	public String getSpName(){

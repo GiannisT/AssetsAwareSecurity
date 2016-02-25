@@ -27,13 +27,19 @@ import localSPs.SpiderOakAPI;
 import oneDrive.OneDriveAPI;
 import yandexDisk.YandexDiskAPI;
 
+/**
+ * This class is used for inisalizing the cloud APIs and the selection of appropriate
+ * cloud functions(upload- delete etc) based on the cloud provider's name.
+ * @author Marios Zinonos
+ *
+ */
 public class CloudAPIs {
 	String GLOBALL_PATH = "SPsCredentials/";
 	String UPLOAD_PATH = "MainUserStorage/";
 	private String spName = "";
 	private ArrayList<String> spList = new ArrayList<String>();
 	static ProgressMonitor pbar;
-	AssetAwareSecurity ass; // Controller?
+	AssetAwareSecurity ass;
 	Gui gui;
 	JFrame frame;
 	String thePass;
@@ -53,17 +59,15 @@ public class CloudAPIs {
 	MegaAPI megaAPI;
 	CubbyAPI cubbyAPI;
 
-	// can go both client and server side.
 	public CloudAPIs(ArrayList<String> availableSPlist) throws IOException, CloudmeException {
-		// this.spName = chosenSP;
 		this.spList = availableSPlist;
 		ass = new AssetAwareSecurity();
 		gui = ass.getGui();
 		this.frame = gui.myframe;
+		
 		//create monitor bar
 		pbar = new ProgressMonitor(frame, "Loading Providers",
 		           "Initializing . . .", 0, spList.size());
-
 		int progress = 0;
 		pbar.setProgress(progress);
 		// Initialise APIs
@@ -108,7 +112,6 @@ public class CloudAPIs {
 			spiderAPI = new SpiderOakAPI();
 			spiderAPI.UPLOAD_PATH = this.UPLOAD_PATH;
 			authSpiderOak(name);
-			//spiderAPI.getStorageSize(); -- testing storage size
 			break;
 		case "BearDataShare (?)":
 			bearAPI = new BearDataShareAPI();
@@ -239,8 +242,6 @@ public class CloudAPIs {
 			} else if (name.equals("Cubby (?)")){
 				cubbyAPI.login(loginPath);
 			}
-			//JOptionPane.showMessageDialog(null, name + " Cloud found"); //replaced by jBar?
-			System.out.println(name + " Succesfully loaded");
 			workingSPs.add(name);
 		} else {
 			int result = JOptionPane.showConfirmDialog(null,
@@ -281,8 +282,6 @@ public class CloudAPIs {
 		File f = new File(loginPath);
 		if (f.exists() && !f.isDirectory()) {
 			oneDriveAPI.login(loginPath);
-			//JOptionPane.showMessageDialog(null, name + " Succesfully loaded"); //replaced by jBar?
-			System.out.println(name + " Succesfully loaded");
 			workingSPs.add(name);
 		}else{
 			url = oneDriveAPI.getURL();
@@ -310,14 +309,11 @@ public class CloudAPIs {
 		File f = new File(loginPath);
 		if (f.exists() && !f.isDirectory()) {
 			dropBoxAPI.login(loginPath);
-			//JOptionPane.showMessageDialog(null, name + " Succesfully loaded"); //replaced by jBar?
-			System.out.println(name + " Succesfully loaded");
 			workingSPs.add(name);
 		}else{
 			url = dropBoxAPI.getURL();
 			authDealog(name, url);
 			returnString = obj.returnString;
-			System.out.println(returnString);
 			if (returnString.equals("0")) {
 				JOptionPane.showMessageDialog(null, name + " Proccess has been canceled");
 				nonWorkingSPs.add(name);
@@ -330,14 +326,13 @@ public class CloudAPIs {
 					JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());;
 				}
 			}
-			//dropBoxAPI.createNewLogin();
 		}
 		
 
 	}
 	
 	private void authGoogleDrive(String name) {
-		String temp = "StoredCredential"; // change name to the name of file
+		String temp = "StoredCredential"; 
 		File f = new File(GLOBALL_PATH + temp);
 		if (f.exists() && !f.isDirectory()) {
 			try {
@@ -345,8 +340,6 @@ public class CloudAPIs {
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());;
 			}
-			//JOptionPane.showMessageDialog(null, name + " Succesfully loaded"); //replaced by jBar?
-			System.out.println(name + " Succesfully loaded");
 			workingSPs.add(name);
 		}else {
 			 int result = JOptionPane.showConfirmDialog(null, "You must first authendicate your "+name+" accound. Click OK to redirect",
@@ -374,8 +367,6 @@ public class CloudAPIs {
 		if (f.exists() && !f.isDirectory()) {
 			try {
 				yandexAPI.login(loginPath);
-				//JOptionPane.showMessageDialog(null, name + " Succesfully loaded"); //replaced by jBar?
-				System.out.println(name + " Succesfully loaded");
 				workingSPs.add(name);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -406,9 +397,7 @@ public class CloudAPIs {
 		File f = new File(GLOBALL_PATH + name + "Login.txt");
 		if (f.exists() && !f.isDirectory()) {
 			try {
-				cloudMeUser = cloudMeAPI.login(GLOBALL_PATH + name + "Login.txt"); // user might not need																					
-				//JOptionPane.showMessageDialog(null, name + " Succesfully loaded"); //replaced by jBar?
-				System.out.println(name + " Succesfully loaded");
+				cloudMeUser = cloudMeAPI.login(GLOBALL_PATH + name + "Login.txt");
 				workingSPs.add(name);
 			} catch (CloudmeException e) {
 				JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
@@ -417,7 +406,6 @@ public class CloudAPIs {
 			url = "";
 			authDealog(name, url);
 			returnString = obj.returnString;
-			System.out.println(returnString);
 			if (returnString.equals("0")) {
 				JOptionPane.showMessageDialog(null, name + " Proccess has been canceled");
 				nonWorkingSPs.add(name);
@@ -527,18 +515,15 @@ public class CloudAPIs {
 		String folderFrom = UPLOAD_PATH;
 		
        if(bool==true){ //keep folder to local storage
-    	   File file = new File(folderFrom+fileName);
-    	   System.out.println(file.getAbsolutePath());       
+    	   File file = new File(folderFrom+fileName);      
     	   File newFile = new File(folderTo + fileName);
     	   FileUtils.copyFile(file, newFile);
-    	   file.delete(); //delete the file in mainStorage after the file 
-    	   System.out.println("Copied at: "+folderTo);
+    	   file.delete(); //delete the file in mainStorage
        }else{//delete folder from local storage
     	   File delfile = new File(folderTo+fileName);
     	 
     	   if (delfile.exists()) {
     		   delfile.delete();
-               System.out.println("DeletedLocalFolder");
            }
        }
 	}

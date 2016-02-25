@@ -40,9 +40,11 @@ import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 /**
- *
- * @author methis
+ * The One Drive API
+ * 
+ * @author Marios Zinonos
  */
 public class OneDriveAPI {
     static String CLIENT_ID = "0000000040170501";	//get them from file???
@@ -73,16 +75,13 @@ public class OneDriveAPI {
 		String accessURL;
 		String jsonURL;
 		String[] tokens;
-		System.out.println("Den iparxoooo");
 		accessURL = url;
-		System.out.println(accessURL);
       
 		AUTH_CODE = getCodefromURL(accessURL);
       
 		//Build the Auth_token path
 		AUTH_TOKEN_URL = "https://login.live.com/oauth20_token.srf?client_id="+CLIENT_ID+"&client_secret="+CLIENT_SECRET+"&code="+AUTH_CODE+"&grant_type=authorization_code&redirect_uri=https://login.live.com/oauth20_desktop.srf";
-		System.out.println(AUTH_TOKEN_URL);
-      
+		
 		// Get the tockens in json format
 		jsonURL = connectWithREST(AUTH_TOKEN_URL,GET);
 
@@ -110,7 +109,6 @@ public class OneDriveAPI {
     	File f = new File(fileName);
     	String fileToken;
         // Authentication loaded
-        System.out.println("iparxooooo");
         BufferedReader br = new BufferedReader(new FileReader(f));
         fileToken = br.readLine(); // do refresh token
         refreshTokens(fileToken);
@@ -131,9 +129,6 @@ public class OneDriveAPI {
             con.addRequestProperty("Authorization","Bearer "+ ACCESS_TOKEN);
         
         int responseCode = con.getResponseCode();
-        System.out.println("\nSending '" + method + "' request to URL: " + url);
-        System.out.println("Response Code : " + responseCode);
-        
         // Read response
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
@@ -143,13 +138,8 @@ public class OneDriveAPI {
             response.append(inputLine);
 		}
         in.close();
-        //print result
-        System.out.println(response.toString());
-        System.out.println();
         newURL = response.toString();
 
-        System.out.println("The new url is: " + newURL);
-        System.out.println("---");
         return newURL;
     }
 
@@ -180,8 +170,7 @@ public class OneDriveAPI {
             tokens = jsonParse(jsonURL);
             ACCESS_TOKEN = tokens[0];
             REFRESH_TOKEN = tokens[1];
-            System.out.println("Access: "+ACCESS_TOKEN+"\nRefresh: "+REFRESH_TOKEN);
-        } catch (JSONException ex) {
+            } catch (JSONException ex) {
             Logger.getLogger(OneDriveAPI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -191,12 +180,10 @@ public class OneDriveAPI {
     
     }
         public static void createNewTokenFile(String accessToken){
-        //String text = "Hello world";
         BufferedWriter output = null;
         try {
             File file = new File("SPsCredentials/OneDriveLogin.txt");
             output = new BufferedWriter(new FileWriter(file));
-            System.out.println("The token is: " + accessToken);
             output.write(accessToken);
             output.close();
         } catch ( IOException e ) {
@@ -205,7 +192,6 @@ public class OneDriveAPI {
     }
         
         public static double getOneDriveSize() throws IOException, JSONException {
-            System.out.println("--");
             getSize = true;
             String drive = "https://api.onedrive.com/v1.0/drive/";
             String response = connectWithREST(drive, GET);
@@ -214,7 +200,6 @@ public class OneDriveAPI {
             JSONObject object = new JSONObject(response);
             JSONObject quota = object.getJSONObject("quota");
             double size = quota.getLong("remaining");
-            System.out.println("Remining storage is: "+(size / 1024 /1024)); //In MB
             
             return (size / 1024 /1024);
             
@@ -236,13 +221,11 @@ public class OneDriveAPI {
    try{
     File file = new File(UPLOAD_PATH+filePath);
     URL url = new URL(DRIVE_PATH + file.getName() +":/content");
-    System.out.println(url.toString());
     urlconnection = url.openConnection();
     urlconnection.setDoOutput(true);
     urlconnection.setDoInput(true);
 
     if (urlconnection instanceof HttpURLConnection) {
-           System.out.println("IsTrue");
         try {
             ((HttpURLConnection)urlconnection).setRequestMethod("PUT");
             ((HttpURLConnection)urlconnection).setRequestProperty("Content-type", "application/octet-stream");
@@ -251,7 +234,6 @@ public class OneDriveAPI {
 
 
         } catch (ProtocolException e) {
-        // TODO Auto-generated catch block
             e.printStackTrace();
         }
    }
@@ -266,8 +248,7 @@ public class OneDriveAPI {
     }
     bos.flush();
     bos.close();
-    System.out.println("The message is: "+((HttpURLConnection)urlconnection).getResponseMessage());
-  }
+    }
   catch(Exception e)
   {
    e.printStackTrace();

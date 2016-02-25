@@ -1,4 +1,3 @@
-//NEED TO ADD A WATCHER TO WATCH FOR CREATION OF NEW FILES (OTHER THAN XML) TO INITIATE CONFIGURATION FOR XML PREFERENCES
 package assetawaresecurity;
 
 import static java.nio.file.StandardWatchEventKinds.*;
@@ -30,6 +29,7 @@ import javax.swing.JOptionPane;
  * This will allow as to adapt the security of the assets of the user according to the modifications performed and the runtime security requirements associate with the changes
  * if a file is created by a user, the system automatically creates an xml security requirements file for the system
  *
+ *@author Giannis Tzakouris, Marios Zinonos
  */
 
 public class MonitorAssets {
@@ -49,12 +49,11 @@ public class MonitorAssets {
 	}
 
 
-	public void monitorFileChanges() throws IOException{ // change to monitor uploads
+	public void monitorFileChanges() throws IOException{ 
 		//create the watcher
 		WatchService watcher = FileSystems.getDefault().newWatchService();
 
 		Path dir = Paths.get("MainUserStorage");
-		//String dir = "MainUserStorage";
 		//assign watcher
 		try {
 			//no need for modify key as every time a file is modified is recreated. Plus no need for deleted files, we do not care about them
@@ -69,7 +68,6 @@ public class MonitorAssets {
 			try {
 				// wait for a key to be available
 				key = watcher.take();	        
-
 			} catch (InterruptedException ex) {
 				return;
 			}
@@ -82,21 +80,16 @@ public class MonitorAssets {
 				WatchEvent<Path> ev = (WatchEvent<Path>) event;
 				Path fileName = ev.context();
 				File conf = new File("UserDatabase/user.xml");
-				
-				//System.out.println("Got file: "+fileName);
 				if (kind == OVERFLOW) {
 					continue;
 				} else if ( (kind == ENTRY_CREATE) && !(fileName.toString().contains("~")) && conf.exists() && Gui.bid!=null) { //we do not want to check for temp files. Thus we omit all files that have ~, which indicates temp file 
 					File file = new File("MainUserStorage/"+fileName.toString());
-					
-					System.out.println(kind.name() + ": " + file.getName());
-					double filesize=file.length(); //we will have problem with really big files
+					double filesize=file.length();
 					filesize=filesize/1024/1024;//convert it to MB
 					double ExpectedFileSize=0;
 				
 					if (filesize <= 150){ // if the file size is less that 150 MB
 						ExpectedFileSize=((filesize)+ (filesize * UP_TO_150MB)); //Will add an extra size of 50%
-						System.out.println("mikrotero 150MB "+ ExpectedFileSize);
 					}else if (filesize <= 500){ // if the file size is less that 500 MB
 						ExpectedFileSize=((filesize)+ (filesize * BETWEEN_150MB_500MB)); //Will add an extra size of 30%
 					}else if (filesize <= 1024){ // if the file size is less that 1GB
@@ -189,7 +182,6 @@ public class MonitorAssets {
 		String AuctioneerResponse;
 
 		try{
-			//BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 			Socket clientSocket = new Socket(hostName, portNumber);
 			ObjectOutputStream outToServer = new ObjectOutputStream(clientSocket.getOutputStream());
 			BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -213,7 +205,6 @@ public class MonitorAssets {
 			}
 						
 			Gui.UpdateAssetTab(Gui.bid.getFileName(), Gui.bid.getFileSize(), Gui.bid.getSelectedPolicy(), splitdata.get(0), splitdata.get(1));
-			System.out.println(AuctioneerResponse); //includes the name of the SP and price requested
 			clientSocket.close();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
