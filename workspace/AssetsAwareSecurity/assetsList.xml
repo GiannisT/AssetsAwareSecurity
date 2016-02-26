@@ -312,28 +312,6 @@
   <void method="add">
    <array class="java.lang.Object" length="6">
     <void index="0">
-     <string>twitter.xml</string>
-    </void>
-    <void index="1">
-     <string>0.0009</string>
-    </void>
-    <void index="2">
-     <string>Custom Security Policy</string>
-    </void>
-    <void index="3">
-     <string>CloudMe</string>
-    </void>
-    <void index="4">
-     <string>0</string>
-    </void>
-    <void index="5">
-     <string>01/02/2016  20:33</string>
-    </void>
-   </array>
-  </void>
-  <void method="add">
-   <array class="java.lang.Object" length="6">
-    <void index="0">
      <string>MEGA.xml</string>
     </void>
     <void index="1">

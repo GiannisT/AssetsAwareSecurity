@@ -51,7 +51,13 @@
    <string>Yes</string>
   </void>
   <void property="expectedFileSize">
-   <string>0</string>
+   <string>0.0001</string>
+  </void>
+  <void property="fileName">
+   <string>notes3</string>
+  </void>
+  <void property="fileSize">
+   <string>0.0000</string>
   </void>
   <void property="fileVersioning">
    <string>Yes</string>

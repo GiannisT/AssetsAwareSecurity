@@ -154,7 +154,7 @@ public class Gui {
 		private JButton selectPolicyBtn;
 		private JLabel jLabel1, jLabel10,jLabel11, jLabel12,jLabel13,jLabel14,jLabel15,jLabel16,jLabel17,jLabel18,jLabel19;
 		private JLabel jLabel2,jLabel20,jLabel21,jLabel22,jLabel23,jLabel24,jLabel25,jLabel27,jLabel28,jLabel29,jLabel26;
-		private JLabel jLabel3,jLabel4,jLabel5,jLabel6,jLabel7,jLabel78,jLabel8,jLabel9,jLabel32;
+		private JLabel jLabel3,jLabel4,jLabel5,jLabel6,jLabel7,jLabel78,jLabel8,jLabel9,jLabel32,qMark;
 		private JPanel jPanel1; // check what it is
 		private JScrollPane jScrollPane2;
 		private static JTabbedPane jTabbs;
@@ -269,7 +269,7 @@ public class Gui {
         currentUsrLb_name = new javax.swing.JLabel();
         currentUsrLb_inputName = new javax.swing.JLabel();
         currentUsrLb_inputSurname = new javax.swing.JLabel();
-        currentUsrLb_surname = new javax.swing.JLabel();
+        currentUsrLb_surname = new javax.swing.JLabel(); qMark = new JLabel();
         removeUserBtn = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         dropBoxCkbRtn = new javax.swing.JCheckBox();
@@ -512,6 +512,7 @@ public class Gui {
 
         jTabbs.addTab("Assets", assetsTap);
 
+        qMark.setName(" (?)");
         addUserPane.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Add New User", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 14))); // NOI18N
 
         newUsrLb_name.setText("Name:");
