@@ -87,13 +87,13 @@ public class MatchingCalculator {
 			//returns the size of available storage for each SP in question
 			switch(asks.get(i).getSpName()){
 			case "BearDataShare": 
-				AvailStorageSize=bid.getSPsSize().get("BearDataShare");
+				AvailStorageSize=bid.getSPsSize().get("BearDataShare (?)");
 				break;
 			case "CloudMe":
 				AvailStorageSize=bid.getSPsSize().get("CloudMe");
 				break;
 			case "Cubby":
-				AvailStorageSize=bid.getSPsSize().get("Cubby");
+				AvailStorageSize=bid.getSPsSize().get("Cubby (?)");
 				break;
 			case "DropBox":
 				AvailStorageSize=bid.getSPsSize().get("DropBox");
@@ -102,13 +102,13 @@ public class MatchingCalculator {
 				AvailStorageSize=bid.getSPsSize().get("GoogleDrive");
 				break;
 			case "MEGA":
-				AvailStorageSize=bid.getSPsSize().get("MEGA");
+				AvailStorageSize=bid.getSPsSize().get("MEGA (?)");
 				break;
 			case "OneDrive":
 				AvailStorageSize=bid.getSPsSize().get("OneDrive");
 				break;
 			case "SpiderOak":
-				AvailStorageSize=bid.getSPsSize().get("SpiderOak");
+				AvailStorageSize=bid.getSPsSize().get("SpiderOak (?)");
 				break;
 			case "YandexDisk":
 				AvailStorageSize=bid.getSPsSize().get("YandexDisk");
