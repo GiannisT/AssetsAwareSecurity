@@ -4,34 +4,16 @@
   <void property="SPLocation">
    <string>EU</string>
   </void>
+  <void property="auditLogs">
+   <string>yes</string>
+  </void>
+  <void property="autoSynch">
+   <string>no</string>
+  </void>
   <void property="availableSPs">
    <object class="java.util.ArrayList">
     <void method="add">
-     <string>Cubby (?)</string>
-    </void>
-    <void method="add">
      <string>CloudMe</string>
-    </void>
-    <void method="add">
-     <string>OneDrive</string>
-    </void>
-    <void method="add">
-     <string>YandexDisk</string>
-    </void>
-    <void method="add">
-     <string>MEGA (?)</string>
-    </void>
-    <void method="add">
-     <string>GoogleDrive</string>
-    </void>
-    <void method="add">
-     <string>SpiderOak (?)</string>
-    </void>
-    <void method="add">
-     <string>DropBox</string>
-    </void>
-    <void method="add">
-     <string>BearDataShare (?)</string>
     </void>
    </object>
   </void>
@@ -39,37 +21,55 @@
    <string>HIPAA</string>
   </void>
   <void property="concealedKeys">
-   <string>Yes</string>
+   <string>yes</string>
   </void>
   <void property="cost">
-   <string>10</string>
+   <string>02</string>
+  </void>
+  <void property="differentKeyPerFile">
+   <string>yes</string>
   </void>
   <void property="encryptionAtRest">
-   <string>Yes</string>
+   <string>yes</string>
   </void>
   <void property="encryptionAtTransit">
-   <string>Yes</string>
+   <string>yes</string>
   </void>
   <void property="expectedFileSize">
-   <string>0.0001</string>
+   <string>0.0076</string>
   </void>
   <void property="fileName">
-   <string>notes3</string>
+   <string>loading.gif</string>
   </void>
   <void property="fileSize">
-   <string>0.0000</string>
+   <string>0.0051</string>
   </void>
   <void property="fileVersioning">
-   <string>Yes</string>
+   <string>yes</string>
+  </void>
+  <void property="passProtected">
+   <string>no</string>
+  </void>
+  <void property="passRecovery">
+   <string>yes</string>
+  </void>
+  <void property="permanentDeletion">
+   <string>yes</string>
+  </void>
+  <void property="proxySupport">
+   <string>yes</string>
   </void>
   <void property="requirementsType">
+   <string>yes</string>
+  </void>
+  <void property="secKeyManagement">
    <string>no</string>
   </void>
   <void property="selectedPolicy">
-   <string>Custom Security Policy</string>
+   <string>High Security Policy</string>
   </void>
   <void property="shareData">
-   <string>No</string>
+   <string>no</string>
   </void>
  </object>
 </java>

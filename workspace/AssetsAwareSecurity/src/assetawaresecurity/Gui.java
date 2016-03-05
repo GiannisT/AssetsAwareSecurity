@@ -2061,6 +2061,8 @@ public class Gui {
 					Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
 					System.out.println(ex.getMessage());
 				}
+				// if there is a new custom policy save it in an xml file
+				sys.saveCustomPolicy(bid); 
 			}
 
 			loadGifLbl.setVisible(false);
