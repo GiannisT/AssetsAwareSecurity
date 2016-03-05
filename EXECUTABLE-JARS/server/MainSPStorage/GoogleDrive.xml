@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<SPSecurityOffer>
+<SP id="02">
+<SpName>GoogleDrive</SpName>
+<EncryptionAtRest>yes</EncryptionAtRest>
+<EncryptionAtTransit>yes</EncryptionAtTransit> 
+<PasswordProtectedFiles>no</PasswordProtectedFiles> 
+<FileVersioning>yes</FileVersioning> 
+<EncryptionKeysConcealedFromSP>no</EncryptionKeysConcealedFromSP>
+<AutoSynch>yes-no</AutoSynch> 
+<DatacenterLocation>North America</DatacenterLocation>
+<Cost>5</Cost> 
+<StorageSize>15360</StorageSize>
+<FileSizeLimit>5120000</FileSizeLimit>
+<SecureKeyManagement>yes</SecureKeyManagement> 
+<CredentialRecovery>yes</CredentialRecovery> 
+<ShareData>yes-no</ShareData> 
+<AuditLogs>yes</AuditLogs> 
+<ProxySupport>yes-no</ProxySupport>
+<DifferentKeyPerFile>no</DifferentKeyPerFile>
+<Certification>ISO 27001, FERPA, HIPAA, Safe Harbor</Certification>
+<PermanentFileDeletion>yes-no</PermanentFileDeletion>
+</SP>
+</SPSecurityOffer>
+
+
+
+
+

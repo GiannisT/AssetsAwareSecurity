@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<SPSecurityOffer>
+<SP id="00">
+<SpName>CloudMe</SpName> 
+<EncryptionAtRest>yes-no</EncryptionAtRest> 
+<EncryptionAtTransit>yes</EncryptionAtTransit> 
+<PasswordProtectedFiles>no</PasswordProtectedFiles>
+<FileVersioning>yes</FileVersioning>  
+<EncryptionKeysConcealedFromSP>yes</EncryptionKeysConcealedFromSP> 
+<AutoSynch>yes-no</AutoSynch> 
+<DatacenterLocation>EU</DatacenterLocation> 
+<Cost>0</Cost> 
+<StorageSize>3072</StorageSize> 
+<FileSizeLimit>150</FileSizeLimit> 
+<SecureKeyManagement>no</SecureKeyManagement> 
+<CredentialRecovery>yes</CredentialRecovery> 
+<ShareData>yes-no</ShareData> 
+<AuditLogs>yes</AuditLogs> 
+<ProxySupport>yes-no</ProxySupport> 
+<DifferentKeyPerFile>yes-no</DifferentKeyPerFile> 
+<Certification>HIPAA, Safe Harbor</Certification>
+<PermanentFileDeletion>yes</PermanentFileDeletion> 
+</SP>
+</SPSecurityOffer>
+
+
+
+
+
